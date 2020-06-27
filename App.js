@@ -84,13 +84,14 @@ export default class App extends Component {
   render() {
     return (
       <ScrollView
+      style={styles.scroll}
         contentContainerStyle={{paddingBottom: 50, backgroundColor: '#ececec'}}>
         <View style={styles.container}>
           <Text style={styles.texto}>Categorías</Text>
           <View style={styles.container2}>
             <ScrollView
               showsHorizontalScrollIndicator={false}
-              style={styles.scroll}
+              style={styles.scroll2}
               horizontal={true}
               contentContainerStyle={{paddingRight: 30}}>
               <ImgPantComp
@@ -120,7 +121,7 @@ export default class App extends Component {
             </ScrollView>
           </View>
 
-          <Text style={styles.texto2}>Productos recomendados</Text>
+          <Text style={styles.texto}>Productos recomendados</Text>
           <View style={styles.container3}>
             <FlatList
               data={recs}
@@ -132,7 +133,7 @@ export default class App extends Component {
               showsHorizontalScrollIndicator={false}
               horizontal={true}></FlatList>
           </View>
-          <Text style={styles.texto2}>Ofertas</Text>
+          <Text style={styles.texto}>Ofertas</Text>
           <View style={styles.container3}>
             <FlatList
               data={offer}
@@ -174,17 +175,13 @@ const styles = StyleSheet.create({
     marginLeft: 30,
     marginTop: 30,
   },
-  texto2: {
-    color: '#4B4B4B',
-    fontWeight: 'bold',
-    //fontFamily: "Montserrat-Black",
-    fontSize: 24,
-    marginLeft: 30,
-    marginTop: 50,
-  },
   scroll: {
     flex: 1,
     paddingLeft: 5,
+  },
+  scroll2:{
+    paddingLeft: 5,
+
   },
   product: {
     width: 129,
