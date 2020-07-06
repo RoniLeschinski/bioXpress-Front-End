@@ -11,17 +11,16 @@ import {
   Image,
 } from 'react-native';
 import 'react-native-gesture-handler';
+import Seller from '../components/Seller'
 
 export default function Producto({navigation, route}) {
   const {item} = route.params;
 
   return (
-    <View style={{flex: 1}}>
-      <ScrollView
-        style={styles.scroll}
-        contentContainerStyle={{flexGrow: 1, flex: 1}}>
+    
+      <ScrollView contentContainerStyle={{flexGrow:1}}>
         <View style={styles.container}>
-          <View style={styles.container2} />
+        <View style={styles.container2} />
           <View style={styles.imagecont}>
             <Image style={styles.image} source={item.img} />
           </View>
@@ -44,9 +43,12 @@ export default function Producto({navigation, route}) {
               <Text>-</Text>
             </TouchableOpacity>
           </View>
+          <View style={{width: "100%", alignItems: "center", justifyContent: "center", marginTop: 10, }}>
+          <Seller></Seller>
+          </View>
         </View>
       </ScrollView>
-    </View>
+
     //<View styles={{backgroundColor: "blue", width: "100%", height: "50%"}}></View>
   );
 }
@@ -63,25 +65,27 @@ const styles = StyleSheet.create({
   },
   container2: {
     width: '100%',
-    height: '40%',
+    height: 240,
     alignItems: 'center',
     backgroundColor: '#38CB6C',
   },
   container3: {
     width: '100%',
-    paddingTop: 30,
+    marginTop: 20,
+    //paddingTop: 30,
     paddingLeft: 30,
     paddingRight: 30,
   },
   container4: {
     width: '100%',
-    height: '15%',
+    //height: '20%',
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop: 20,
   },
   container5: {
     width: '100%',
-    padding: '3%',
+    marginTop: 10,
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
@@ -93,8 +97,8 @@ const styles = StyleSheet.create({
     marginTop: -225,
   },
   image: {
-    width: 320,
-    height: 320,
+    width: 310,
+    height: 310,
     borderTopLeftRadius: 50,
     borderTopRightRadius: 50,
     borderBottomLeftRadius: 50,
@@ -124,12 +128,11 @@ const styles = StyleSheet.create({
   },
   button1: {
     width: '80%',
-    height: '100%',
+    height: 95,
     backgroundColor: '#38CB6C',
     borderRadius: 20,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 30,
   },
   button2: {
     width: '5%',

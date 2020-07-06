@@ -32,7 +32,7 @@ function BackImage() {
   return (
     <Image
       source={require('./assets/images/back.png')}
-      style={{width: 30, height: 30, alignSelf: 'left'}}
+      style={{width: 30, height: 30, alignSelf: 'center'}}
     />
   );
 }
