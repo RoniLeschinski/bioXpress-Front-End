@@ -15,35 +15,35 @@ import {useNavigation, useLinkProps} from '@react-navigation/native';
 import ImgPantComp from '../components/ImgPantComp';
 import OfferProd from '../components/OfferProd';
 import Recommended from '../components/Recommended';
-import { ScreenStackHeaderLeftView } from 'react-native-screens';
+import {ScreenStackHeaderLeftView} from 'react-native-screens';
 //import {recos} from "../utilities/fakeInfo.json";
 
- var recos = [
+var recos = [
   {
     key: 0,
     img: require('../assets/images/products/huevos.png'),
-    desc: "Docena de huevos pastoriles",
-    precio: "$420"
+    desc: 'Docena de huevos pastoriles',
+    precio: '420',
   },
   {
     key: 1,
     img: require('../assets/images/products/sup.png'),
-    desc: "Suprema de pollo",
-    precio: "$300"
+    desc: 'Suprema de pollo',
+    precio: '300',
   },
   {
     key: 2,
     img: require('../assets/images/products/huevos.png'),
-    desc: "Docena de huevos pastoriles",
-    precio: "$420"
+    desc: 'Docena de huevos pastoriles',
+    precio: '420',
   },
   {
     key: 3,
     img: require('../assets/images/products/sup.png'),
-    desc: "Suprema de pollo",
-    precio: "$300"
+    desc: 'Suprema de pollo',
+    precio: '300',
   },
-]; 
+];
 
 var offer = [
   {
@@ -103,17 +103,18 @@ function offerComp({item, index, navigation}) {
 }
 
 export default function CHome({navigation}) {
-
-React.useLayoutEffect(() => {
-  navigation.setOptions({
-    headerRight: () => (
-      <TouchableOpacity>
-        <Image source={require('../assets/images/lupa.png')} style={{width:40, height:40}}></Image>
-      </TouchableOpacity>
-    )
-  })
-})
-
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <TouchableOpacity>
+          <Image
+            source={require('../assets/images/lupa.png')}
+            style={{width: 40, height: 40}}
+          />
+        </TouchableOpacity>
+      ),
+    });
+  });
 
   return (
     <ScrollView
@@ -167,9 +168,8 @@ React.useLayoutEffect(() => {
                   index={item.key}
                   img={item.img}
                   press={() => {
-                    navigation.navigate('Producto' , {item: item});
+                    navigation.navigate('Producto', {item: item});
                   }}
-
                 />
               );
             }}
@@ -225,7 +225,6 @@ const styles = StyleSheet.create({
   },
   scroll: {
     flex: 1,
-    paddingLeft: 5,
   },
   scroll2: {
     paddingLeft: 5,
