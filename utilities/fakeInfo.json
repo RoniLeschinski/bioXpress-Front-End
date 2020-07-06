@@ -1,0 +1,43 @@
+{
+    "recos":[
+    {
+      "key": 0,
+      "img": "require('../assets/images/products/huevos.png')"
+    },
+    {
+      "key": 1,
+      "img": "require('../assets/images/products/sup.png')"
+    },
+    {
+      "key": 2,
+      "img": "require('../assets/images/products/huevos.png')"
+    },
+    {
+      "key": 3,
+      "img": "require('../assets/images/products/sup.png')"
+    }
+],
+  
+"offer":[
+    {
+      "key": 0,
+      "img": "require('../assets/images/products/manz.png')",
+      "off": 30
+    },
+    {
+      "key": 1,
+      "img": "require('../assets/images/products/jug.png')",
+      "off": 20
+    },
+    {
+      "key": 2,
+      "img": "require('../assets/images/products/manz.png')",
+      "off": 30
+    },
+    {
+      "key": 3,
+      "img": "require('../assets/images/products/jug.png')",
+      "off": 20
+    }
+]
+}

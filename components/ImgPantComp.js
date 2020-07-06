@@ -3,7 +3,9 @@ import {StyleSheet, View, Image, Text, TouchableOpacity} from 'react-native';
 
 const ImgPantComp = props => (
   <View style={styles.container}>
-    <TouchableOpacity style={styles.btn} activeOpacity={0.7}>
+    <TouchableOpacity style={styles.btn}
+    activeOpacity={0.7}
+    onPress={props.press}>
       <Image style={styles.image} source={props.img} />
     </TouchableOpacity>
     <Text style={styles.txt}>{props.txt}</Text>
