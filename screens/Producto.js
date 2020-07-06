@@ -40,6 +40,7 @@ export default function Producto({navigation, route}) {
         </TouchableOpacity>
       </View>
     </View>
+    //<View styles={{backgroundColor: "blue", width: "100%", height: "50%"}}></View>
   );
 }
 
