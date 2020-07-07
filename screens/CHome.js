@@ -24,24 +24,28 @@ var recos = [
     img: require('../assets/images/products/huevos.png'),
     desc: 'Docena de huevos pastoriles',
     precio: '420',
+    info: 'Huevos pastoriles provenientes de La Pampa, distribuidos por COECO y llevados a tu casa PERSONALMENTE por Horacio.'
   },
   {
     key: 1,
     img: require('../assets/images/products/sup.png'),
     desc: 'Suprema de pollo',
     precio: '300',
+    info: 'Supremas de pollo pastoril proveniente de misiones, distribuidos por Organic S.A.'
   },
   {
     key: 2,
     img: require('../assets/images/products/huevos.png'),
     desc: 'Docena de huevos pastoriles',
     precio: '420',
+    info: 'Huevos pastoriles provenientes de La Pampa, distribuidos por COECO y llevados a tu casa PERSONALMENTE por Horacio.'
   },
   {
     key: 3,
     img: require('../assets/images/products/sup.png'),
     desc: 'Suprema de pollo',
     precio: '300',
+    info: 'Supremas de pollo pastoril proveniente de misiones, distribuidos por Organic S.A.'
   },
 ];
 

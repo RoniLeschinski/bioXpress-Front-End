@@ -46,6 +46,11 @@ export default function Producto({navigation, route}) {
           <View style={{width: "100%", alignItems: "center", justifyContent: "center", marginTop: 10, }}>
           <Seller></Seller>
           </View>
+          <View styles={styles.container6}>
+            <Text style={styles.text6}>Información</Text>
+            <Text style={styles.text5}>{item.info}</Text>
+            <Text style={styles.text6}>Más productos del vendedor</Text>
+          </View>
         </View>
       </ScrollView>
 
@@ -57,9 +62,6 @@ const styles = StyleSheet.create({
   scroll: {},
   container: {
     flex: 1,
-    //height: '100%',
-    //width: '100%',
-    //justifyContent: "center",
     alignItems: 'flex-start',
     backgroundColor: '#ececec',
   },
@@ -72,13 +74,11 @@ const styles = StyleSheet.create({
   container3: {
     width: '100%',
     marginTop: 20,
-    //paddingTop: 30,
     paddingLeft: 30,
     paddingRight: 30,
   },
   container4: {
     width: '100%',
-    //height: '20%',
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 20,
@@ -89,6 +89,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
+  },
+  container6:{
+    width: '100%',
   },
   imagecont: {
     width: '100%',
@@ -125,6 +128,22 @@ const styles = StyleSheet.create({
     color: '#4B4B4B',
     fontWeight: '600',
     fontSize: 21,
+  },
+  text5:{
+    color: "#4B4B4B",
+    fontSize: 16,
+    fontWeight: "500",
+    marginRight: 30,
+    marginLeft: 30,
+  },
+  text6:{
+    color: "#4B4B4B",
+    fontSize: 24,
+    fontWeight: "bold",
+    marginTop: 15,
+    marginRight: 30,
+    marginLeft: 30,
+    marginBottom: 3
   },
   button1: {
     width: '80%',
