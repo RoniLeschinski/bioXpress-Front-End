@@ -22,54 +22,42 @@ var recos = [
   {
     key: 0,
     img: require('../assets/images/products/huevos.png'),
-<<<<<<< HEAD
-    desc: 'Docena de huevos pastoriles',
-    precio: '420',
-    info: 'Huevos pastoriles provenientes de La Pampa, distribuidos por COECO y llevados a tu casa PERSONALMENTE por Horacio.'
-=======
     titulo: 'Docena de huevos pastoriles',
     precio: 420,
     vendedor: 'La Huerta de Horacio',
     vendpic: require('../assets/images/logohoracio.png'),
     desc:
       'Huevos pastoriles provenientes de La Pampa, distribuidos por COECO y llevados a tu casa PERSONALMENTE por Horacio.',
->>>>>>> c3009f7bbffdd0e4c4c5687738a5fdfe3c864f13
   },
   {
     key: 1,
     img: require('../assets/images/products/sup.png'),
-<<<<<<< HEAD
-    desc: 'Suprema de pollo',
-    precio: '300',
-    info: 'Supremas de pollo pastoril proveniente de misiones, distribuidos por Organic S.A.'
-=======
     titulo: 'Suprema de pollo',
     precio: 300,
->>>>>>> c3009f7bbffdd0e4c4c5687738a5fdfe3c864f13
+    vendedor: 'La Huerta de Horacio',
+    vendpic: require('../assets/images/logohoracio.png'),
+    desc:
+      'Pollo pastoril proveniente de La Pampa, distribuido por COECO y llevado a tu casa PERSONALMENTE por Horacio.',
   },
   {
     key: 2,
     img: require('../assets/images/products/huevos.png'),
-<<<<<<< HEAD
-    desc: 'Docena de huevos pastoriles',
-    precio: '420',
-    info: 'Huevos pastoriles provenientes de La Pampa, distribuidos por COECO y llevados a tu casa PERSONALMENTE por Horacio.'
-=======
     titulo: 'Docena de huevos pastoriles',
     precio: 420,
->>>>>>> c3009f7bbffdd0e4c4c5687738a5fdfe3c864f13
+    vendedor: 'La Huerta de Horacio',
+    vendpic: require('../assets/images/logohoracio.png'),
+    desc:
+      'Huevos pastoriles provenientes de La Pampa, distribuidos por COECO y llevados a tu casa PERSONALMENTE por Horacio.',
   },
   {
     key: 3,
     img: require('../assets/images/products/sup.png'),
-<<<<<<< HEAD
-    desc: 'Suprema de pollo',
-    precio: '300',
-    info: 'Supremas de pollo pastoril proveniente de misiones, distribuidos por Organic S.A.'
-=======
     titulo: 'Suprema de pollo',
     precio: 300,
->>>>>>> c3009f7bbffdd0e4c4c5687738a5fdfe3c864f13
+    vendedor: 'La Huerta de Horacio',
+    vendpic: require('../assets/images/logohoracio.png'),
+    desc:
+      'Pollo pastoril proveniente de La Pampa, distribuido por COECO y llevado a tu casa PERSONALMENTE por Horacio.',
   },
 ];
 
@@ -192,7 +180,7 @@ export default function CHome({navigation}) {
               img={require('../assets/images/alm.png')}
               txt={'Almacén'}
               press={() => {
-                navigation.navigate('Producto');
+                navigation.navigate('Local');
               }}
             />
             <ImgPantComp

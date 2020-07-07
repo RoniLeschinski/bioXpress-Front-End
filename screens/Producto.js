@@ -28,20 +28,32 @@ var sellerprod = [
   {
     key: 1,
     img: require('../assets/images/products/sup.png'),
-    desc: 'Suprema de pollo',
+    titulo: 'Suprema de pollo',
     precio: 300,
+    vendedor: 'La Huerta de Horacio',
+    vendpic: require('../assets/images/logohoracio.png'),
+    desc:
+      'Pollo pastoril proveniente de La Pampa, distribuido por COECO y llevado a tu casa PERSONALMENTE por Horacio.',
   },
   {
     key: 2,
     img: require('../assets/images/products/huevos.png'),
-    desc: 'Docena de huevos pastoriles',
+    titulo: 'Docena de huevos pastoriles',
     precio: 420,
+    vendedor: 'La Huerta de Horacio',
+    vendpic: require('../assets/images/logohoracio.png'),
+    desc:
+      'Huevos pastoriles provenientes de La Pampa, distribuidos por COECO y llevados a tu casa PERSONALMENTE por Horacio.',
   },
   {
     key: 3,
     img: require('../assets/images/products/sup.png'),
-    desc: 'Suprema de pollo',
+    titulo: 'Suprema de pollo',
     precio: 300,
+    vendedor: 'La Huerta de Horacio',
+    vendpic: require('../assets/images/logohoracio.png'),
+    desc:
+      'Pollo pastoril proveniente de La Pampa, distribuido por COECO y llevado a tu casa PERSONALMENTE por Horacio.',
   },
 ];
 
@@ -89,38 +101,6 @@ export default function Producto({navigation, route}) {
       }}>
       <View style={styles.container}>
         <View style={styles.container2} />
-<<<<<<< HEAD
-          <View style={styles.imagecont}>
-            <Image style={styles.image} source={item.img} />
-          </View>
-          <View style={styles.container3}>
-            <Text style={styles.text1}>{item.desc}</Text>
-            <Text style={styles.text2}>${item.precio}</Text>
-          </View>
-          <View style={styles.container4}>
-            <TouchableOpacity style={styles.button1}>
-              <Text style={styles.text3}>Añadir al carrito</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.container5}>
-            <Text style={styles.text4}>Cantidad:</Text>
-            <TouchableOpacity styles={styles.button2}>
-              <Text>+</Text>
-            </TouchableOpacity>
-            <Text />
-            <TouchableOpacity>
-              <Text>-</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={{width: "100%", alignItems: "center", justifyContent: "center", marginTop: 10, }}>
-          <Seller></Seller>
-          </View>
-          <View styles={styles.container6}>
-            <Text style={styles.text6}>Información</Text>
-            <Text style={styles.text5}>{item.info}</Text>
-            <Text style={styles.text6}>Más productos del vendedor</Text>
-          </View>
-=======
         <View style={styles.imagecont}>
           <Image style={styles.image} source={item.img} />
         </View>
@@ -172,7 +152,6 @@ export default function Producto({navigation, route}) {
             paddingRight: 45,
           }}>
           <Text style={styles.texttitle}>Más productos del vendedor</Text>
->>>>>>> c3009f7bbffdd0e4c4c5687738a5fdfe3c864f13
         </View>
 
         <View style={styles.container6}>
@@ -184,7 +163,7 @@ export default function Producto({navigation, route}) {
                   index={item.key}
                   img={item.img}
                   press={() => {
-                    navigation.navigate('Producto', {item: item});
+                    navigation.push('Producto', {item: item});
                   }}
                 />
               );
@@ -237,14 +216,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
   },
-<<<<<<< HEAD
-  container6:{
-    width: '100%',
-=======
   container6: {
     height: 129,
     marginTop: 20,
->>>>>>> c3009f7bbffdd0e4c4c5687738a5fdfe3c864f13
   },
   imagecont: {
     width: '100%',
