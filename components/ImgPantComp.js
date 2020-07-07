@@ -3,9 +3,10 @@ import {StyleSheet, View, Image, Text, TouchableOpacity} from 'react-native';
 
 const ImgPantComp = props => (
   <View style={styles.container}>
-    <TouchableOpacity style={styles.btn}
-    activeOpacity={0.7}
-    onPress={props.press}>
+    <TouchableOpacity
+      style={styles.btn}
+      activeOpacity={0.7}
+      onPress={props.press}>
       <Image style={styles.image} source={props.img} />
     </TouchableOpacity>
     <Text style={styles.txt}>{props.txt}</Text>
@@ -38,6 +39,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 14,
     top: 5,
+    color: '#4b4b4b',
   },
 });
 export default ImgPantComp;

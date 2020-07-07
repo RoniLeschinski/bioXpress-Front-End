@@ -22,30 +22,54 @@ var recos = [
   {
     key: 0,
     img: require('../assets/images/products/huevos.png'),
+<<<<<<< HEAD
     desc: 'Docena de huevos pastoriles',
     precio: '420',
     info: 'Huevos pastoriles provenientes de La Pampa, distribuidos por COECO y llevados a tu casa PERSONALMENTE por Horacio.'
+=======
+    titulo: 'Docena de huevos pastoriles',
+    precio: 420,
+    vendedor: 'La Huerta de Horacio',
+    vendpic: require('../assets/images/logohoracio.png'),
+    desc:
+      'Huevos pastoriles provenientes de La Pampa, distribuidos por COECO y llevados a tu casa PERSONALMENTE por Horacio.',
+>>>>>>> c3009f7bbffdd0e4c4c5687738a5fdfe3c864f13
   },
   {
     key: 1,
     img: require('../assets/images/products/sup.png'),
+<<<<<<< HEAD
     desc: 'Suprema de pollo',
     precio: '300',
     info: 'Supremas de pollo pastoril proveniente de misiones, distribuidos por Organic S.A.'
+=======
+    titulo: 'Suprema de pollo',
+    precio: 300,
+>>>>>>> c3009f7bbffdd0e4c4c5687738a5fdfe3c864f13
   },
   {
     key: 2,
     img: require('../assets/images/products/huevos.png'),
+<<<<<<< HEAD
     desc: 'Docena de huevos pastoriles',
     precio: '420',
     info: 'Huevos pastoriles provenientes de La Pampa, distribuidos por COECO y llevados a tu casa PERSONALMENTE por Horacio.'
+=======
+    titulo: 'Docena de huevos pastoriles',
+    precio: 420,
+>>>>>>> c3009f7bbffdd0e4c4c5687738a5fdfe3c864f13
   },
   {
     key: 3,
     img: require('../assets/images/products/sup.png'),
+<<<<<<< HEAD
     desc: 'Suprema de pollo',
     precio: '300',
     info: 'Supremas de pollo pastoril proveniente de misiones, distribuidos por Organic S.A.'
+=======
+    titulo: 'Suprema de pollo',
+    precio: 300,
+>>>>>>> c3009f7bbffdd0e4c4c5687738a5fdfe3c864f13
   },
 ];
 
@@ -103,6 +127,38 @@ function offerComp({item, index, navigation}) {
         }}
       />
     </View>
+  );
+}
+
+function verMas({index, navigation}) {
+  return (
+    <TouchableOpacity
+      style={{
+        width: 129,
+        height: 129,
+        backgroundColor: 'white',
+        borderRadius: 20,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderWidth: 1,
+        borderColor: '#d9d9d9',
+        marginLeft: 20,
+      }}
+      activeOpacity={0.7}>
+      <Image
+        style={{width: '60%', height: '60%'}}
+        source={require('../assets/images/mas.png')}
+      />
+      <Text
+        style={{
+          textAlign: 'center',
+          fontWeight: '600',
+          fontSize: 14,
+          color: '#4b4b4b',
+        }}>
+        Ver más
+      </Text>
+    </TouchableOpacity>
   );
 }
 
@@ -183,6 +239,7 @@ export default function CHome({navigation}) {
             }}
             showsHorizontalScrollIndicator={false}
             horizontal={true}
+            ListFooterComponent={verMas}
           />
         </View>
         <Text style={styles.texto}>Ofertas</Text>
@@ -196,6 +253,7 @@ export default function CHome({navigation}) {
             }}
             showsHorizontalScrollIndicator={false}
             horizontal={true}
+            ListFooterComponent={verMas}
           />
         </View>
       </View>
