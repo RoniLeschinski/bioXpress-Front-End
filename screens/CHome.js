@@ -22,26 +22,30 @@ var recos = [
   {
     key: 0,
     img: require('../assets/images/products/huevos.png'),
-    desc: 'Docena de huevos pastoriles',
-    precio: '420',
+    titulo: 'Docena de huevos pastoriles',
+    precio: 420,
+    vendedor: 'La Huerta de Horacio',
+    vendpic: require('../assets/images/logohoracio.png'),
+    desc:
+      'Huevos pastoriles provenientes de La Pampa, distribuidos por COECO y llevados a tu casa PERSONALMENTE por Horacio.',
   },
   {
     key: 1,
     img: require('../assets/images/products/sup.png'),
-    desc: 'Suprema de pollo',
-    precio: '300',
+    titulo: 'Suprema de pollo',
+    precio: 300,
   },
   {
     key: 2,
     img: require('../assets/images/products/huevos.png'),
-    desc: 'Docena de huevos pastoriles',
-    precio: '420',
+    titulo: 'Docena de huevos pastoriles',
+    precio: 420,
   },
   {
     key: 3,
     img: require('../assets/images/products/sup.png'),
-    desc: 'Suprema de pollo',
-    precio: '300',
+    titulo: 'Suprema de pollo',
+    precio: 300,
   },
 ];
 
@@ -99,6 +103,38 @@ function offerComp({item, index, navigation}) {
         }}
       />
     </View>
+  );
+}
+
+function verMas({index, navigation}) {
+  return (
+    <TouchableOpacity
+      style={{
+        width: 129,
+        height: 129,
+        backgroundColor: 'white',
+        borderRadius: 20,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderWidth: 1,
+        borderColor: '#d9d9d9',
+        marginLeft: 20,
+      }}
+      activeOpacity={0.7}>
+      <Image
+        style={{width: '60%', height: '60%'}}
+        source={require('../assets/images/mas.png')}
+      />
+      <Text
+        style={{
+          textAlign: 'center',
+          fontWeight: '600',
+          fontSize: 14,
+          color: '#4b4b4b',
+        }}>
+        Ver más
+      </Text>
+    </TouchableOpacity>
   );
 }
 
@@ -179,6 +215,7 @@ export default function CHome({navigation}) {
             }}
             showsHorizontalScrollIndicator={false}
             horizontal={true}
+            ListFooterComponent={verMas}
           />
         </View>
         <Text style={styles.texto}>Ofertas</Text>
@@ -192,6 +229,7 @@ export default function CHome({navigation}) {
             }}
             showsHorizontalScrollIndicator={false}
             horizontal={true}
+            ListFooterComponent={verMas}
           />
         </View>
       </View>
