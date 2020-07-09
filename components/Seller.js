@@ -12,7 +12,9 @@ import {
 } from 'react-native';
 
 const Seller = props => (
-  <TouchableOpacity activeOpacity={0.7} style={styles.boton}>
+  <TouchableOpacity activeOpacity={0.7} style={styles.boton} 
+   onPress={props.press} 
+  >
     <View style={styles.container}>
       <Image style={styles.image} source={props.vendpic} />
     </View>

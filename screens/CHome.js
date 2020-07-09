@@ -28,6 +28,7 @@ var recos = [
     vendpic: require('../assets/images/logohoracio.png'),
     desc:
       'Huevos pastoriles provenientes de La Pampa, distribuidos por COECO y llevados a tu casa PERSONALMENTE por Horacio.',
+    isOffer: false,
   },
   {
     key: 1,
@@ -65,7 +66,12 @@ var offer = [
   {
     key: 0,
     img: require('../assets/images/products/manz.png'),
+    titulo: 'Manzanas',
+    precio: 250,
+    isOffer: true,
     off: 30,
+    vendedor: 'La Huerta de Horacio',
+    vendpic: require('../assets/images/logohoracio.png'),
   },
   {
     key: 1,
@@ -151,19 +157,6 @@ function verMas({index, navigation}) {
 }
 
 export default function CHome({navigation}) {
-  React.useLayoutEffect(() => {
-    navigation.setOptions({
-      headerRight: () => (
-        <TouchableOpacity>
-          <Image
-            source={require('../assets/images/lupa.png')}
-            style={{width: 40, height: 40}}
-          />
-        </TouchableOpacity>
-      ),
-    });
-  });
-
   return (
     <ScrollView
       style={styles.scroll}
@@ -179,9 +172,6 @@ export default function CHome({navigation}) {
             <ImgPantComp
               img={require('../assets/images/alm.png')}
               txt={'Almacén'}
-              press={() => {
-                navigation.navigate('Local');
-              }}
             />
             <ImgPantComp
               img={require('../assets/images/fruveg.png')}
@@ -234,7 +224,18 @@ export default function CHome({navigation}) {
         <View style={styles.container3}>
           <FlatList
             data={offer}
-            renderItem={offerComp}
+            renderItem={({item}) => {
+              return (
+                <OfferProd
+                  index={item.key}
+                  img={item.img}
+                  off={item.off}
+                  press={() => {
+                    navigation.navigate('Producto', {item: item});
+                  }}
+                />
+              );
+            }}
             contentContainerStyle={{
               paddingRight: 30,
               paddingLeft: 10,

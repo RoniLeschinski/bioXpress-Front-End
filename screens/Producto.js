@@ -92,6 +92,26 @@ function verMas({index, navigation}) {
 export default function Producto({navigation, route}) {
   const {item} = route.params;
 
+  const isOffer = item.isOffer;
+
+  const offerText = (
+    <Text style={{color: '#38CB6C', fontSize: 18}}>{item.off}% OFF</Text>
+  );
+
+  const origPrice = (
+    <Text
+      style={{
+        color: '#A6A6A6',
+        fontSize: 18,
+        textDecorationLine: 'line-through',
+        textDecorationStyle: 'solid',
+      }}>
+      ${item.precio}
+    </Text>
+  );
+
+  const finalPrice = item.precio - (item.precio * item.off) / 100;
+
   return (
     <ScrollView
       contentContainerStyle={{
@@ -106,7 +126,13 @@ export default function Producto({navigation, route}) {
         </View>
         <View style={styles.container3}>
           <Text style={styles.text1}>{item.titulo}</Text>
-          <Text style={styles.text2}>${item.precio}</Text>
+          <View style={{marginLeft: '5%'}}>{isOffer ? origPrice : null}</View>
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <Text style={styles.text2}>
+              ${isOffer ? finalPrice : item.precio}
+            </Text>
+            <View style={{marginLeft: 10}}>{isOffer ? offerText : null}</View>
+          </View>
         </View>
         <View style={styles.container4}>
           <TouchableOpacity activeOpacity={0.7} style={styles.button1}>
@@ -130,7 +156,8 @@ export default function Producto({navigation, route}) {
             justifyContent: 'center',
             marginTop: 10,
           }}>
-          <Seller vendedor={item.vendedor} vendpic={item.vendpic} />
+          <Seller vendedor={item.vendedor} vendpic={item.vendpic} press={() => {navigation.navigate('Local');
+      }}/>
         </View>
         <View
           style={{
@@ -263,21 +290,21 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 21,
   },
-  text5:{
-    color: "#4B4B4B",
+  text5: {
+    color: '#4B4B4B',
     fontSize: 16,
-    fontWeight: "500",
+    fontWeight: '500',
     marginRight: 30,
     marginLeft: 30,
   },
-  text6:{
-    color: "#4B4B4B",
+  text6: {
+    color: '#4B4B4B',
     fontSize: 24,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     marginTop: 15,
     marginRight: 30,
     marginLeft: 30,
-    marginBottom: 3
+    marginBottom: 3,
   },
   button1: {
     width: '80%',

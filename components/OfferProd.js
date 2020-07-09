@@ -1,15 +1,21 @@
 import React, {Component} from 'react';
 import {StyleSheet, View, Image, Text, TouchableOpacity} from 'react-native';
 
-const OfferProd = props => (
-  <TouchableOpacity activeOpacity={0.7}>
-    <View style={styles.product}>
-      <Image style={styles.img} source={props.img} />
-      <View style={styles.offerbox} />
-      <Text style={styles.txt}>-{props.off}%</Text>
-    </View>
-  </TouchableOpacity>
-);
+export default function OfferProd(props) {
+  return (
+    <TouchableOpacity
+      activeOpacity={0.7}
+      style={{marginLeft: 20}}
+      onPress={props.press}>
+      <View style={styles.product}>
+        <Image style={styles.img} source={props.img} />
+        <View style={styles.offerbox} />
+        <Text style={styles.txt}>-{props.off}%</Text>
+      </View>
+    </TouchableOpacity>
+  );
+}
+
 const styles = StyleSheet.create({
   product: {
     width: 129,
@@ -42,4 +48,3 @@ const styles = StyleSheet.create({
     marginTop: -10,
   },
 });
-export default OfferProd;
