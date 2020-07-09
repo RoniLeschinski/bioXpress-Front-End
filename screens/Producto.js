@@ -120,6 +120,7 @@ export default function Producto({navigation, route}) {
         backgroundColor: '#ececec',
       }}>
       <View style={styles.container}>
+      <StatusBar barStyle="light-content" backgroundColor="#38CB6C" />
         <View style={styles.container2} />
         <View style={styles.imagecont}>
           <Image style={styles.image} source={item.img} />

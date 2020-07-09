@@ -162,6 +162,7 @@ export default function CHome({navigation}) {
       style={styles.scroll}
       contentContainerStyle={{paddingBottom: 50, backgroundColor: '#ececec'}}>
       <View style={styles.container}>
+      <StatusBar barStyle="light-content" backgroundColor="#38CB6C" />
         <Text style={styles.texto}>Categorías</Text>
         <View style={styles.container2}>
           <ScrollView

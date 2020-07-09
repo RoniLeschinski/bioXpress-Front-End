@@ -18,6 +18,8 @@ import {createStackNavigator} from '@react-navigation/stack';
 export default function VHome(){
     return(
         <View>
+                <StatusBar barStyle="light-content" backgroundColor="#38CB6C" />
+
             <Text>Esta es la pantalla VHome</Text>
         </View>
     )
