@@ -19,7 +19,8 @@
     "react-native-reanimated": "^1.9.0",
     "react-native-safe-area-context": "^3.0.7",
     "react-native-screens": "^2.9.0",
-    "react-native-viewport-units": "0.0.5"
+    "react-native-viewport-units": "0.0.5",
+    "react-number-format": "^4.4.1"
   },
   "devDependencies": {
     "@babel/core": "7.10.3",

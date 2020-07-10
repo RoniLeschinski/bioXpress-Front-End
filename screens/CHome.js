@@ -13,7 +13,7 @@ import {
 import 'react-native-gesture-handler';
 import {useNavigation, useLinkProps} from '@react-navigation/native';
 import ImgPantComp from '../components/ImgPantComp';
-import OfferProd from '../components/OfferProd';
+import ItemCard from '../components/ItemCard';
 import Recommended from '../components/Recommended';
 import {ScreenStackHeaderLeftView} from 'react-native-screens';
 //import {recos} from "../utilities/fakeInfo.json";
@@ -39,6 +39,7 @@ var recos = [
     vendpic: require('../assets/images/logohoracio.png'),
     desc:
       'Pollo pastoril proveniente de La Pampa, distribuido por COECO y llevado a tu casa PERSONALMENTE por Horacio.',
+    isOffer: false,
   },
   {
     key: 2,
@@ -49,6 +50,7 @@ var recos = [
     vendpic: require('../assets/images/logohoracio.png'),
     desc:
       'Huevos pastoriles provenientes de La Pampa, distribuidos por COECO y llevados a tu casa PERSONALMENTE por Horacio.',
+    isOffer: false,
   },
   {
     key: 3,
@@ -59,6 +61,7 @@ var recos = [
     vendpic: require('../assets/images/logohoracio.png'),
     desc:
       'Pollo pastoril proveniente de La Pampa, distribuido por COECO y llevado a tu casa PERSONALMENTE por Horacio.',
+    isOffer: false,
   },
 ];
 
@@ -72,57 +75,46 @@ var offer = [
     off: 30,
     vendedor: 'La Huerta de Horacio',
     vendpic: require('../assets/images/logohoracio.png'),
+    desc:
+      'Manzanas provenientes de La Pampa, distribuidos por COECO y llevados a tu casa PERSONALMENTE por Horacio.',
   },
   {
     key: 1,
     img: require('../assets/images/products/jug.png'),
+    titulo: 'Jugo de Naranja',
+    precio: 180,
+    isOffer: true,
     off: 20,
+    vendedor: 'La Huerta de Horacio',
+    vendpic: require('../assets/images/logohoracio.png'),
+    desc:
+      'Jugo de naranja proveniente de La Pampa, distribuido por COECO y llevado a tu casa PERSONALMENTE por Horacio.',
   },
   {
     key: 2,
     img: require('../assets/images/products/manz.png'),
+    titulo: 'Manzanas',
+    precio: 250,
+    isOffer: true,
     off: 30,
+    vendedor: 'La Huerta de Horacio',
+    vendpic: require('../assets/images/logohoracio.png'),
+    desc:
+      'Manzanas provenientes de La Pampa, distribuidos por COECO y llevados a tu casa PERSONALMENTE por Horacio.',
   },
   {
     key: 3,
     img: require('../assets/images/products/jug.png'),
+    titulo: 'Jugo de Naranja',
+    precio: 180,
+    isOffer: true,
     off: 20,
+    vendedor: 'La Huerta de Horacio',
+    vendpic: require('../assets/images/logohoracio.png'),
+    desc:
+      'Jugo de naranja proveniente de La Pampa, distribuido por COECO y llevado a tu casa PERSONALMENTE por Horacio.',
   },
 ];
-
-function recs({navigation, item, index}) {
-  if (item.empty === true) {
-    return <View />;
-  }
-  return (
-    <TouchableOpacity
-      activeOpacity={0.7}
-      style={{height: 129, marginLeft: 20}}
-      onPress={() => {
-        navigation.navigate('Producto');
-      }}>
-      <Image key={index} source={item.img} style={styles.product} />
-    </TouchableOpacity>
-  );
-}
-
-function offerComp({item, index, navigation}) {
-  if (item.empty === true) {
-    return <View />;
-  }
-  return (
-    <View style={{marginLeft: 20}}>
-      <OfferProd
-        key={index}
-        img={item.img}
-        off={item.off}
-        onPress={() => {
-          navigation.navigate('Producto');
-        }}
-      />
-    </View>
-  );
-}
 
 function verMas({index, navigation}) {
   return (
@@ -162,7 +154,7 @@ export default function CHome({navigation}) {
       style={styles.scroll}
       contentContainerStyle={{paddingBottom: 50, backgroundColor: '#ececec'}}>
       <View style={styles.container}>
-      <StatusBar barStyle="light-content" backgroundColor="#38CB6C" />
+        <StatusBar barStyle="light-content" backgroundColor="#38CB6C" />
         <Text style={styles.texto}>Categorías</Text>
         <View style={styles.container2}>
           <ScrollView
@@ -203,9 +195,11 @@ export default function CHome({navigation}) {
             data={recos}
             renderItem={({item}) => {
               return (
-                <Recommended
+                <ItemCard
                   index={item.key}
                   img={item.img}
+                  off={item.off}
+                  isOffer={item.isOffer}
                   press={() => {
                     navigation.navigate('Producto', {item: item});
                   }}
@@ -227,10 +221,11 @@ export default function CHome({navigation}) {
             data={offer}
             renderItem={({item}) => {
               return (
-                <OfferProd
+                <ItemCard
                   index={item.key}
                   img={item.img}
                   off={item.off}
+                  isOffer={item.isOffer}
                   press={() => {
                     navigation.navigate('Producto', {item: item});
                   }}

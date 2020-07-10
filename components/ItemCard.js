@@ -1,7 +1,13 @@
 import React, {Component} from 'react';
 import {StyleSheet, View, Image, Text, TouchableOpacity} from 'react-native';
 
-export default function OfferProd(props) {
+export default function ItemCard(props) {
+  const isOffer = props.isOffer;
+
+  const offerBox = <View style={styles.offerbox} />;
+
+  const offerText = <Text style={styles.txt}>-{props.off}%</Text>;
+
   return (
     <TouchableOpacity
       activeOpacity={0.7}
@@ -9,8 +15,8 @@ export default function OfferProd(props) {
       onPress={props.press}>
       <View style={styles.product}>
         <Image style={styles.img} source={props.img} />
-        <View style={styles.offerbox} />
-        <Text style={styles.txt}>-{props.off}%</Text>
+        {isOffer ? offerBox : null}
+        {isOffer ? offerText : null}
       </View>
     </TouchableOpacity>
   );

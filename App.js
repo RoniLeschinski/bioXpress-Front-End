@@ -36,28 +36,26 @@ function BackImage() {
     />
   );
 }
-function Search(){
-  return(
-  <TouchableOpacity activeOpacity={0.7}>
-    <Image
-      source={require('./assets/images/lupa.png')}
-      style={{width: 30, height: 30}}
-    />
-  </TouchableOpacity>
-  )
-  
+function Search() {
+  return (
+    <TouchableOpacity activeOpacity={0.7}>
+      <Image
+        source={require('./assets/images/lupa.png')}
+        style={{width: 30, height: 30}}
+      />
+    </TouchableOpacity>
+  );
 }
 function OpenMenuButton() {
   return (
     <TouchableOpacity activeOpacity={0.7}>
-    <Image
-      source={require('./assets/images/openMenu.png')}
-      style={{width: 30, height: 30, alignSelf: 'center'}}
-    />
+      <Image
+        source={require('./assets/images/openMenu.png')}
+        style={{width: 30, height: 30, alignSelf: 'center'}}
+      />
     </TouchableOpacity>
   );
 }
-
 
 const CHomeOptions = {
   headerStyle: {
@@ -65,49 +63,53 @@ const CHomeOptions = {
   },
   headerTintColor: '#fff',
   title: '',
-  headerLeftContainerStyle: {marginLeft:30, },
-  headerLeft:  props => <OpenMenuButton {...props} />,
+  headerLeftContainerStyle: {marginLeft: 30},
+  headerLeft: props => <OpenMenuButton {...props} />,
   headerTitle: props => <CustomHeader {...props} />,
-  headerRightContainerStyle: {marginRight:30, },
+  headerRightContainerStyle: {marginRight: 30},
   headerRight: props => <Search {...props} />,
 };
 
-const ScreenOptions = {
-  headerStyle: {
-    backgroundColor: '#38CB6C',
-    elevation: 0, 
-    shadowOpacity: 0, 
-  },
-  headerTintColor: '#fff',
-  title: '',
-  headerLeftContainerStyle: {marginLeft:15 },
-  headerBackImage: props => <BackImage {...props} />,
-  headerTitle: props => <CustomHeader {...props} />,
-  headerRightContainerStyle: {marginRight:30, },
-  headerRight: props => <Search {...props} />,
-};
 const VHomeOptions = {
   headerStyle: {
     backgroundColor: '#38CB6C',
   },
   headerTintColor: '#fff',
   title: '',
-  headerLeftContainerStyle: {marginLeft:15 },
-  headerBackImage: props => <OpenMenuButton {...props} />,
+  headerLeftContainerStyle: {marginLeft: 30},
+  headerLeft: props => <OpenMenuButton {...props} />,
   headerTitle: props => <CustomHeader {...props} />,
-  headerRightContainerStyle: {marginRight:30, },
+  headerRightContainerStyle: {marginRight: 30},
+  headerRight: props => <Search {...props} />,
+};
+
+const ScreenOptions = {
+  headerStyle: {
+    backgroundColor: '#38CB6C',
+    elevation: 0,
+    shadowOpacity: 0,
+  },
+  headerTintColor: '#fff',
+  title: '',
+  headerLeftContainerStyle: {marginLeft: 15},
+  headerBackImage: props => <BackImage {...props} />,
+  headerTitle: props => <CustomHeader {...props} />,
+  headerRightContainerStyle: {marginRight: 30},
   headerRight: props => <Search {...props} />,
 };
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Main.Navigator
-        >
+      <Main.Navigator>
+        <Main.Screen name="VHome" component={VHome} options={VHomeOptions} />
         <Main.Screen name="CHome" component={CHome} options={CHomeOptions} />
-        <Main.Screen name="Local" component={Local} options={ScreenOptions}/>
-        <Main.Screen name="Producto" component={Producto} options={ScreenOptions}/>
-        <Main.Screen name="VHome" component={VHome} options={VHomeOptions}/>
+        <Main.Screen name="Local" component={Local} options={ScreenOptions} />
+        <Main.Screen
+          name="Producto"
+          component={Producto}
+          options={ScreenOptions}
+        />
       </Main.Navigator>
     </NavigationContainer>
   );

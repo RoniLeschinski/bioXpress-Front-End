@@ -13,6 +13,7 @@ import {
 import 'react-native-gesture-handler';
 import Seller from '../components/Seller';
 import Recommended from '../components/Recommended';
+import NumberFormat from 'react-number-format';
 
 var sellerprod = [
   {
@@ -106,11 +107,46 @@ export default function Producto({navigation, route}) {
         textDecorationLine: 'line-through',
         textDecorationStyle: 'solid',
       }}>
-      ${item.precio}
+      <NumberFormat
+        value={item.precio}
+        displayType={'text'}
+        thousandSeparator={'.'}
+        decimalSeparator={','}
+        prefix={'$'}
+        renderText={value => <Text>{value}</Text>}
+        decimalScale={2}
+        fixedDecimalScale={true}
+      />
     </Text>
   );
 
-  const finalPrice = item.precio - (item.precio * item.off) / 100;
+  const finalPrice = (
+    <NumberFormat
+      value={item.precio - (item.precio * item.off) / 100}
+      displayType={'text'}
+      thousandSeparator={'.'}
+      decimalSeparator={','}
+      prefix={'$'}
+      renderText={value => <Text>{value}</Text>}
+      allowNegative={false}
+      decimalScale={2}
+      fixedDecimalScale={true}
+    />
+  );
+
+  const price = (
+    <NumberFormat
+      value={item.precio}
+      displayType={'text'}
+      thousandSeparator={'.'}
+      decimalSeparator={','}
+      prefix={'$'}
+      renderText={value => <Text>{value}</Text>}
+      allowNegative={false}
+      decimalScale={2}
+      fixedDecimalScale={true}
+    />
+  );
 
   return (
     <ScrollView
@@ -120,7 +156,7 @@ export default function Producto({navigation, route}) {
         backgroundColor: '#ececec',
       }}>
       <View style={styles.container}>
-      <StatusBar barStyle="light-content" backgroundColor="#38CB6C" />
+        <StatusBar barStyle="light-content" backgroundColor="#38CB6C" />
         <View style={styles.container2} />
         <View style={styles.imagecont}>
           <Image style={styles.image} source={item.img} />
@@ -129,9 +165,7 @@ export default function Producto({navigation, route}) {
           <Text style={styles.text1}>{item.titulo}</Text>
           <View style={{marginLeft: '5%'}}>{isOffer ? origPrice : null}</View>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <Text style={styles.text2}>
-              ${isOffer ? finalPrice : item.precio}
-            </Text>
+            <Text style={styles.text2}>{isOffer ? finalPrice : price}</Text>
             <View style={{marginLeft: 10}}>{isOffer ? offerText : null}</View>
           </View>
         </View>
@@ -157,8 +191,13 @@ export default function Producto({navigation, route}) {
             justifyContent: 'center',
             marginTop: 10,
           }}>
-          <Seller vendedor={item.vendedor} vendpic={item.vendpic} press={() => {navigation.navigate('Local');
-      }}/>
+          <Seller
+            vendedor={item.vendedor}
+            vendpic={item.vendpic}
+            press={() => {
+              navigation.navigate('Local');
+            }}
+          />
         </View>
         <View
           style={{
