@@ -13,12 +13,15 @@ import {
 import 'react-native-gesture-handler';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import CHome from './screens/CHome';
 import VHome from './screens/VHome';
 import Local from './screens/Local';
 import Producto from './screens/Producto';
+import {Menu} from './screens/Menu'
 
 const Main = createStackNavigator();
+const Drawer = createDrawerNavigator();
 
 function CustomHeader() {
   return (
@@ -98,22 +101,30 @@ const ScreenOptions = {
   headerRight: props => <Search {...props} />,
 };
 
+function createDrawer(){
+  return(
+    <Drawer.Navigator >
+    <Drawer.Screen name="Home Comprador" component={CHome} />
+    <Drawer.Screen name="Home Vendedor" component={VHome} />
+  </Drawer.Navigator>
+  )
+}
+
+
 export default function App() {
   return (
     <NavigationContainer>
-      <Main.Navigator>
+      <Main.Navigator initialRouteName="CHome">
+        <Main.Screen name="CHome" component={createDrawer} options={CHomeOptions} />
         <Main.Screen name="VHome" component={VHome} options={VHomeOptions} />
-        <Main.Screen name="CHome" component={CHome} options={CHomeOptions} />
         <Main.Screen name="Local" component={Local} options={ScreenOptions} />
-        <Main.Screen
-          name="Producto"
-          component={Producto}
-          options={ScreenOptions}
-        />
+        <Main.Screen name="Producto" component={Producto} options={ScreenOptions} />
       </Main.Navigator>
     </NavigationContainer>
   );
 }
+
+
 
 const styles = StyleSheet.create({
   container: {

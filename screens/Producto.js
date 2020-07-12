@@ -152,7 +152,7 @@ export default function Producto({navigation, route}) {
     <ScrollView
       contentContainerStyle={{
         flexGrow: 1,
-        paddingBottom: 50,
+        paddingBottom: 100,
         backgroundColor: '#ececec',
       }}>
       <View style={styles.container}>
@@ -175,13 +175,14 @@ export default function Producto({navigation, route}) {
           </TouchableOpacity>
         </View>
         <View style={styles.container5}>
-          <Text style={styles.text4}>Cantidad:</Text>
-          <TouchableOpacity activeOpacity={0.7} styles={styles.button2}>
-            <Text>+</Text>
-          </TouchableOpacity>
-          <Text />
-          <TouchableOpacity activeOpacity={0.7}>
-            <Text>-</Text>
+          <Text style={styles.text4}>Cantidad</Text>
+          <TouchableOpacity style={styles.button3} activeOpacity={0.7}>
+            <View style={styles.cantContainer1}>
+              <Text style={styles.text7}>1</Text>
+            </View>
+            <View style={styles.cantContainer2}>
+              <Image source={require('../assets/images/down.png')}/>
+            </View>
           </TouchableOpacity>
         </View>
         <View
@@ -278,14 +279,27 @@ const styles = StyleSheet.create({
   },
   container5: {
     width: '100%',
+    height:'10%',
     marginTop: 10,
     justifyContent: 'center',
     alignItems: 'center',
-    flexDirection: 'row',
   },
   container6: {
     height: 129,
     marginTop: 20,
+  },
+  cantContainer1:{
+    width:"70%",
+    height:"100%",
+    alignItems:"center",
+    justifyContent:"center",
+    borderRightWidth:0.5,
+  },
+  cantContainer2:{
+    width:"30%",
+    height:"100%",
+    alignItems: "center",
+    justifyContent:"center"
   },
   imagecont: {
     width: '100%',
@@ -329,6 +343,7 @@ const styles = StyleSheet.create({
     color: '#4B4B4B',
     fontWeight: '600',
     fontSize: 21,
+    marginBottom:"1%"
   },
   text5: {
     color: '#4B4B4B',
@@ -346,6 +361,11 @@ const styles = StyleSheet.create({
     marginLeft: 30,
     marginBottom: 3,
   },
+  text7:{
+    fontWeight:"600",
+    fontSize:26,
+    color:"#4B4B4B"
+  },
   button1: {
     width: '80%',
     height: 95,
@@ -359,6 +379,13 @@ const styles = StyleSheet.create({
     height: '80%',
     backgroundColor: '#38CB6C',
     borderRadius: 1,
+  },
+  button3:{
+    width:"30%",
+    height: "40%",
+    backgroundColor:"#fff",
+    borderRadius:10,
+    flexDirection:"row",
   },
   texttitle: {
     color: '#4B4B4B',

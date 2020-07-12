@@ -14,6 +14,91 @@ import 'react-native-gesture-handler';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import Ventas from '../components/Ventas';
+import ItemCard from '../components/ItemCard';
+
+
+
+
+var recos = [
+  {
+    key: 0,
+    img: require('../assets/images/products/huevos.png'),
+    titulo: 'Docena de huevos pastoriles',
+    precio: 420,
+    vendedor: 'La Huerta de Horacio',
+    vendpic: require('../assets/images/logohoracio.png'),
+    desc:
+      'Huevos pastoriles provenientes de La Pampa, distribuidos por COECO y llevados a tu casa PERSONALMENTE por Horacio.',
+    isOffer: false,
+  },
+  {
+    key: 1,
+    img: require('../assets/images/products/sup.png'),
+    titulo: 'Suprema de pollo',
+    precio: 300,
+    vendedor: 'La Huerta de Horacio',
+    vendpic: require('../assets/images/logohoracio.png'),
+    desc:
+      'Pollo pastoril proveniente de La Pampa, distribuido por COECO y llevado a tu casa PERSONALMENTE por Horacio.',
+    isOffer: false,
+  },
+  {
+    key: 2,
+    img: require('../assets/images/products/huevos.png'),
+    titulo: 'Docena de huevos pastoriles',
+    precio: 420,
+    vendedor: 'La Huerta de Horacio',
+    vendpic: require('../assets/images/logohoracio.png'),
+    desc:
+      'Huevos pastoriles provenientes de La Pampa, distribuidos por COECO y llevados a tu casa PERSONALMENTE por Horacio.',
+    isOffer: false,
+  },
+  {
+    key: 3,
+    img: require('../assets/images/products/sup.png'),
+    titulo: 'Suprema de pollo',
+    precio: 300,
+    vendedor: 'La Huerta de Horacio',
+    vendpic: require('../assets/images/logohoracio.png'),
+    desc:
+      'Pollo pastoril proveniente de La Pampa, distribuido por COECO y llevado a tu casa PERSONALMENTE por Horacio.',
+    isOffer: false,
+  },
+];
+
+function verMas({index, navigation}) {
+return (
+  <TouchableOpacity
+    style={{
+      width: 129,
+      height: 129,
+      backgroundColor: 'white',
+      borderRadius: 20,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderWidth: 1,
+      borderColor: '#d9d9d9',
+      marginLeft: 20,
+    }}
+    activeOpacity={0.7}>
+    <Image
+      style={{width: '60%', height: '60%'}}
+      source={require('../assets/images/mas.png')}
+    />
+    <Text
+      style={{
+        textAlign: 'center',
+        fontWeight: '600',
+        fontSize: 14,
+        color: '#4b4b4b',
+      }}>
+      Ver más
+    </Text>
+  </TouchableOpacity>
+);
+}
+
+
 
 export default function VHome() {
   return (
@@ -26,11 +111,34 @@ export default function VHome() {
         <View style={styles.container2}>
           <Ventas />
         </View>
-
         <Text style={styles.texto}>Mis productos</Text>
-        <View style={styles.container3} />
+        <View style={styles.container3}>
+        <FlatList
+            data={recos}
+            renderItem={({item}) => {
+              return (
+                <ItemCard
+                  index={item.key}
+                  img={item.img}
+                  off={item.off}
+                  isOffer={item.isOffer}
+                />
+              );
+            }}
+            contentContainerStyle={{
+              paddingRight: 30,
+              paddingLeft: 10,
+            }}
+            showsHorizontalScrollIndicator={false}
+            horizontal={true}
+            ListFooterComponent={verMas}
+          />
+        </View>
         <Text style={styles.texto}>Ventas concretadas</Text>
-        <View style={styles.container3} />
+        <View style={styles.container3}>
+        <Ventas />
+        </View>
+
       </View>
     </ScrollView>
   );
@@ -52,7 +160,10 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   container3: {
-    height: 129,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    height: 139,
     marginTop: 20,
   },
   texto: {
