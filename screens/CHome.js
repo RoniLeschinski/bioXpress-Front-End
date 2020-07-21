@@ -8,14 +8,15 @@ import {
   StatusBar,
   TouchableOpacity,
   Image,
-  TouchableNativeFeedbackBase,
+  SafeAreaView,
 } from 'react-native';
 import 'react-native-gesture-handler';
 import {useNavigation, useLinkProps} from '@react-navigation/native';
 import ImgPantComp from '../components/ImgPantComp';
 import ItemCard from '../components/ItemCard';
 import Recommended from '../components/Recommended';
-import {ScreenStackHeaderLeftView} from 'react-native-screens';
+import Header from '../components/Header'
+import BtnMiCompra from '../components/BtnMiCompra'
 //import {recos} from "../utilities/fakeInfo.json";
 
 var recos = [
@@ -150,9 +151,11 @@ function verMas({index, navigation}) {
 
 export default function CHome({navigation}) {
   return (
+    <SafeAreaView style={{flex:1}}>
+      <Header screen={"CHome"} press={() => navigation.openDrawer()}/>
     <ScrollView
       style={styles.scroll}
-      contentContainerStyle={{paddingBottom: 50, backgroundColor: '#ececec'}}>
+      contentContainerStyle={{paddingBottom: 30, backgroundColor: '#ececec'}}>
       <View style={styles.container}>
         <StatusBar barStyle="light-content" backgroundColor="#38CB6C" />
         <Text style={styles.texto}>Categorías</Text>
@@ -243,6 +246,8 @@ export default function CHome({navigation}) {
         </View>
       </View>
     </ScrollView>
+    <BtnMiCompra press={() => navigation.navigate("MiCompra")} isChome = {true}/>
+    </SafeAreaView>
   );
 }
 

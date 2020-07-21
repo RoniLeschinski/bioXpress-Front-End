@@ -14,6 +14,7 @@ import 'react-native-gesture-handler';
 import Seller from '../components/Seller';
 import Recommended from '../components/Recommended';
 import NumberFormat from 'react-number-format';
+import Header from '../components/Header'
 
 var sellerprod = [
   {
@@ -149,106 +150,107 @@ export default function Producto({navigation, route}) {
   );
 
   return (
-    <ScrollView
-      contentContainerStyle={{
-        flexGrow: 1,
-        paddingBottom: 100,
-        backgroundColor: '#ececec',
-      }}>
-      <View style={styles.container}>
-        <StatusBar barStyle="light-content" backgroundColor="#38CB6C" />
-        <View style={styles.container2} />
-        <View style={styles.imagecont}>
-          <Image style={styles.image} source={item.img} />
-        </View>
-        <View style={styles.container3}>
-          <Text style={styles.text1}>{item.titulo}</Text>
-          <View style={{marginLeft: '5%'}}>{isOffer ? origPrice : null}</View>
-          <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <Text style={styles.text2}>{isOffer ? finalPrice : price}</Text>
-            <View style={{marginLeft: 10}}>{isOffer ? offerText : null}</View>
+    <SafeAreaView>
+      <Header screen={"other"} press={() => navigation.goBack()}/>
+      <ScrollView
+        contentContainerStyle={{
+          flexGrow: 1,
+          paddingBottom: 150,
+          backgroundColor: '#ececec',
+        }}>
+        <View style={styles.container}>
+          <StatusBar barStyle="light-content" backgroundColor="#38CB6C" />
+          <View style={styles.container2} />
+          <View style={styles.imagecont}>
+            <Image style={styles.image} source={item.img} />
+          </View>
+          <View style={styles.container3}>
+            <Text style={styles.text1}>{item.titulo}</Text>
+            <View style={{marginLeft: '5%'}}>{isOffer ? origPrice : null}</View>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <Text style={styles.text2}>{isOffer ? finalPrice : price}</Text>
+              <View style={{marginLeft: 10}}>{isOffer ? offerText : null}</View>
+            </View>
+          </View>
+          <View style={styles.container4}>
+            <TouchableOpacity activeOpacity={0.7} style={styles.button1}>
+              <Text style={styles.text3}>Añadir al carrito</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.container5}>
+            <Text style={styles.text4}>Cantidad</Text>
+            <TouchableOpacity style={styles.button3} activeOpacity={0.7}>
+              <View style={styles.cantContainer1}>
+                <Text style={styles.text7}>1</Text>
+              </View>
+              <View style={styles.cantContainer2}>
+                <Image source={require('../assets/images/down.png')}/>
+              </View>
+            </TouchableOpacity>
+          </View>
+          <View
+            style={{
+              width: '100%',
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginTop: 10,
+            }}>
+            <Seller
+              vendedor={item.vendedor}
+              vendpic={item.vendpic}
+              press={() => {
+                navigation.navigate('Local');
+              }}
+            />
+          </View>
+          <View
+            style={{
+              width: '100%',
+              justifyContent: 'center',
+              marginTop: 30,
+              paddingLeft: 45,
+              paddingRight: 45,
+            }}>
+            <Text style={styles.texttitle}>Información</Text>
+            <Text style={styles.textdesc}>{item.desc}</Text>
+          </View>
+          <View
+            style={{
+              width: '100%',
+              justifyContent: 'center',
+              marginTop: 30,
+              paddingLeft: 45,
+              paddingRight: 45,
+            }}>
+            <Text style={styles.texttitle}>Más productos del vendedor</Text>
+          </View>
+
+          <View style={styles.container6}>
+            <FlatList
+              data={sellerprod}
+              renderItem={({item}) => {
+                return (
+                  <Recommended
+                    index={item.key}
+                    img={item.img}
+                    press={() => {
+                      navigation.push('Producto', {item: item});
+                    }}
+                  />
+                );
+              }}
+              contentContainerStyle={{
+                paddingRight: 40,
+                paddingLeft: 25,
+              }}
+              showsHorizontalScrollIndicator={false}
+              horizontal={true}
+              ListFooterComponent={verMas}
+            />
           </View>
         </View>
-        <View style={styles.container4}>
-          <TouchableOpacity activeOpacity={0.7} style={styles.button1}>
-            <Text style={styles.text3}>Añadir al carrito</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.container5}>
-          <Text style={styles.text4}>Cantidad</Text>
-          <TouchableOpacity style={styles.button3} activeOpacity={0.7}>
-            <View style={styles.cantContainer1}>
-              <Text style={styles.text7}>1</Text>
-            </View>
-            <View style={styles.cantContainer2}>
-              <Image source={require('../assets/images/down.png')}/>
-            </View>
-          </TouchableOpacity>
-        </View>
-        <View
-          style={{
-            width: '100%',
-            alignItems: 'center',
-            justifyContent: 'center',
-            marginTop: 10,
-          }}>
-          <Seller
-            vendedor={item.vendedor}
-            vendpic={item.vendpic}
-            press={() => {
-              navigation.navigate('Local');
-            }}
-          />
-        </View>
-        <View
-          style={{
-            width: '100%',
-            justifyContent: 'center',
-            marginTop: 30,
-            paddingLeft: 45,
-            paddingRight: 45,
-          }}>
-          <Text style={styles.texttitle}>Información</Text>
-          <Text style={styles.textdesc}>{item.desc}</Text>
-        </View>
-        <View
-          style={{
-            width: '100%',
-            justifyContent: 'center',
-            marginTop: 30,
-            paddingLeft: 45,
-            paddingRight: 45,
-          }}>
-          <Text style={styles.texttitle}>Más productos del vendedor</Text>
-        </View>
-
-        <View style={styles.container6}>
-          <FlatList
-            data={sellerprod}
-            renderItem={({item}) => {
-              return (
-                <Recommended
-                  index={item.key}
-                  img={item.img}
-                  press={() => {
-                    navigation.push('Producto', {item: item});
-                  }}
-                />
-              );
-            }}
-            contentContainerStyle={{
-              paddingRight: 40,
-              paddingLeft: 25,
-            }}
-            showsHorizontalScrollIndicator={false}
-            horizontal={true}
-            ListFooterComponent={verMas}
-          />
-        </View>
-      </View>
-    </ScrollView>
-
-    //<View styles={{backgroundColor: "blue", width: "100%", height: "50%"}}></View>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 

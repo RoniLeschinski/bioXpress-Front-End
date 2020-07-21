@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import 'react-native-gesture-handler';
 import Recommended from '../components/Recommended';
+import Header from '../components/Header'
 
 
 var sellerprod = [
@@ -102,64 +103,67 @@ function verMas({index, navigation}) {
 export default function Local({navigation, route}){
 
     return(
+      <SafeAreaView style={{flex:1}}>
+        <Header screen={"other"} press={() => navigation.goBack()}/>
         <ScrollView
-      contentContainerStyle={{
-        flexGrow: 1,
-        paddingBottom: 50,
-        backgroundColor: '#ececec',
-      }}>
-        <View style={styles.container}>
-        <StatusBar barStyle="light-content" backgroundColor="#38CB6C" />
-          <View style={styles.container2} />
-          <View style={styles.imagecont}>
-            <Image style={styles.image} source={require('../assets/images/logohoracio.png')} />
-          </View>
-          <View style={styles.container3}>
-            <Text style={styles.text1}>La huerta de Horacio</Text>
-          </View>
-          <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: "center", width: "100%"}}>
-        <Text style={styles.text2}>VENDEDOR OFICIAL</Text>
-        <Image
-          style={styles.ico}
-          source={require('../assets/images/verifico.png')}
-        />
-        </View>
-        <View style={styles.container5}>
-            <Text style={styles.text3}>Más productos del vendedor</Text>
-          </View>
-        <View style={styles.container4}>
-          <FlatList
-            data={sellerprod}
-            renderItem={({item}) => {
-              return (
-                <Recommended
-                  index={item.key}
-                  img={item.img}
-                  press={() => {
-                    navigation.push('Producto', {item: item});
-                  }}
-                />
-              );
-            }}
-            contentContainerStyle={{
-              paddingRight: 40,
-              paddingLeft: 13,
-            }}
-            showsHorizontalScrollIndicator={false}
-            horizontal={true}
-            ListFooterComponent={verMas}
+        contentContainerStyle={{
+          flexGrow: 1,
+          paddingBottom: 50,
+          backgroundColor: '#ececec',
+        }}>
+          <View style={styles.container}>
+          <StatusBar barStyle="light-content" backgroundColor="#38CB6C" />
+            <View style={styles.container2} />
+            <View style={styles.imagecont}>
+              <Image style={styles.image} source={require('../assets/images/logohoracio.png')} />
+            </View>
+            <View style={styles.container3}>
+              <Text style={styles.text1}>La huerta de Horacio</Text>
+            </View>
+            <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: "center", width: "100%"}}>
+          <Text style={styles.text2}>VENDEDOR OFICIAL</Text>
+          <Image
+            style={styles.ico}
+            source={require('../assets/images/verifico.png')}
           />
-        </View>
-        <View style={styles.container5}>
-            <Text style={styles.text3}>Información del vendedor</Text>
-            <Text style={styles.text4}>Contacto</Text>
-            <Text style={styles.text5}>Teléfono:</Text>
-            <Text style={styles.text5}>Correo Electrónico:</Text>
-            <Text style={styles.text5}>Ubicación:</Text>
-
           </View>
-        </View>
-      </ScrollView>
+          <View style={styles.container5}>
+              <Text style={styles.text3}>Más productos del vendedor</Text>
+            </View>
+          <View style={styles.container4}>
+            <FlatList
+              data={sellerprod}
+              renderItem={({item}) => {
+                return (
+                  <Recommended
+                    index={item.key}
+                    img={item.img}
+                    press={() => {
+                      navigation.push('Producto', {item: item});
+                    }}
+                  />
+                );
+              }}
+              contentContainerStyle={{
+                paddingRight: 40,
+                paddingLeft: 13,
+              }}
+              showsHorizontalScrollIndicator={false}
+              horizontal={true}
+              ListFooterComponent={verMas}
+            />
+          </View>
+          <View style={styles.container5}>
+              <Text style={styles.text3}>Información del vendedor</Text>
+              <Text style={styles.text4}>Contacto</Text>
+              <Text style={styles.text5}>Teléfono:</Text>
+              <Text style={styles.text5}>Correo Electrónico:</Text>
+              <Text style={styles.text5}>Ubicación:</Text>
+
+            </View>
+          </View>
+        </ScrollView>
+      </SafeAreaView>
     )
 }
 

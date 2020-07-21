@@ -15,7 +15,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import Ventas from '../components/Ventas';
 import ItemCard from '../components/ItemCard';
-
+import Header from '../components/Header'
 
 
 
@@ -100,47 +100,50 @@ return (
 
 
 
-export default function VHome() {
+export default function VHome({navigation}) {
   return (
-    <ScrollView
-      style={styles.scroll}
-      contentContainerStyle={{paddingBottom: 50, backgroundColor: '#ececec'}}>
-      <View style={styles.container}>
-        <StatusBar barStyle="light-content" backgroundColor="#38CB6C" />
-        <Text style={styles.texto}>Ventas pendientes</Text>
-        <View style={styles.container2}>
+    <SafeAreaView style={{flex:1}}>
+      <Header screen={"VHome"} press={() => navigation.openDrawer()}/>
+      <ScrollView
+        style={styles.scroll}
+        contentContainerStyle={{paddingBottom: 50, backgroundColor: '#ececec'}}>
+        <View style={styles.container}>
+          <StatusBar barStyle="light-content" backgroundColor="#38CB6C" />
+          <Text style={styles.texto}>Ventas pendientes</Text>
+          <View style={styles.container2}>
+            <Ventas />
+          </View>
+          <Text style={styles.texto}>Mis productos</Text>
+          <View style={styles.container3}>
+          <FlatList
+              data={recos}
+              renderItem={({item}) => {
+                return (
+                  <ItemCard
+                    index={item.key}
+                    img={item.img}
+                    off={item.off}
+                    isOffer={item.isOffer}
+                  />
+                );
+              }}
+              contentContainerStyle={{
+                paddingRight: 30,
+                paddingLeft: 10,
+              }}
+              showsHorizontalScrollIndicator={false}
+              horizontal={true}
+              ListFooterComponent={verMas}
+            />
+          </View>
+          <Text style={styles.texto}>Ventas concretadas</Text>
+          <View style={styles.container3}>
           <Ventas />
-        </View>
-        <Text style={styles.texto}>Mis productos</Text>
-        <View style={styles.container3}>
-        <FlatList
-            data={recos}
-            renderItem={({item}) => {
-              return (
-                <ItemCard
-                  index={item.key}
-                  img={item.img}
-                  off={item.off}
-                  isOffer={item.isOffer}
-                />
-              );
-            }}
-            contentContainerStyle={{
-              paddingRight: 30,
-              paddingLeft: 10,
-            }}
-            showsHorizontalScrollIndicator={false}
-            horizontal={true}
-            ListFooterComponent={verMas}
-          />
-        </View>
-        <Text style={styles.texto}>Ventas concretadas</Text>
-        <View style={styles.container3}>
-        <Ventas />
-        </View>
+          </View>
 
-      </View>
-    </ScrollView>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
