@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import Header from '../components/Header'
 import BtnMiCompra from '../components/BtnMiCompra'
+import ItemCarrito from '../components/ItemCarrito'
 
 
 export default function MiCompra({navigation}){
@@ -19,8 +20,10 @@ export default function MiCompra({navigation}){
         <SafeAreaView style={{flex:1}}>
             <Header screen={"MiCompra"} press={() => navigation.openDrawer()}/>
             <BtnMiCompra isChome={false} press={() => navigation.goBack()}/>
-            <ScrollView>
-                
+            <ScrollView style={{backgroundColor:"#fff"}}>
+                <View style={{alignItems:"center"}}>
+                    <ItemCarrito/>
+                </View>
             </ScrollView>
             <View style={{width:"100%", height:120, alignItems:"center", justifyContent:"center", backgroundColor:"#fff"}}>
                 <TouchableOpacity style={styles.boton} activeOpacity={0.7}>

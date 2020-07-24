@@ -13,7 +13,7 @@ import {
 import 'react-native-gesture-handler';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createDrawerNavigator, DrawerContent } from '@react-navigation/drawer';
 import {CustomDrawer} from './components/CustomDrawer'
 import CHome from './screens/CHome';
 import VHome from './screens/VHome';
@@ -44,7 +44,7 @@ function createStack(){
 export default function App() {
   return (
     <NavigationContainer>
-      <Drawer.Navigator >
+      <Drawer.Navigator drawerContent = {props => <CustomDrawer {...props} />}>
         <Drawer.Screen name="Home Comprador" component={createStack} />
         <Drawer.Screen name="Home Vendedor" component={VHome} />
         <Drawer.Screen name="Favoritos" component={Favoritos} />
