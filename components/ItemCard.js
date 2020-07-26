@@ -8,18 +8,66 @@ export default function ItemCard(props) {
 
   const offerText = <Text style={styles.txt}>-{props.off}%</Text>;
 
+  const isChome = props.isChome;
+
   return (
-    <TouchableOpacity
-      activeOpacity={0.7}
-      style={{marginLeft: 20}}
-      onPress={props.press}>
-      <View style={styles.product}>
-        <Image style={styles.img} source={props.img} />
-        {isOffer ? offerBox : null}
-        {isOffer ? offerText : null}
-      </View>
-    </TouchableOpacity>
+    <View>
+      {isChome ? 
+        <TouchableOpacity
+          activeOpacity={0.7}
+          style={{marginLeft: 20}}
+          onPress={props.press}>
+          <View style={styles.product}>
+            <Image style={styles.img} source={props.img} />
+            {isOffer ? offerBox : null}
+            {isOffer ? offerText : null}
+          </View>
+        </TouchableOpacity>
+       : 
+        <View
+          style={{marginLeft: 0}}>
+          <View style={styles.product}>
+            <Image style={styles.img} source={props.img} />
+            {isOffer ? offerBox : null}
+            {isOffer ? offerText : null}
+            <TouchableOpacity activeOpacity={0.7} style={{width:22, height:22, position:"absolute", marginLeft:10, marginTop:10,}}>
+            <Image source={require('../assets/images/borrar.png')} style={{width:22, height:22}}/>
+          </TouchableOpacity>
+          </View>
+        </View>
+      }
+    </View>
   );
+
+  /* if (props.isCHome == true){
+    return (
+      <TouchableOpacity
+        activeOpacity={0.7}
+        style={{marginLeft: 20}}
+        onPress={props.press}>
+        <View style={styles.product}>
+          <Image style={styles.img} source={props.img} />
+          {isOffer ? offerBox : null}
+          {isOffer ? offerText : null}
+        </View>
+      </TouchableOpacity>
+    )
+  }
+  else if (props.isCHome == false){
+    return (
+      <View
+        style={{marginLeft: 20}}>
+        <View style={styles.product}>
+          <TouchableOpacity style={{width:22, height:22, position:"absolute", marginLeft:10, marginTop:10,}}>
+            <Image source={require('../assets/images/borrar.png')}/>
+          </TouchableOpacity>
+          <Image style={styles.img} source={props.img} />
+          {isOffer ? offerBox : null}
+          {isOffer ? offerText : null}
+        </View>
+      </View>
+    )
+  } */
 }
 
 const styles = StyleSheet.create({

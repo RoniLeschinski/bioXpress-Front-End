@@ -17,7 +17,7 @@ import ItemCard from '../components/ItemCard';
 import Recommended from '../components/Recommended';
 import Header from '../components/Header'
 import BtnMiCompra from '../components/BtnMiCompra'
-//import {recos} from "../utilities/fakeInfo.json";
+//import {recos} from "../utils/fakeInfo.json";
 
 var recos = [
   {
@@ -199,6 +199,7 @@ export default function CHome({navigation}) {
             renderItem={({item}) => {
               return (
                 <ItemCard
+                  isChome={true}
                   index={item.key}
                   img={item.img}
                   off={item.off}
@@ -225,6 +226,7 @@ export default function CHome({navigation}) {
             renderItem={({item}) => {
               return (
                 <ItemCard
+                  isChome={true}
                   index={item.key}
                   img={item.img}
                   off={item.off}
