@@ -110,7 +110,7 @@ export default function Header(props) {
         </View>
       </View>
     );
-  } else if (props.screen == 'Login' || props.screen == 'Register') {
+  } else if (props.screen == 'Login' || props.screen == 'Reg') {
     return (
       <View
         style={{flexDirection: 'row', height: 60, backgroundColor: '#ececec'}}>

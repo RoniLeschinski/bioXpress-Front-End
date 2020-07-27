@@ -16,10 +16,10 @@ import Header from '../components/Header';
 import Input from '../components/Input';
 
 const keyboardVerticalOffset = Platform.OS === 'ios' ? 40 : -200;
-export default function Login({navigation}) {
+export default function Reg({navigation}) {
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#ececec'}}>
-      <Header screen={'Login'} press={() => navigation.goBack()} />
+      <Header screen={'Reg'} press={() => navigation.goBack()} />
       <KeyboardAvoidingView
         contentContainerStyle={styles.container}
         behavior="position"
@@ -29,21 +29,33 @@ export default function Login({navigation}) {
             style={styles.logo}
             source={require('../assets/images/verifico.png')}
           />
-          <Text style={styles.title}>Iniciar sesión</Text>
+          <Text style={styles.title}>
+            ¡Bienvenido a{' '}
+            <Text
+              style={{
+                fontSize: 32,
+                fontWeight: 'bold',
+                marginTop: 5,
+                color: '#38CB6C',
+              }}>
+              bio
+            </Text>
+            Xpress!
+          </Text>
         </View>
-        <View style={{width: '100%', marginTop: 40}}>
-          <Input title="Correo electrónico" isEmail={true} isLog={false} />
+        <View style={{width: '100%', marginTop: 30}}>
+          <Input title="Nombre" name={true} isLog={false} />
           <View style={{marginTop: 15}}>
-            <Input title="Contraseña" isPass={true} isLog={true} />
+            <Input title="Apellido" name={true} isLog={false} />
           </View>
         </View>
-        <View style={{width: '100%', alignItems: 'center', marginTop: 50}}>
+        <View style={{width: '100%', alignItems: 'center', marginTop: 60}}>
           <TouchableOpacity
             style={styles.boton}
             activeOpacity={0.7}
-            onPress={() => navigation.navigate('Home Comprador')}>
+            onPress={() => navigation.navigate('RegNext')}>
             <Text style={{color: '#fff', fontWeight: 'bold', fontSize: 26}}>
-              Ingresar
+              Continuar
             </Text>
           </TouchableOpacity>
         </View>
@@ -76,6 +88,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginTop: 5,
     color: '#4b4b4b',
+    width: '80%',
+    textAlign: 'center',
   },
   boton: {
     backgroundColor: '#38CB6C',

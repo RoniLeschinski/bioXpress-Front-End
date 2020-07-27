@@ -24,6 +24,9 @@ import MisCompras from './screens/MisCompras';
 import Config from './screens/Config';
 import MiCompra from './screens/MiCompra';
 import Login from './screens/Login';
+import Reg from './screens/Reg';
+import RegNext from './screens/RegNext';
+import Intro from './screens/Intro';
 
 const Main = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -31,9 +34,12 @@ const Drawer = createDrawerNavigator();
 function createStack() {
   return (
     <Main.Navigator
-      initialRouteName="Login"
+      initialRouteName="Intro"
       screenOptions={{headerShown: false}}>
+      <Main.Screen name="Intro" component={Intro} />
       <Main.Screen name="Login" component={Login} />
+      <Main.Screen name="RegNext" component={RegNext} />
+      <Main.Screen name="Reg" component={Reg} />
       <Main.Screen name="Home Comprador" component={CHome} />
       <Main.Screen name="Local" component={Local} />
       <Main.Screen name="Producto" component={Producto} />
