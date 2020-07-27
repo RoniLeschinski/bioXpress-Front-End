@@ -1,14 +1,24 @@
-class ProductsService {
+import apiBaseUrl from '../utils/constants'
+
+
+export class ProductsService {
     async fetchRecomendedProducts (){
         var token;
+        var productList;
         try {
             const response = await fetch(
-                {apiBaseUrl} + "/users/login",
-
+                {apiBaseUrl} + "/products/home",{
+                method: 'POST', 
+                headers: {
+                'Content-Type': 'application/json',
+                'Authorization': token
+                }
+        },
             )
             switch(response.statusCode){
                 case 200 : {
-                    token = JSON.parse(response.body)["token"];
+                    productList = JSON.parse(response.body)["data"];
+                    console.log(productList);
                     break;
                 }
                 case 401: {
@@ -24,7 +34,6 @@ class ProductsService {
         catch (e){
             console.log(e);
         }
-        
-        return token;
+        return productList;
     }
 }
