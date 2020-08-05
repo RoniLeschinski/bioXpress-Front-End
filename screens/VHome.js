@@ -120,6 +120,7 @@ export default function VHome({navigation}) {
               renderItem={({item}) => {
                 return (
                   <ItemCard
+                    isChome={true}
                     index={item.key}
                     img={item.img}
                     off={item.off}

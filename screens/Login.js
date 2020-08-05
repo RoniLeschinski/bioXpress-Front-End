@@ -14,9 +14,14 @@ import {
 import {useNavigation, useLinkProps} from '@react-navigation/native';
 import Header from '../components/Header';
 import Input from '../components/Input';
+import {AuthService} from '../services/auth_service';
 
 const keyboardVerticalOffset = Platform.OS === 'ios' ? 40 : -200;
 export default function Login({navigation}) {
+
+  state={
+
+  }
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#ececec'}}>
       <Header screen={'Login'} press={() => navigation.goBack()} />
@@ -41,7 +46,7 @@ export default function Login({navigation}) {
           <TouchableOpacity
             style={styles.boton}
             activeOpacity={0.7}
-            onPress={() => navigation.navigate('Home Comprador')}>
+            onPress={() => logIn()}>
             <Text style={{color: '#fff', fontWeight: 'bold', fontSize: 26}}>
               Ingresar
             </Text>
@@ -50,6 +55,11 @@ export default function Login({navigation}) {
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
+}
+
+function logIn(){
+  const service = new AuthService()
+  service.signInWithEmailAndPassword("test2", "test2")
 }
 
 const styles = StyleSheet.create({

@@ -1,18 +1,18 @@
-import apiBaseUrl from '../utils/constants'
+import {apiBaseUrl} from '../utils/constants'
+import Axios from 'axios';
 
 
 export class ProductsService {
     async fetchRecomendedProducts (){
         var token;
         var productList;
-        try {
-            const response = await fetch(
-                {apiBaseUrl} + "/products/home",{
-                method: 'POST', 
-                headers: {
-                'Content-Type': 'application/json',
-                'Authorization': token
-                }
+        const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': token
+          }
+
+            let response = await Axios.post({apiBaseUrl} + "/products/home",{
+                headers: headers
         },
             )
             switch(response.statusCode){
@@ -30,10 +30,7 @@ export class ProductsService {
                     break;
                 }
             }
-        }
-        catch (e){
-            console.log(e);
-        }
+       
         return productList;
     }
 }
