@@ -29,8 +29,9 @@ export default function Login({navigation}) {
 
   function handleLogIn() {
     const service = new AuthService();
-    service.signInWithEmailAndPassword(email, password);
-    navigation.navigate("Home Comprador")
+    const success = service.signInWithEmailAndPassword(email, password);
+      navigation.navigate("Home Comprador")
+ 
   }
 
   return (

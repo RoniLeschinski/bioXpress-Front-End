@@ -12,7 +12,7 @@ export class AuthService {
     var token;
     const toBase64 = base64_encode(
       email + ':' + password,
-    ); /* new Buffer(email + ":" + password).toString('base64') */
+    ); 
     const credentials = 'Basic ' + toBase64;
     const headers = {
       'Content-Type': 'application/json',
@@ -39,11 +39,11 @@ export class AuthService {
             }
             case 401: {
               console.log('Unauthorized');
-              break;
+              throw "error";
             }
             case 429: {
               console.log('Too Many Requests');
-              break;
+              throw "error";
             }
           }
         },
@@ -57,41 +57,53 @@ export class AuthService {
   }
 
   async registerWithEmail(name, lastName, email, password) {
-    var token;
-    const toBase64 = window.atob({email} + ':' + {password});
-    try {
-      const response = await fetch({apiBaseUrl} + '/users/createUser', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: credentials,
-        },
-        body: JSON.stringify({
-          name: name,
-          lastname: lastName,
-          email: email,
-          password: password,
-        }),
-      });
-      switch (response.statusCode) {
-        case 200: {
-          token = JSON.parse(response.body)['token'];
-          console.log(token);
-          break;
-        }
-        case 403: {
-          console.log('Unauthorized');
-          break;
-        }
-        case 429: {
-          console.log('Too Many Requests');
-          break;
-        }
-      }
-    } catch (e) {
-      console.log(e);
+    const data = {
+      first_name: name,
+      last_name: lastName,
+      username: email,
+      password: password,
     }
+    const headers = {
+      'Content-Type': 'application/json',
+      'Content-Length': data.length
+    }
+    var token;
+    
+      axios
+      .post(
+        apiBaseUrl + '/users/createUser',
+        data,
+        {
+          headers: headers,
+        },
+        
+      )
+      .then(
+        response => {
+          console.log(response.data);
+          switch (response.statusCode) {
+            case 200: {
+              token = JSON.parse(response.body);
+              console.log(response.body);
+              break;
+            }
+            case 401: {
+              console.log('Unauthorized');
+              throw "error";
+            }
+            case 429: {
+              console.log('Too Many Requests');
+              throw "error";
+            }
+          }
+        },
 
+        error => {
+          console.log(error);
+        },
+      );
+
+    
     return token;
   }
 }
