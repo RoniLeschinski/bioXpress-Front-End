@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, useState, useEffect} from 'react';
 import {
   StyleSheet,
   ScrollView,
@@ -17,7 +17,7 @@ import ItemCard from '../components/ItemCard';
 import Recommended from '../components/Recommended';
 import Header from '../components/Header'
 import BtnMiCompra from '../components/BtnMiCompra'
-//import {recos} from "../utils/fakeInfo.json";
+import {ProductsService} from '../services/products_service'
 
 var recos = [
   {
@@ -149,7 +149,25 @@ function verMas({index, navigation}) {
   );
 }
 
+
 export default function CHome({navigation}) {
+
+const [recomendados, setRecomendados] = useState([0])
+
+
+
+const fetchProducts = async() =>{
+  const service = new ProductsService()
+  var products = await service.fetchRecomendedProducts()
+  console.log(products)
+  return products
+}
+
+
+/* useEffect (async() => {
+  setRecomendados(fetchProducts())
+},[]); */
+
   return (
     <SafeAreaView style={{flex:1}}>
       <Header screen={"CHome"} press={() => navigation.openDrawer()}/>
@@ -168,6 +186,7 @@ export default function CHome({navigation}) {
             <ImgPantComp
               img={require('../assets/images/alm.png')}
               txt={'Almacén'}
+              press={()=> fetchProducts()}
             />
             <ImgPantComp
               img={require('../assets/images/fruveg.png')}
@@ -195,7 +214,7 @@ export default function CHome({navigation}) {
         <Text style={styles.texto}>Productos recomendados</Text>
         <View style={styles.container3}>
           <FlatList
-            data={recos}
+            data={recomendados}
             renderItem={({item}) => {
               return (
                 <ItemCard

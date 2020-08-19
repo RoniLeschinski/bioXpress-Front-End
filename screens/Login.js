@@ -30,7 +30,7 @@ export default function Login({navigation}) {
   function handleLogIn() {
     const service = new AuthService();
     const success = service.signInWithEmailAndPassword(email, password);
-      navigation.navigate("Home Comprador")
+    navigation.navigate("Home Comprador")
  
   }
 
@@ -63,13 +63,6 @@ export default function Login({navigation}) {
               />
             </View>
           </View>
-          {/* <Input
-            title="Correo electrónico"
-            isEmail={true}
-            isLog={false}
-            valor={state.email}
-            textInputChange={textInputChange}  
-          />*/}
           <View style={{marginTop: 15}}>
               <View style={styles.container3}>
                 <View style={styles.container3}>
@@ -85,18 +78,11 @@ export default function Login({navigation}) {
                     onChangeText={password => setPassword(password)}
 
                   />
-                  <TouchableOpacity activeOpacity={0.7} style={{marginTop: 15}}>
+                <TouchableOpacity activeOpacity={0.7} style={{marginTop: 15}}>
                   <Text style={styles.textbutton}>Olvidé mi contraseña</Text>
                 </TouchableOpacity>
                 </View>
               </View>
-            {/* <Input
-              title="Contraseña"
-              isPass={true}
-              isLog={true}
-              /* valor={state.password}
-              textInputChange={textInputChange} 
-            /> */}
           </View>
         </View>
         <View style={{width: '100%', alignItems: 'center', marginTop: 50}}>
