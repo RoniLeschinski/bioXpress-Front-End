@@ -168,7 +168,7 @@ export default function Producto({navigation, route}) {
             <Text style={styles.text1}>{item.titulo}</Text>
             <View style={{marginLeft: '5%'}}>{isOffer ? origPrice : null}</View>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <Text style={styles.text2}>{isOffer ? finalPrice : price}</Text>
+              <Text style={styles.text2}>{isOffer ? finalPrice : price} {/* {item.price} */} </Text>
               <View style={{marginLeft: 10}}>{isOffer ? offerText : null}</View>
             </View>
           </View>

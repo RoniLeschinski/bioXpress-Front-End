@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, View, Image, Text, TouchableOpacity} from 'react-native';
+import {apiBaseUrl} from '../utils/constants';
+
 
 export default function ItemCard(props) {
   const isOffer = props.isOffer;
@@ -7,6 +9,8 @@ export default function ItemCard(props) {
   const offerBox = <View style={styles.offerbox} />;
 
   const offerText = <Text style={styles.txt}>-{props.off}%</Text>;
+
+  const source = {apiBaseUrl} + props.img 
 
   const isChome = props.isChome;
 
@@ -18,7 +22,7 @@ export default function ItemCard(props) {
           style={{marginLeft: 20}}
           onPress={props.press}>
           <View style={styles.product}>
-            <Image style={styles.img} source={props.img} />
+            <Image style={styles.img} source={{uri:source}}   />
             {isOffer ? offerBox : null}
             {isOffer ? offerText : null}
           </View>

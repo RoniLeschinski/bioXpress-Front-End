@@ -152,14 +152,14 @@ function verMas({index, navigation}) {
 
 export default function CHome({navigation}) {
 
-const [recomendados, setRecomendados] = useState([0])
+const [recomendados, setRecomendados] = useState([])
 
 
 
 const fetchProducts = async() =>{
   const service = new ProductsService()
   var products = await service.fetchRecomendedProducts()
-  console.log(products)
+  setRecomendados(products)
   return products
 }
 
@@ -215,12 +215,14 @@ const fetchProducts = async() =>{
         <View style={styles.container3}>
           <FlatList
             data={recomendados}
+            keyExtractor={(item, index) => item.id_product}
             renderItem={({item}) => {
+            
               return (
                 <ItemCard
                   isChome={true}
-                  index={item.key}
-                  img={item.img}
+                  index={item.id_product}
+                  img={item.path}
                   off={item.off}
                   isOffer={item.isOffer}
                   press={() => {
