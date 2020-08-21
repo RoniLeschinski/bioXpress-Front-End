@@ -13,6 +13,8 @@ import {
 import 'react-native-gesture-handler';
 import Recommended from '../components/Recommended';
 import Header from '../components/Header'
+import {apiBaseUrl} from '../utils/constants';
+
 
 
 var sellerprod = [
@@ -102,6 +104,10 @@ function verMas({index, navigation}) {
 
 export default function Local({navigation, route}){
 
+  const {item} = route.params;
+
+  const sourceVend = apiBaseUrl + '/' + item.store_pic
+
     return(
       <SafeAreaView style={{flex:1}}>
         <Header screen={"other"} press={() => navigation.goBack()}/>
@@ -115,10 +121,10 @@ export default function Local({navigation, route}){
           <StatusBar barStyle="light-content" backgroundColor="#38CB6C" />
             <View style={styles.container2} />
             <View style={styles.imagecont}>
-              <Image style={styles.image} source={require('../assets/images/logohoracio.png')} />
+              <Image style={styles.image} source={{uri:sourceVend}} />
             </View>
             <View style={styles.container3}>
-              <Text style={styles.text1}>La huerta de Horacio</Text>
+              <Text style={styles.text1}>{item.store_name}</Text>
             </View>
             <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: "center", width: "100%"}}>
           <Text style={styles.text2}>VENDEDOR OFICIAL</Text>

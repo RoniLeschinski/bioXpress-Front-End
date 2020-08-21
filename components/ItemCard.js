@@ -10,9 +10,10 @@ export default function ItemCard(props) {
 
   const offerText = <Text style={styles.txt}>-{props.off}%</Text>;
 
-  const source = {apiBaseUrl} + props.img 
+  const source = apiBaseUrl + '/' + props.img 
 
   const isChome = props.isChome;
+
 
   return (
     <View>

@@ -15,6 +15,8 @@ import Seller from '../components/Seller';
 import Recommended from '../components/Recommended';
 import NumberFormat from 'react-number-format';
 import Header from '../components/Header'
+import {apiBaseUrl} from '../utils/constants';
+
 
 var sellerprod = [
   {
@@ -96,6 +98,10 @@ export default function Producto({navigation, route}) {
 
   const isOffer = item.isOffer;
 
+  const source = apiBaseUrl + '/' + item.path
+
+  const sourceVend = apiBaseUrl + '/' + item.store_pic
+
   const offerText = (
     <Text style={{color: '#38CB6C', fontSize: 18}}>{item.off}% OFF</Text>
   );
@@ -109,7 +115,7 @@ export default function Producto({navigation, route}) {
         textDecorationStyle: 'solid',
       }}>
       <NumberFormat
-        value={item.precio}
+        value={item.price}
         displayType={'text'}
         thousandSeparator={'.'}
         decimalSeparator={','}
@@ -123,7 +129,7 @@ export default function Producto({navigation, route}) {
 
   const finalPrice = (
     <NumberFormat
-      value={item.precio - (item.precio * item.off) / 100}
+      value={item.price - (item.price * item.off) / 100}
       displayType={'text'}
       thousandSeparator={'.'}
       decimalSeparator={','}
@@ -137,7 +143,7 @@ export default function Producto({navigation, route}) {
 
   const price = (
     <NumberFormat
-      value={item.precio}
+      value={item.price}
       displayType={'text'}
       thousandSeparator={'.'}
       decimalSeparator={','}
@@ -162,13 +168,13 @@ export default function Producto({navigation, route}) {
           <StatusBar barStyle="light-content" backgroundColor="#38CB6C" />
           <View style={styles.container2} />
           <View style={styles.imagecont}>
-            <Image style={styles.image} source={item.img} />
+            <Image style={styles.image} source={{uri:source}} />
           </View>
           <View style={styles.container3}>
-            <Text style={styles.text1}>{item.titulo}</Text>
+            <Text style={styles.text1}>{item.title}</Text>
             <View style={{marginLeft: '5%'}}>{isOffer ? origPrice : null}</View>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <Text style={styles.text2}>{isOffer ? finalPrice : price} {/* {item.price} */} </Text>
+              <Text style={styles.text2}>{isOffer ? finalPrice : price}</Text>
               <View style={{marginLeft: 10}}>{isOffer ? offerText : null}</View>
             </View>
           </View>
@@ -196,10 +202,10 @@ export default function Producto({navigation, route}) {
               marginTop: 10,
             }}>
             <Seller
-              vendedor={item.vendedor}
-              vendpic={item.vendpic}
+              vendedor={item.store_name}
+              vendpic={{uri:sourceVend}}
               press={() => {
-                navigation.navigate('Local');
+                navigation.navigate('Local', {item: item});
               }}
             />
           </View>
@@ -212,7 +218,7 @@ export default function Producto({navigation, route}) {
               paddingRight: 45,
             }}>
             <Text style={styles.texttitle}>Información</Text>
-            <Text style={styles.textdesc}>{item.desc}</Text>
+            <Text style={styles.textdesc}>{item.ds_product}</Text>
           </View>
           <View
             style={{
@@ -371,7 +377,7 @@ const styles = StyleSheet.create({
   button1: {
     width: '80%',
     height: 95,
-    backgroundColor: '#38CB6C',
+    backgroundColor: '#0D93FF',
     borderRadius: 20,
     alignItems: 'center',
     justifyContent: 'center',

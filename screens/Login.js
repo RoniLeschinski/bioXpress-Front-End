@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   boton: {
-    backgroundColor: '#38CB6C',
+    backgroundColor: '#0D93FF',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 20,

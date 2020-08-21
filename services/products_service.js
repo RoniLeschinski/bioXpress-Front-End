@@ -10,9 +10,8 @@ import {
 export class ProductsService {
   async fetchRecomendedProducts() {
     var token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZXN1bHQiOnsidXNlcm5hbWUiOiJ0ZXN0IiwiaWRfdXNlciI6MTgsImZpcnN0X25hbWUiOiJSb25pIiwibGFzdF9uYW1lIjoiTGVzY2hpbnNraSIsInByb2ZpbGVfcGljIjoibm8iLCJkc190eXBlIjoiY29tcHJhZG9yIn0sImlhdCI6MTU5Nzk1MzQwMywiZXhwIjoxNTk4MDM5ODAzfQ.NOAHmljsOWWD4DJTqi2ijHj5SvJYLdAP6s7faC8mOfk';
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZXN1bHQiOnsidXNlcm5hbWUiOiJ0ZXN0IiwiaWRfdXNlciI6MTgsImZpcnN0X25hbWUiOiJSb25pIiwibGFzdF9uYW1lIjoiTGVzY2hpbnNraSIsInByb2ZpbGVfcGljIjoibm8iLCJkc190eXBlIjoiY29tcHJhZG9yIn0sImlhdCI6MTU5ODA0NjM0MSwiZXhwIjoxNTk4MTMyNzQxfQ.K22dxhrcPAW7h9Re9CBy4wbfsloEgr6abs1ih2ESTD8';
     var productList = [];
-    var prueba = [1,2,3,4];
     const headers = {
       'Content-Type': 'application/json',
       Authorization: 'Bearer ' + token,
@@ -25,7 +24,6 @@ export class ProductsService {
           headers: headers,
         },
       );
-      productList = prueba
       
       
       /* if (response.statusCode == 200){
@@ -34,6 +32,7 @@ export class ProductsService {
         ); 
         console.log(productList);
       } */
+      console.log(response.data)
         productList = response.data.data 
         console.log(productList)
 
