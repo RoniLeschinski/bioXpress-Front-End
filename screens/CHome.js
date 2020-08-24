@@ -152,8 +152,12 @@ function verMas({index, navigation}) {
 
 export default function CHome({navigation}) {
   const [recomendados, setRecomendados] = useState([]);
+  const [ofertas, setOfertas] = useState([]);
+
 
   const [isLoading, setLoading] = useState(true);
+  const [isLoadingOffer, setLoadingOffer] = useState(true);
+
 
   const fetchProducts = async () => {
     const service = new ProductsService();
@@ -163,8 +167,17 @@ export default function CHome({navigation}) {
     return products;
   };
 
+  const fetchProductsConPromo = async () => {
+    const service = new ProductsService();
+    var products = await service.fetchOfferProducts();
+    setOfertas(products) 
+    setLoadingOffer(false)
+    return products;
+  };
+
   useEffect(() => {
     fetchProducts();
+    fetchProductsConPromo();
   }, []);
 
   return (
@@ -245,15 +258,16 @@ export default function CHome({navigation}) {
           <Text style={styles.texto}>Ofertas</Text>
           <View style={styles.container3}>
             <FlatList
-              data={offer}
+              data={ofertas}
+              keyExtractor={(item, index) => item.id_product}
               renderItem={({item}) => {
                 return (
                   <ItemCard
                     isChome={true}
-                    index={item.key}
-                    img={item.img}
-                    off={item.off}
-                    isOffer={item.isOffer}
+                    index={item.id_product}
+                    img={item.path}
+                    off={item.discount}
+                    isOffer={true}
                     press={() => {
                       navigation.navigate('Producto', {item: item});
                     }}

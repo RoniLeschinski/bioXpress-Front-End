@@ -96,14 +96,20 @@ function verMas({index, navigation}) {
 export default function Producto({navigation, route}) {
   const {item} = route.params;
 
-  const isOffer = item.isOffer;
+  var isOffer;
+
+  if (item.discount != null){
+    isOffer = true;
+  }else{
+    isOffer = false;
+  }
 
   const source = apiBaseUrl + '/' + item.path
 
   const sourceVend = apiBaseUrl + '/' + item.store_pic
 
   const offerText = (
-    <Text style={{color: '#38CB6C', fontSize: 18}}>{item.off}% OFF</Text>
+    <Text style={{color: '#38CB6C', fontSize: 18}}>{item.discount}% OFF</Text>
   );
 
   const origPrice = (
@@ -129,7 +135,7 @@ export default function Producto({navigation, route}) {
 
   const finalPrice = (
     <NumberFormat
-      value={item.price - (item.price * item.off) / 100}
+      value={item.price - (item.price * item.discount) / 100}
       displayType={'text'}
       thousandSeparator={'.'}
       decimalSeparator={','}
