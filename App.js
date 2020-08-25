@@ -27,6 +27,9 @@ import Login from './screens/Login';
 import Reg from './screens/Reg';
 import RegNext from './screens/RegNext';
 import Intro from './screens/Intro';
+import NewPub from './screens/NewPub'
+import NewPubNext from './screens/NewPubNext'
+
 
 const Main = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -44,6 +47,8 @@ function createStack() {
       <Main.Screen name="Local" component={Local} />
       <Main.Screen name="Producto" component={Producto} />
       <Main.Screen name="MiCompra" component={MiCompra} />
+      <Main.Screen name="NewPub" component={NewPub} />
+      <Main.Screen name="NewPubNext" component={NewPubNext} />
     </Main.Navigator>
   );
 }

@@ -106,14 +106,20 @@ export default function VHome({navigation}) {
       <Header screen={"VHome"} press={() => navigation.openDrawer()}/>
       <ScrollView
         style={styles.scroll}
-        contentContainerStyle={{paddingBottom: 50, backgroundColor: '#ececec'}}>
+        contentContainerStyle={{paddingBottom: 120, backgroundColor: '#ececec'}}>
         <View style={styles.container}>
           <StatusBar barStyle="light-content" backgroundColor="#38CB6C" />
-          <Text style={styles.texto}>Ventas pendientes</Text>
+          <View style={styles.container4}>
+            <TouchableOpacity style={styles.button} activeOpacity={0.7} onPress={()=>navigation.navigate("NewPub")}>
+              <Image source={require('../assets/images/masBlanco.png')} style={{width:75, height:75, marginRight:20}}/>
+              <Text style={styles.text2}>Crear nueva publicación</Text>
+            </TouchableOpacity>
+          </View>
+          <Text style={styles.text}>Ventas pendientes</Text>
           <View style={styles.container2}>
             <Ventas />
           </View>
-          <Text style={styles.texto}>Mis productos</Text>
+          <Text style={styles.text}>Mis productos</Text>
           <View style={styles.container3}>
           <FlatList
               data={recos}
@@ -137,7 +143,7 @@ export default function VHome({navigation}) {
               ListFooterComponent={verMas}
             />
           </View>
-          <Text style={styles.texto}>Ventas concretadas</Text>
+          <Text style={styles.text}>Ventas concretadas</Text>
           <View style={styles.container3}>
           <Ventas />
           </View>
@@ -170,13 +176,25 @@ const styles = StyleSheet.create({
     height: 139,
     marginTop: 20,
   },
-  texto: {
+  container4:{
+    width:"100%",
+    height:"20%",
+    alignItems:"center",
+    justifyContent:"center",
+    backgroundColor:"#ececec"
+  },
+  text: {
     color: '#4B4B4B',
     fontWeight: 'bold',
     //fontFamily: "Montserrat-Black",
     fontSize: 24,
     marginLeft: 30,
     marginTop: 30,
+  },
+  text2:{
+    fontSize:21,
+    fontWeight:"bold",
+    color:"#fff"
   },
   scroll: {
     flex: 1,
@@ -194,4 +212,13 @@ const styles = StyleSheet.create({
   list: {
     marginTop: 20,
   },
+  button: {
+    alignItems:"center",
+    justifyContent:"center",
+    flexDirection:"row",
+    width:"90%",
+    height:"80%",
+    backgroundColor:"#0D93FF",
+    borderRadius:20,
+  }
 });

@@ -40,7 +40,7 @@ export function CustomDrawer({navigation}){
               </TouchableOpacity>
             </View>
             <View style={{height:"28%"}}>
-            <TouchableOpacity activeOpacity={0.7} style={styles.button2} >
+            <TouchableOpacity activeOpacity={0.7} style={styles.button2} onPress={() => navigation.navigate('Home Vendedor')}>
                 <Image style={styles.image3} source={require('../assets/images/quieroVender.png')}/>
                 <Text style={styles.text3}>Quiero vender</Text>
             </TouchableOpacity>
