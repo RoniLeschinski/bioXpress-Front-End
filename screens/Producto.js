@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, useState} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -9,6 +9,7 @@ import {
   StatusBar,
   TouchableOpacity,
   Image,
+  Modal,
 } from 'react-native';
 import 'react-native-gesture-handler';
 import Seller from '../components/Seller';
@@ -16,6 +17,7 @@ import Recommended from '../components/Recommended';
 import NumberFormat from 'react-number-format';
 import Header from '../components/Header'
 import {apiBaseUrl} from '../utils/constants';
+import ModalCant from '../components/ModalCant'
 
 
 var sellerprod = [
@@ -98,10 +100,19 @@ export default function Producto({navigation, route}) {
 
   var isOffer;
 
+  
+
   if (item.discount != null){
     isOffer = true;
   }else{
     isOffer = false;
+  }
+  const [modalVisible, setModalVisible] = useState(false);
+  const [cantidad, setCantidad] = useState(1)
+
+  function setCantidadAndClose(cant){
+    setCantidad(cant)
+    setModalVisible(false)
   }
 
   const source = apiBaseUrl + '/' + item.path
@@ -162,7 +173,17 @@ export default function Producto({navigation, route}) {
   );
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{justifyContent:"center"}}>
+
+      <ModalCant 
+      visible={modalVisible}
+      press1={() => setCantidadAndClose(1)}
+      press2={() => setCantidadAndClose(2)}
+      press3={() => setCantidadAndClose(3)}
+      press4={() => setCantidadAndClose(4)}
+      press5={() => setCantidadAndClose(5)}
+      press6={() => setCantidadAndClose(6)}/>
+
       <Header screen={"other"} press={() => navigation.goBack()}/>
       <ScrollView
         contentContainerStyle={{
@@ -191,9 +212,9 @@ export default function Producto({navigation, route}) {
           </View>
           <View style={styles.container5}>
             <Text style={styles.text4}>Cantidad</Text>
-            <TouchableOpacity style={styles.button3} activeOpacity={0.7}>
+            <TouchableOpacity style={styles.button3} activeOpacity={0.7} onPress={() => setModalVisible(true)}>
               <View style={styles.cantContainer1}>
-                <Text style={styles.text7}>1</Text>
+                <Text style={styles.text7}>{cantidad}</Text>
               </View>
               <View style={styles.cantContainer2}>
                 <Image source={require('../assets/images/down.png')}/>
@@ -321,6 +342,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginTop: -225,
   },
+  modalContainer:{
+    alignItems:"center",
+    justifyContent:"center",
+    width:"75%",
+    borderRadius:20,
+    backgroundColor:"#fff",
+    alignSelf:"center",
+    marginTop:"20%",
+    borderWidth:0.5
+  },
   image: {
     width: 310,
     height: 310,
@@ -380,6 +411,17 @@ const styles = StyleSheet.create({
     fontSize:26,
     color:"#4B4B4B"
   },
+  modalText:{
+    fontSize:30,
+    fontWeight:"600",
+    color:"#4B4B4B",
+    marginVertical:20
+  },
+  modalButtonText:{
+    fontSize:20,
+    fontWeight:"600",
+    marginLeft:20
+  },
   button1: {
     width: '80%',
     height: 95,
@@ -400,6 +442,25 @@ const styles = StyleSheet.create({
     backgroundColor:"#fff",
     borderRadius:10,
     flexDirection:"row",
+  },
+  modalButton:{
+    width:"100%",
+    height:60,
+    alignItems:"flex-start",
+    justifyContent:"center",
+    borderTopColor:"#4B4B4B",
+    borderBottomColor:"#4B4B4B",
+    borderTopWidth:0.25,
+    borderBottomWidth:0.25,
+  },
+  modalButton6:{
+    width:"100%",
+    height:60,
+    alignItems:"flex-start",
+    justifyContent:"center",
+    borderTopColor:"#4B4B4B",
+    borderBottomColor:"#4B4B4B",
+    borderTopWidth:0.25,
   },
   texttitle: {
     color: '#4B4B4B',

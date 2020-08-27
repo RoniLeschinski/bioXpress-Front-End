@@ -21,10 +21,34 @@ import Recommended from '../components/Recommended';
 import Header from '../components/Header';
 import BtnMiCompra from '../components/BtnMiCompra';
 import {ProductsService} from '../services/products_service';
+import ModalCategoria from '../components/ModalCategoria';
 
 export default function NewPub({navigation}) {
+
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const [titulo, setTitulo] = useState('')
+  const [idCategoria, setIdCategoria] = useState()
+  const [descripcion, setDescripcion] = useState('')
+  const [imagen, setImagen] = useState('')
+
+  const [categoria, setCategoria] = useState()
+
+  function setCategoriaAndClose(idCat, cat){
+    setIdCategoria(idCat)
+    setCategoria(cat)
+    setModalVisible(false)
+  }
+
   return (
     <SafeAreaView style={{flex: 1}}>
+      <ModalCategoria
+      visible={modalVisible}
+      press1={() => setCategoriaAndClose(1, "Frutas y vegetales")}
+      press2={() => setCategoriaAndClose(3, "Almacén")}
+      press3={() => setCategoriaAndClose(4, "Lácteos")}
+      press4={() => setCategoriaAndClose(5, "Carnes")}
+      press5={() => setCategoriaAndClose(2, "Vegano")}/>
       <Header screen={'VHome'} press={() => navigation.openDrawer()} />
       <Text style={styles.text}>Crear publicación</Text>
       <ScrollView
@@ -53,8 +77,8 @@ export default function NewPub({navigation}) {
                   keyboardType="default"
                   autoCapitalize="words"
                   blurOnSubmit={false}
-                  /* onSubmitEditing={Keyboard.dismiss} */
-                  /* onChangeText={email => setEmail(email)} */
+                  onSubmitEditing={Keyboard.dismiss} 
+                  onChangeText={titulo => setTitulo(titulo)}
                 />
               </View>
             </View>
@@ -89,8 +113,11 @@ export default function NewPub({navigation}) {
                     *
                   </Text>
                 </Text>
-                <TouchableOpacity style={styles.button2} activeOpacity={0.7}>
-                    <Image source={require('../assets/images/flechaAbajo.png')} style={{width:30, height:30, marginRight:10}}/>
+                <TouchableOpacity style={styles.button2} activeOpacity={0.7} onPress={() => setModalVisible(true)}>
+                      <View style={{marginLeft:20, width:"80%"}}>
+                        <Text style={styles.textCategoria}>{categoria}</Text>
+                      </View>
+                      <Image source={require('../assets/images/flechaAbajo.png')} style={{width:30, height:30, marginRight:10}}/>
                 </TouchableOpacity>
               </View>
             </View>
@@ -110,12 +137,12 @@ export default function NewPub({navigation}) {
                   selectionColor="#9de0b5"
                   keyboardType="default"
                   blurOnSubmit={false}
-                  /* onSubmitEditing={Keyboard.dismiss} */
-                  /* onChangeText={email => setEmail(email)} */
+                  onSubmitEditing={Keyboard.dismiss}
+                  onChangeText={descripcion => setDescripcion(descripcion)}
                 />
               </View>
             </View>
-            <TouchableOpacity style={styles.button3} activeOpacity={0.7}>
+            <TouchableOpacity style={styles.button3} activeOpacity={0.7} onPress={() => navigation.navigate('NewPubNext', {titulo:titulo, idCategoria:idCategoria, descripcion:descripcion, imagen:imagen})}>
                 <Text style={{color:"#fff", fontWeight:"bold", fontSize:26}}>Continuar</Text>
             </TouchableOpacity>
           </View>
@@ -187,6 +214,12 @@ const styles = StyleSheet.create({
       fontWeight:"bold",
       color:"#fff",
   },
+  textCategoria:{
+    width:"85%",
+    fontWeight:"600",
+    fontSize:20,
+    color:"#4B4B4B",
+  },
   input: {
     width: '100%',
     height: 60,
@@ -243,12 +276,13 @@ const styles = StyleSheet.create({
   button2:{
       width:"100%",
       height:60,
-      alignItems:"flex-end",
-      justifyContent:"center",
+      alignItems:"center",
+      justifyContent:"flex-start",
       borderRadius:9,
       borderWidth:0.3,
       borderColor:"#4B4B4B",
-      marginBottom:15
+      marginBottom:15,
+      flexDirection:"row"
   },
   button3:{
     alignSelf:"center",
