@@ -19,6 +19,7 @@ import Recommended from '../components/Recommended';
 import Header from '../components/Header';
 import BtnMiCompra from '../components/BtnMiCompra';
 import {ProductsService} from '../services/products_service';
+import ModalCarrito from './ModalCarrito'
 
 var recos = [
   {
@@ -151,12 +152,19 @@ function verMas({index, navigation}) {
 }
 
 export default function CHome({navigation}) {
+
+
   const [recomendados, setRecomendados] = useState([]);
   const [ofertas, setOfertas] = useState([]);
 
 
   const [isLoading, setLoading] = useState(true);
   const [isLoadingOffer, setLoadingOffer] = useState(true);
+
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const [cantidad, setCant] = useState(0)
+  const [precio, setPrice] = useState(0)
 
 
   const fetchProducts = async () => {
@@ -182,6 +190,12 @@ export default function CHome({navigation}) {
 
   return (
     <SafeAreaView style={{flex: 1}}>
+      <ModalCarrito
+      visible={modalVisible}
+      press={()=>setModalVisible(false)}
+      cant={cantidad}
+      price={precio}
+      />
       <Header screen={'CHome'} press={() => navigation.openDrawer()} />
       <ScrollView
         style={styles.scroll}
@@ -198,7 +212,6 @@ export default function CHome({navigation}) {
               <ImgPantComp
                 img={require('../assets/images/alm.png')}
                 txt={'Almacén'}
-                press={() => fetchProducts()}
               />
               <ImgPantComp
                 img={require('../assets/images/fruveg.png')}
@@ -238,7 +251,7 @@ export default function CHome({navigation}) {
                       off={item.off}
                       isOffer={item.isOffer}
                       press={() => {
-                        navigation.navigate('Producto', {item: item});
+                        navigation.navigate('Producto', {item: item, price: precio, cant: cantidad});
                       }}
                     />
                   );
@@ -286,8 +299,10 @@ export default function CHome({navigation}) {
         </View>
       </ScrollView>
       <BtnMiCompra
-        press={() => navigation.navigate('MiCompra')}
+        press={() => setModalVisible(true)}
         isChome={true}
+        cant={cantidad}
+        price={precio}
       />
     </SafeAreaView>
   );

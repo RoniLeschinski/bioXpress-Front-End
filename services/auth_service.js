@@ -62,6 +62,7 @@ export class AuthService {
       last_name: lastName,
       username: email,
       password: password,
+      id_type: 1
     }
     const headers = {
       'Content-Type': 'application/json',

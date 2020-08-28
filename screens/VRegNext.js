@@ -37,9 +37,7 @@ export default function VRegNext({navigation, route}) {
   const [password, setPassword] = useState('');
 
   function handleRegister() {
-    const service = new AuthService();
-    service.registerWithEmail(name, lastName, email, password);
-    navigation.navigate('Home Comprador');
+    navigation.navigate('Home Vendedor');
   }
 
   return (
@@ -239,7 +237,7 @@ export default function VRegNext({navigation, route}) {
           <TouchableOpacity style={styles.boton} activeOpacity={0.7}>
             <Text
               style={{color: '#fff', fontWeight: 'bold', fontSize: 26}}
-              onPress={() => handleRegister(name, lastName)}>
+              onPress={() => handleRegister()}>
               Registrarse
             </Text>
           </TouchableOpacity>

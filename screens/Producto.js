@@ -15,9 +15,10 @@ import 'react-native-gesture-handler';
 import Seller from '../components/Seller';
 import Recommended from '../components/Recommended';
 import NumberFormat from 'react-number-format';
-import Header from '../components/Header'
+import Header from '../components/Header';
 import {apiBaseUrl} from '../utils/constants';
-import ModalCant from '../components/ModalCant'
+import ModalCant from '../components/ModalCant';
+import {ProductsService} from '../services/products_service';
 
 
 var sellerprod = [
@@ -97,27 +98,34 @@ function verMas({index, navigation}) {
 
 export default function Producto({navigation, route}) {
   const {item} = route.params;
+  const {cant} = route.params;
 
   var isOffer;
 
-  
-
-  if (item.discount != null){
+  if (item.discount != null) {
     isOffer = true;
-  }else{
+  } else {
     isOffer = false;
   }
   const [modalVisible, setModalVisible] = useState(false);
-  const [cantidad, setCantidad] = useState(1)
+  const [cantidad, setCantidad] = useState(1);
 
-  function setCantidadAndClose(cant){
-    setCantidad(cant)
-    setModalVisible(false)
+  const [modalVisible2, setModalVisible2] = useState(false);
+
+  function setCantidadAndClose(cant) {
+    setCantidad(cant);
+    setModalVisible(false);
   }
 
-  const source = apiBaseUrl + '/' + item.path
+  function comprarProducto() {
+    const service = new ProductsService();
+    service.buyProductById(item.id_product, cantidad)
+    setModalVisible2(true);
+  }
 
-  const sourceVend = apiBaseUrl + '/' + item.store_pic
+  const source = apiBaseUrl + '/' + item.path;
+
+  const sourceVend = apiBaseUrl + '/' + item.store_pic;
 
   const offerText = (
     <Text style={{color: '#38CB6C', fontSize: 18}}>{item.discount}% OFF</Text>
@@ -173,18 +181,53 @@ export default function Producto({navigation, route}) {
   );
 
   return (
-    <SafeAreaView style={{justifyContent:"center"}}>
+    <SafeAreaView style={{justifyContent: 'center'}}>
+      <Modal animationType="slide" transparent={true} visible={modalVisible2}>
+        <View style={{flex: 1, backgroundColor: 'rgba(56, 203, 108, 0.75)'}}>
+          <View
+            style={{
+              width: '80%',
+              height: '30%',
+              backgroundColor: '#fff',
+              borderRadius: 20,
+              alignSelf: 'center',
+              marginTop: '50%',
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderWidth: 0.25,
+            }}>
+            <Text style={{fontWeight: '600', fontSize: 20, color: '#4B4B4B', textAlign:"center"}}>Tu compra ha sido realizada con éxito</Text>
+            <TouchableOpacity
+              style={{
+                width: '80%',
+                height: '40%',
+                backgroundColor: '#0D93FF',
+                borderRadius: 20,
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginTop:10
+              }}
+              activeOpacity={0.7}
+              onPress={()=>navigation.navigate("Home Comprador")}>
+              <Text style={{fontWeight: 'bold', fontSize: 20, color: 'white'}}>
+                Volver a inicio
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
 
-      <ModalCant 
-      visible={modalVisible}
-      press1={() => setCantidadAndClose(1)}
-      press2={() => setCantidadAndClose(2)}
-      press3={() => setCantidadAndClose(3)}
-      press4={() => setCantidadAndClose(4)}
-      press5={() => setCantidadAndClose(5)}
-      press6={() => setCantidadAndClose(6)}/>
+      <ModalCant
+        visible={modalVisible}
+        press1={() => setCantidadAndClose(1)}
+        press2={() => setCantidadAndClose(2)}
+        press3={() => setCantidadAndClose(3)}
+        press4={() => setCantidadAndClose(4)}
+        press5={() => setCantidadAndClose(5)}
+        press6={() => setCantidadAndClose(6)}
+      />
 
-      <Header screen={"other"} press={() => navigation.goBack()}/>
+      <Header screen={'other'} press={() => navigation.goBack()} />
       <ScrollView
         contentContainerStyle={{
           flexGrow: 1,
@@ -195,7 +238,7 @@ export default function Producto({navigation, route}) {
           <StatusBar barStyle="light-content" backgroundColor="#38CB6C" />
           <View style={styles.container2} />
           <View style={styles.imagecont}>
-            <Image style={styles.image} source={{uri:source}} />
+            <Image style={styles.image} source={{uri: source}} />
           </View>
           <View style={styles.container3}>
             <Text style={styles.text1}>{item.title}</Text>
@@ -206,18 +249,30 @@ export default function Producto({navigation, route}) {
             </View>
           </View>
           <View style={styles.container4}>
-            <TouchableOpacity activeOpacity={0.7} style={styles.button1}>
+            <TouchableOpacity
+              activeOpacity={0.7}
+              style={styles.button1}
+              onPress={() => navigation.navigate('Home Comprador')}>
               <Text style={styles.text3}>Añadir al carrito</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              activeOpacity={0.7}
+              style={[styles.button1, {marginTop: 20}]}
+              onPress={() => comprarProducto()}>
+              <Text style={styles.text3}>Comprar</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.container5}>
             <Text style={styles.text4}>Cantidad</Text>
-            <TouchableOpacity style={styles.button3} activeOpacity={0.7} onPress={() => setModalVisible(true)}>
+            <TouchableOpacity
+              style={styles.button3}
+              activeOpacity={0.7}
+              onPress={() => setModalVisible(true)}>
               <View style={styles.cantContainer1}>
                 <Text style={styles.text7}>{cantidad}</Text>
               </View>
               <View style={styles.cantContainer2}>
-                <Image source={require('../assets/images/down.png')}/>
+                <Image source={require('../assets/images/down.png')} />
               </View>
             </TouchableOpacity>
           </View>
@@ -230,7 +285,7 @@ export default function Producto({navigation, route}) {
             }}>
             <Seller
               vendedor={item.store_name}
-              vendpic={{uri:sourceVend}}
+              vendpic={{uri: sourceVend}}
               press={() => {
                 navigation.navigate('Local', {item: item});
               }}
@@ -314,7 +369,7 @@ const styles = StyleSheet.create({
   },
   container5: {
     width: '100%',
-    height:'10%',
+    height: '10%',
     marginTop: 10,
     justifyContent: 'center',
     alignItems: 'center',
@@ -323,18 +378,18 @@ const styles = StyleSheet.create({
     height: 129,
     marginTop: 20,
   },
-  cantContainer1:{
-    width:"70%",
-    height:"100%",
-    alignItems:"center",
-    justifyContent:"center",
-    borderRightWidth:0.5,
+  cantContainer1: {
+    width: '70%',
+    height: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRightWidth: 0.5,
   },
-  cantContainer2:{
-    width:"30%",
-    height:"100%",
-    alignItems: "center",
-    justifyContent:"center"
+  cantContainer2: {
+    width: '30%',
+    height: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   imagecont: {
     width: '100%',
@@ -342,15 +397,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginTop: -225,
   },
-  modalContainer:{
-    alignItems:"center",
-    justifyContent:"center",
-    width:"75%",
-    borderRadius:20,
-    backgroundColor:"#fff",
-    alignSelf:"center",
-    marginTop:"20%",
-    borderWidth:0.5
+  modalContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '75%',
+    borderRadius: 20,
+    backgroundColor: '#fff',
+    alignSelf: 'center',
+    marginTop: '20%',
+    borderWidth: 0.5,
   },
   image: {
     width: 310,
@@ -388,7 +443,7 @@ const styles = StyleSheet.create({
     color: '#4B4B4B',
     fontWeight: '600',
     fontSize: 21,
-    marginBottom:"1%"
+    marginBottom: '1%',
   },
   text5: {
     color: '#4B4B4B',
@@ -406,21 +461,21 @@ const styles = StyleSheet.create({
     marginLeft: 30,
     marginBottom: 3,
   },
-  text7:{
-    fontWeight:"600",
-    fontSize:26,
-    color:"#4B4B4B"
+  text7: {
+    fontWeight: '600',
+    fontSize: 26,
+    color: '#4B4B4B',
   },
-  modalText:{
-    fontSize:30,
-    fontWeight:"600",
-    color:"#4B4B4B",
-    marginVertical:20
+  modalText: {
+    fontSize: 30,
+    fontWeight: '600',
+    color: '#4B4B4B',
+    marginVertical: 20,
   },
-  modalButtonText:{
-    fontSize:20,
-    fontWeight:"600",
-    marginLeft:20
+  modalButtonText: {
+    fontSize: 20,
+    fontWeight: '600',
+    marginLeft: 20,
   },
   button1: {
     width: '80%',
@@ -436,31 +491,31 @@ const styles = StyleSheet.create({
     backgroundColor: '#38CB6C',
     borderRadius: 1,
   },
-  button3:{
-    width:"30%",
-    height: "40%",
-    backgroundColor:"#fff",
-    borderRadius:10,
-    flexDirection:"row",
+  button3: {
+    width: '30%',
+    height: '40%',
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    flexDirection: 'row',
   },
-  modalButton:{
-    width:"100%",
-    height:60,
-    alignItems:"flex-start",
-    justifyContent:"center",
-    borderTopColor:"#4B4B4B",
-    borderBottomColor:"#4B4B4B",
-    borderTopWidth:0.25,
-    borderBottomWidth:0.25,
+  modalButton: {
+    width: '100%',
+    height: 60,
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+    borderTopColor: '#4B4B4B',
+    borderBottomColor: '#4B4B4B',
+    borderTopWidth: 0.25,
+    borderBottomWidth: 0.25,
   },
-  modalButton6:{
-    width:"100%",
-    height:60,
-    alignItems:"flex-start",
-    justifyContent:"center",
-    borderTopColor:"#4B4B4B",
-    borderBottomColor:"#4B4B4B",
-    borderTopWidth:0.25,
+  modalButton6: {
+    width: '100%',
+    height: 60,
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+    borderTopColor: '#4B4B4B',
+    borderBottomColor: '#4B4B4B',
+    borderTopWidth: 0.25,
   },
   texttitle: {
     color: '#4B4B4B',

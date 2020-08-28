@@ -61,7 +61,7 @@ export default function NewPubNext({navigation, route}) {
       envio,
       retiro,
     );
-    navigation.navigate('Home Comprador');
+    navigation.navigate('Home Vendedor');
   }
 
   function onPressSi() {

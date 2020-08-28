@@ -61,7 +61,7 @@ export default function App() {
     <NavigationContainer>
       <Drawer.Navigator drawerContent={(props) => <CustomDrawer {...props} />}>
         <Drawer.Screen name="Home Comprador" component={createStack} />
-        <Drawer.Screen name="Home Vendedor" component={VReg} />
+        <Drawer.Screen name="Home Vendedor" component={VHome} />
         <Drawer.Screen name="Favoritos" component={Favoritos} />
         <Drawer.Screen name="Mis Compras" component={MisCompras} />
         <Drawer.Screen name="Configuración" component={Config} />
