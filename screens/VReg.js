@@ -15,22 +15,11 @@ import {
 } from 'react-native';
 import {useNavigation, useLinkProps} from '@react-navigation/native';
 import Header from '../components/Header';
-import Input from '../components/Input';
-import {AuthService} from '../services/auth_service';
 
-const keyboardVerticalOffset = Platform.OS === 'ios' ? 40 : -150;
-export default function RegNext({navigation, route}) {
-  const {name} = route.params;
-  const {lastName} = route.params;
-
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-  function handleRegister() {
-    const service = new AuthService();
-    service.registerWithEmail(name, lastName, email, password);
-    navigation.navigate('Home Comprador');
-  }
+const keyboardVerticalOffset = Platform.OS === 'ios' ? 40 : -200;
+export default function VReg({navigation}) {
+  const [name, setName] = useState('');
+  const [lastName, setLastName] = useState('');
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#ececec'}}>
@@ -40,19 +29,17 @@ export default function RegNext({navigation, route}) {
         behavior="position"
         keyboardVerticalOffset={keyboardVerticalOffset}>
         <View style={styles.container2}>
-          <Image
+          {/*           <Image
             style={styles.logo}
             source={require('../assets/images/verifico.png')}
-          />
-          <Text style={styles.title}>
-            {name}, por favor completá los siguientes datos
-          </Text>
+          /> */}
+          <Text style={styles.title}>Registrá tu usuario de vendedor</Text>
         </View>
         <View style={{width: '100%', marginTop: 30}}>
           <View style={styles.container3}>
             <View style={styles.container3}>
               <Text style={styles.title2}>
-                Correo electrónico
+                Nombre de usuario
                 <Text
                   style={{
                     fontSize: 20,
@@ -69,7 +56,7 @@ export default function RegNext({navigation, route}) {
                 autoCapitalize="words"
                 blurOnSubmit={false}
                 onSubmitEditing={Keyboard.dismiss}
-                onChangeText={email => setEmail(email)}
+                onChangeText={name => setName(name)}
               />
             </View>
           </View>
@@ -77,7 +64,7 @@ export default function RegNext({navigation, route}) {
             <View style={styles.container3}>
               <View style={styles.container3}>
                 <Text style={styles.title2}>
-                  Contraseña
+                  DNI
                   <Text
                     style={{
                       fontSize: 20,
@@ -90,23 +77,49 @@ export default function RegNext({navigation, route}) {
                 <TextInput
                   style={styles.input}
                   selectionColor="#9de0b5"
-                  keyboardType="default"
-                  secureTextEntry={true}
-                  autoCapitalize="none"
+                  keyboardType="numeric"
                   blurOnSubmit={false}
                   onSubmitEditing={Keyboard.dismiss}
-                  onChangeText={password => setPassword(password)}
+                  onChangeText={lastName => setLastName(lastName)}
+                />
+              </View>
+            </View>
+          </View>
+          <View style={{marginTop: 15}}>
+            <View style={styles.container3}>
+              <View style={styles.container3}>
+                <Text style={styles.title2}>
+                  Teléfono de contacto
+                  <Text
+                    style={{
+                      fontSize: 20,
+                      fontWeight: '600',
+                      color: '#38CB6C',
+                    }}>
+                    *
+                  </Text>
+                </Text>
+                <TextInput
+                  style={styles.input}
+                  selectionColor="#9de0b5"
+                  keyboardType="phone-pad"
+                  blurOnSubmit={false}
+                  onSubmitEditing={Keyboard.dismiss}
+                  onChangeText={lastName => setLastName(lastName)}
                 />
               </View>
             </View>
           </View>
         </View>
-        <View style={{width: '100%', alignItems: 'center', marginTop: 30}}>
-          <TouchableOpacity style={styles.boton} activeOpacity={0.7}>
-            <Text
-              style={{color: '#fff', fontWeight: 'bold', fontSize: 26}}
-              onPress={() => handleRegister(name, lastName)}>
-              Registrarse
+        <View style={{width: '100%', alignItems: 'center', marginTop: 60}}>
+          <TouchableOpacity
+            style={styles.boton}
+            activeOpacity={0.7}
+            onPress={() =>
+              navigation.navigate('VRegNext', {name: name, lastName: lastName})
+            }>
+            <Text style={{color: '#fff', fontWeight: 'bold', fontSize: 26}}>
+              Continuar
             </Text>
           </TouchableOpacity>
         </View>
@@ -149,6 +162,14 @@ const styles = StyleSheet.create({
     width: '80%',
     textAlign: 'center',
   },
+  boton: {
+    backgroundColor: '#0D93FF',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 20,
+    width: '90%',
+    height: 85,
+  },
   title2: {
     fontWeight: '400',
     fontSize: 20,
@@ -165,13 +186,5 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     paddingLeft: 15,
     fontSize: 18,
-  },
-  boton: {
-    backgroundColor: '#0D93FF',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 20,
-    width: '90%',
-    height: 85,
   },
 });

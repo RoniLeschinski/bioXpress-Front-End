@@ -26,10 +26,11 @@ import MiCompra from './screens/MiCompra';
 import Login from './screens/Login';
 import Reg from './screens/Reg';
 import RegNext from './screens/RegNext';
+import VReg from './screens/VReg';
+import VRegNext from './screens/VRegNext';
 import Intro from './screens/Intro';
-import NewPub from './screens/NewPub'
-import NewPubNext from './screens/NewPubNext'
-
+import NewPub from './screens/NewPub';
+import NewPubNext from './screens/NewPubNext';
 
 const Main = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -43,6 +44,8 @@ function createStack() {
       <Main.Screen name="Login" component={Login} />
       <Main.Screen name="RegNext" component={RegNext} />
       <Main.Screen name="Reg" component={Reg} />
+      <Main.Screen name="VReg" component={VReg} />
+      <Main.Screen name="VRegNext" component={VRegNext} />
       <Main.Screen name="Home Comprador" component={CHome} />
       <Main.Screen name="Local" component={Local} />
       <Main.Screen name="Producto" component={Producto} />
@@ -56,9 +59,9 @@ function createStack() {
 export default function App() {
   return (
     <NavigationContainer>
-      <Drawer.Navigator drawerContent={props => <CustomDrawer {...props} />}>
+      <Drawer.Navigator drawerContent={(props) => <CustomDrawer {...props} />}>
         <Drawer.Screen name="Home Comprador" component={createStack} />
-        <Drawer.Screen name="Home Vendedor" component={VHome} />
+        <Drawer.Screen name="Home Vendedor" component={VReg} />
         <Drawer.Screen name="Favoritos" component={Favoritos} />
         <Drawer.Screen name="Mis Compras" component={MisCompras} />
         <Drawer.Screen name="Configuración" component={Config} />

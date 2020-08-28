@@ -11,7 +11,7 @@ import {
   SafeAreaView,
   KeyboardAvoidingView,
   TextInput,
-  Keyboard
+  Keyboard,
 } from 'react-native';
 import {useNavigation, useLinkProps} from '@react-navigation/native';
 import Header from '../components/Header';
@@ -21,7 +21,6 @@ const keyboardVerticalOffset = Platform.OS === 'ios' ? 40 : -200;
 export default function Reg({navigation}) {
   const [name, setName] = useState('');
   const [lastName, setLastName] = useState('');
-
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#ececec'}}>
@@ -52,7 +51,17 @@ export default function Reg({navigation}) {
         <View style={{width: '100%', marginTop: 30}}>
           <View style={styles.container3}>
             <View style={styles.container3}>
-              <Text style={styles.title2}>Nombre</Text>
+              <Text style={styles.title2}>
+                Nombre
+                <Text
+                  style={{
+                    fontSize: 20,
+                    fontWeight: '600',
+                    color: '#38CB6C',
+                  }}>
+                  *
+                </Text>
+              </Text>
               <TextInput
                 style={styles.input}
                 selectionColor="#9de0b5"
@@ -67,7 +76,17 @@ export default function Reg({navigation}) {
           <View style={{marginTop: 15}}>
             <View style={styles.container3}>
               <View style={styles.container3}>
-                <Text style={styles.title2}>Apellido</Text>
+                <Text style={styles.title2}>
+                  Apellido
+                  <Text
+                    style={{
+                      fontSize: 20,
+                      fontWeight: '600',
+                      color: '#38CB6C',
+                    }}>
+                    *
+                  </Text>
+                </Text>
                 <TextInput
                   style={styles.input}
                   selectionColor="#9de0b5"
@@ -85,7 +104,9 @@ export default function Reg({navigation}) {
           <TouchableOpacity
             style={styles.boton}
             activeOpacity={0.7}
-            onPress={() => navigation.navigate('RegNext', { name:name, lastName:lastName})}>
+            onPress={() =>
+              navigation.navigate('RegNext', {name: name, lastName: lastName})
+            }>
             <Text style={{color: '#fff', fontWeight: 'bold', fontSize: 26}}>
               Continuar
             </Text>
