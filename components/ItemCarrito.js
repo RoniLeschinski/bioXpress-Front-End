@@ -21,6 +21,8 @@ export default function ItemCarrito(props) {
         img={props.img}
         off={props.off}
         isOffer={props.isOffer}
+        offline={false}
+        off={props.off}
       />
       <View style={styles.container2}>
         <Text style={styles.text}>{props.titulo}</Text>
@@ -34,7 +36,7 @@ export default function ItemCarrito(props) {
             <Text style={styles.text5}>Cantidad</Text>
             <TouchableOpacity style={styles.button} activeOpacity={0.7}>
               <View style={styles.cantContainer1}>
-                <Text style={styles.text5}>1</Text>
+                <Text style={styles.text5}>{props.cantidad}</Text>
               </View>
               <View style={styles.cantContainer2}>
                 <Image

@@ -9,9 +9,9 @@ import {
 import FormData from 'form-data'
 
 export class ProductsService {
-  async fetchRecomendedProducts() {
-    var token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZXN1bHQiOnsidXNlcm5hbWUiOiJ0ZXN0IiwiaWRfdXNlciI6MTgsImZpcnN0X25hbWUiOiJSb25pIiwibGFzdF9uYW1lIjoiTGVzY2hpbnNraSIsInByb2ZpbGVfcGljIjoibm8iLCJkc190eXBlIjoiY29tcHJhZG9yIn0sImlhdCI6MTU5ODU4MDQ4MCwiZXhwIjoxNTk4NjY2ODgwfQ.In7TyCyn-3UtsPWJATaCGd0W-_TC-GStmZK5708I53s';
+  async fetchRecomendedProducts(token) {
+    /* var token =
+      ''; */
     var productList = [];
     const headers = {
       'Content-Type': 'application/json',
@@ -33,10 +33,7 @@ export class ProductsService {
         ); 
         console.log(productList);
       } */
-      console.log(response.data)
         productList = response.data.data 
-        console.log(productList)
-
       switch (response.status) {
         case 200: 
           productList = JSON.parse(
@@ -96,9 +93,9 @@ export class ProductsService {
       return productList;
     }
   }
-  async fetchOfferProducts() {
-    var token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZXN1bHQiOnsidXNlcm5hbWUiOiJ0ZXN0IiwiaWRfdXNlciI6MTgsImZpcnN0X25hbWUiOiJSb25pIiwibGFzdF9uYW1lIjoiTGVzY2hpbnNraSIsInByb2ZpbGVfcGljIjoibm8iLCJkc190eXBlIjoiY29tcHJhZG9yIn0sImlhdCI6MTU5ODU4MDQ4MCwiZXhwIjoxNTk4NjY2ODgwfQ.In7TyCyn-3UtsPWJATaCGd0W-_TC-GStmZK5708I53s';
+  async fetchOfferProducts(token) {
+    /* var token =
+      ''; */
     var productList = [];
     const headers = {
       'Content-Type': 'application/json',
@@ -120,9 +117,7 @@ export class ProductsService {
         ); 
         console.log(productList);
       } */
-      console.log(response.data)
         productList = response.data.data 
-        console.log(productList)
 
       switch (response.status) {
         case 200: 
@@ -193,16 +188,8 @@ export class ProductsService {
     data.append('price', precio);
     data.append('title', titulo);
 
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZXN1bHQiOnsidXNlcm5hbWUiOiJ2ZW5kZWRvcjEiLCJpZF91c2VyIjozMiwiZmlyc3RfbmFtZSI6ImhvcmFjaW8iLCJsYXN0X25hbWUiOiJyb2RyaWd1ZXoiLCJwcm9maWxlX3BpYyI6Im5vIiwiZHNfdHlwZSI6InZlbmRlZG9yIn0sImlhdCI6MTU5ODU4ODIyMywiZXhwIjoxNTk4Njc0NjIzfQ.-E2xU3h1le0dsDfOeRVvYkcFV3c8XVjbnATH-6vP2Cg'
+    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZXN1bHQiOnsidXNlcm5hbWUiOiJ2ZW5kZWRvcjEiLCJpZF91c2VyIjozMiwiZmlyc3RfbmFtZSI6ImhvcmFjaW8iLCJsYXN0X25hbWUiOiJyb2RyaWd1ZXoiLCJwcm9maWxlX3BpYyI6Im5vIiwiZHNfdHlwZSI6InZlbmRlZG9yIn0sImlhdCI6MTU5ODYyMjMzNywiZXhwIjoxNTk4NzA4NzM3fQ.ZCRPS-WUPsI4QR_d3-kmwRmSrwr9suqa36dqvGtBfBU'
 
-    /* const data={
-      id_store: 1,
-      stock: stock,
-      id_category: categoria,
-      ds_product: descripcion,
-      price: precio,
-      title: titulo
-    } */
     const headers = {
       'Content-Type': 'multipart/form-data;',
       'Content-Length': data.length,
@@ -240,9 +227,7 @@ export class ProductsService {
         },
       );
   }
-  async buyProductById(id, cant){
-    var token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZXN1bHQiOnsidXNlcm5hbWUiOiJ0ZXN0IiwiaWRfdXNlciI6MTgsImZpcnN0X25hbWUiOiJSb25pIiwibGFzdF9uYW1lIjoiTGVzY2hpbnNraSIsInByb2ZpbGVfcGljIjoibm8iLCJkc190eXBlIjoiY29tcHJhZG9yIn0sImlhdCI6MTU5ODU4MDQ4MCwiZXhwIjoxNTk4NjY2ODgwfQ.In7TyCyn-3UtsPWJATaCGd0W-_TC-GStmZK5708I53s';
+  async buyProductById(id, cant, token){
     const headers = {
       'Content-Type': 'application/json',
       Authorization: 'Bearer ' + token,

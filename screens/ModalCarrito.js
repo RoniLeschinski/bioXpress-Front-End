@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, useContext} from 'react';
 import {
   StyleSheet,
   ScrollView,
@@ -14,6 +14,7 @@ import {
 import Header from '../components/Header'
 import BtnMiCompra from '../components/BtnMiCompra'
 import ItemCarrito from '../components/ItemCarrito'
+import {ProductContext} from '../src/Context/product_context';
 
 
 var recos = [
@@ -64,6 +65,7 @@ var recos = [
   ];
 
 export default function ModalCarrito(props) {
+  const {cantTot, setCantTot, precioTot, setPrecioTot, cart, setCart} = useContext(ProductContext);
   return (
     <Modal animationType="slide" transparent={true} visible={props.visible}>
       <View style={styles.container}>
@@ -73,7 +75,7 @@ export default function ModalCarrito(props) {
             <FlatList
               style={{width: '100%'}}
               contentContainerStyle={{alignItems: 'center'}}
-              data={recos}
+              data={props.carrito}
               renderItem={({item}) => {
                 return (
                   <ItemCarrito
@@ -84,6 +86,8 @@ export default function ModalCarrito(props) {
                     img={item.img}
                     off={item.off}
                     isOffer={item.isOffer}
+                    cantidad={item.cantidad}
+                    off={item.off}
                   />
                 );
               }}

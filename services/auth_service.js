@@ -1,3 +1,4 @@
+import React, {Component, useState, useEffect, useContext} from 'react';
 import {apiBaseUrl} from '../utils/constants';
 import axios from 'axios';
 import {
@@ -6,10 +7,12 @@ import {
   base64url_encode,
   base64_decode,
 } from '../utils/sourceBase64';
+import { AuthContext } from '../src/Context/auth_context';
 
-export class AuthService {
-  async signInWithEmailAndPassword(email, password) {
-    var token;
+
+
+  export async function signInWithEmailAndPassword (email, password){
+    var token; 
     const toBase64 = base64_encode(
       email + ':' + password,
     ); 
@@ -18,8 +21,7 @@ export class AuthService {
       'Content-Type': 'application/json',
       Authorization: credentials,
     };
-
-    axios
+    await axios
       .post(
         apiBaseUrl + '/users/login',
         {user: 'test', password: 'test'},
@@ -27,14 +29,15 @@ export class AuthService {
           headers: headers,
         },
       )
-      
       .then(
         response => {
-          console.log(response.data);
-          switch (response.statusCode) {
+          console.log(response.data.token);
+          
+          switch (response.status) {
             case 200: {
-              token = JSON.parse(response.body)['token'];
-              console.log(token);
+              token = JSON.stringify(response.data.token);
+              console.log(token)
+              return token;
               break;
             }
             case 401: {
@@ -47,16 +50,14 @@ export class AuthService {
             }
           }
         },
-
         error => {
           console.log(error);
         },
       );
-
-    return token;
+      return token
   }
 
-  async registerWithEmail(name, lastName, email, password) {
+  export async function registerWithEmail(name, lastName, email, password) {
     const data = {
       first_name: name,
       last_name: lastName,
@@ -107,4 +108,4 @@ export class AuthService {
     
     return token;
   }
-}
+

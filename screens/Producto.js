@@ -1,4 +1,4 @@
-import React, {Component, useState} from 'react';
+import React, {Component, useState, useContext} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -19,6 +19,8 @@ import Header from '../components/Header';
 import {apiBaseUrl} from '../utils/constants';
 import ModalCant from '../components/ModalCant';
 import {ProductsService} from '../services/products_service';
+import { AuthContext } from '../src/Context/auth_context';
+import {ProductContext} from '../src/Context/product_context';
 
 
 var sellerprod = [
@@ -97,8 +99,9 @@ function verMas({index, navigation}) {
 }
 
 export default function Producto({navigation, route}) {
+  const {token, setToken} = useContext(AuthContext); 
+  const {cantTot, setCantTot, precioTot, setPrecioTot, cart, setCart} = useContext(ProductContext);
   const {item} = route.params;
-  const {cant} = route.params;
 
   var isOffer;
 
@@ -112,6 +115,10 @@ export default function Producto({navigation, route}) {
 
   const [modalVisible2, setModalVisible2] = useState(false);
 
+  var producto = {};
+
+  const precioTotal= precioTot;
+
   function setCantidadAndClose(cant) {
     setCantidad(cant);
     setModalVisible(false);
@@ -119,8 +126,27 @@ export default function Producto({navigation, route}) {
 
   function comprarProducto() {
     const service = new ProductsService();
-    service.buyProductById(item.id_product, cantidad)
+    service.buyProductById(item.id_product, cantidad, token)
     setModalVisible2(true);
+  }
+
+  function agregarAlCarrito(){
+    setCantTot(cantTot + 1)
+    !isOffer ? setPrecioTot(precioTot + item.price * cantidad) : setPrecioTot((item.price - (item.price * item.discount) / 100) * cantidad + precioTotal)
+    producto={
+      key:item.id_product,
+      img:source,
+      titulo:item.title,
+      precio:!isOffer ? (item.price * cantidad).toFixed(2) : ((item.price - (item.price * item.discount) / 100) * cantidad).toFixed(2),
+      off:item.discount,
+      cantidad:cantidad,
+      vendedor:item.store_name,
+      vendpic:item.store_pic,
+      desc:item.ds_product,
+      isOffer:isOffer,
+    }
+    setCart(cart=>[...cart, producto])
+    navigation.navigate("Home Comprador")
   }
 
   const source = apiBaseUrl + '/' + item.path;
@@ -252,7 +278,7 @@ export default function Producto({navigation, route}) {
             <TouchableOpacity
               activeOpacity={0.7}
               style={styles.button1}
-              onPress={() => navigation.navigate('Home Comprador')}>
+              onPress={() => agregarAlCarrito()}>
               <Text style={styles.text3}>Añadir al carrito</Text>
             </TouchableOpacity>
             <TouchableOpacity

@@ -14,6 +14,8 @@ export default function ItemCard(props) {
 
   const isChome = props.isChome;
 
+  var isOffline = props.offline;
+
 
   return (
     <View>
@@ -32,7 +34,7 @@ export default function ItemCard(props) {
         <View
           style={{marginLeft: 0}}>
           <View style={styles.product}>
-            <Image style={styles.img} source={props.img} />
+            <Image style={styles.img} source= {isOffline ? props.img:{uri:props.img}} />
             {isOffer ? offerBox : null}
             {isOffer ? offerText : null}
             <TouchableOpacity activeOpacity={0.7} style={{width:22, height:22, position:"absolute", marginLeft:10, marginTop:10,}}>

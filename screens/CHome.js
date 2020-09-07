@@ -1,4 +1,4 @@
-import React, {Component, useState, useEffect} from 'react';
+import React, {Component, useState, useEffect, useContext} from 'react';
 import {
   StyleSheet,
   ScrollView,
@@ -19,105 +19,9 @@ import Recommended from '../components/Recommended';
 import Header from '../components/Header';
 import BtnMiCompra from '../components/BtnMiCompra';
 import {ProductsService} from '../services/products_service';
-import ModalCarrito from './ModalCarrito'
-
-var recos = [
-  {
-    key: 0,
-    img: require('../assets/images/products/huevos.png'),
-    titulo: 'Docena de huevos pastoriles',
-    precio: 420,
-    vendedor: 'La Huerta de Horacio',
-    vendpic: require('../assets/images/logohoracio.png'),
-    desc:
-      'Huevos pastoriles provenientes de La Pampa, distribuidos por COECO y llevados a tu casa PERSONALMENTE por Horacio.',
-    isOffer: false,
-  },
-  {
-    key: 1,
-    img: require('../assets/images/products/sup.png'),
-    titulo: 'Suprema de pollo',
-    precio: 300,
-    vendedor: 'La Huerta de Horacio',
-    vendpic: require('../assets/images/logohoracio.png'),
-    desc:
-      'Pollo pastoril proveniente de La Pampa, distribuido por COECO y llevado a tu casa PERSONALMENTE por Horacio.',
-    isOffer: false,
-  },
-  {
-    key: 2,
-    img: require('../assets/images/products/huevos.png'),
-    titulo: 'Docena de huevos pastoriles',
-    precio: 420,
-    vendedor: 'La Huerta de Horacio',
-    vendpic: require('../assets/images/logohoracio.png'),
-    desc:
-      'Huevos pastoriles provenientes de La Pampa, distribuidos por COECO y llevados a tu casa PERSONALMENTE por Horacio.',
-    isOffer: false,
-  },
-  {
-    key: 3,
-    img: require('../assets/images/products/sup.png'),
-    titulo: 'Suprema de pollo',
-    precio: 300,
-    vendedor: 'La Huerta de Horacio',
-    vendpic: require('../assets/images/logohoracio.png'),
-    desc:
-      'Pollo pastoril proveniente de La Pampa, distribuido por COECO y llevado a tu casa PERSONALMENTE por Horacio.',
-    isOffer: false,
-  },
-];
-
-var offer = [
-  {
-    key: 0,
-    img: require('../assets/images/products/manz.png'),
-    titulo: 'Manzanas',
-    precio: 250,
-    isOffer: true,
-    off: 30,
-    vendedor: 'La Huerta de Horacio',
-    vendpic: require('../assets/images/logohoracio.png'),
-    desc:
-      'Manzanas provenientes de La Pampa, distribuidos por COECO y llevados a tu casa PERSONALMENTE por Horacio.',
-  },
-  {
-    key: 1,
-    img: require('../assets/images/products/jug.png'),
-    titulo: 'Jugo de Naranja',
-    precio: 180,
-    isOffer: true,
-    off: 20,
-    vendedor: 'La Huerta de Horacio',
-    vendpic: require('../assets/images/logohoracio.png'),
-    desc:
-      'Jugo de naranja proveniente de La Pampa, distribuido por COECO y llevado a tu casa PERSONALMENTE por Horacio.',
-  },
-  {
-    key: 2,
-    img: require('../assets/images/products/manz.png'),
-    titulo: 'Manzanas',
-    precio: 250,
-    isOffer: true,
-    off: 30,
-    vendedor: 'La Huerta de Horacio',
-    vendpic: require('../assets/images/logohoracio.png'),
-    desc:
-      'Manzanas provenientes de La Pampa, distribuidos por COECO y llevados a tu casa PERSONALMENTE por Horacio.',
-  },
-  {
-    key: 3,
-    img: require('../assets/images/products/jug.png'),
-    titulo: 'Jugo de Naranja',
-    precio: 180,
-    isOffer: true,
-    off: 20,
-    vendedor: 'La Huerta de Horacio',
-    vendpic: require('../assets/images/logohoracio.png'),
-    desc:
-      'Jugo de naranja proveniente de La Pampa, distribuido por COECO y llevado a tu casa PERSONALMENTE por Horacio.',
-  },
-];
+import ModalCarrito from './ModalCarrito';
+import {AuthContext} from '../src/Context/auth_context';
+import {ProductContext} from '../src/Context/product_context';
 
 function verMas({index, navigation}) {
   return (
@@ -153,94 +57,130 @@ function verMas({index, navigation}) {
 
 export default function CHome({navigation}) {
 
+  const {cantTot, setCantTot, precioTot, setPrecioTot, cart, setCart} = useContext(ProductContext);
+  const {token, setToken} = useContext(AuthContext);
 
   const [recomendados, setRecomendados] = useState([]);
   const [ofertas, setOfertas] = useState([]);
-
 
   const [isLoading, setLoading] = useState(true);
   const [isLoadingOffer, setLoadingOffer] = useState(true);
 
   const [modalVisible, setModalVisible] = useState(false);
 
-  const [cantidad, setCant] = useState(0)
-  const [precio, setPrice] = useState(0)
 
 
   const fetchProducts = async () => {
     const service = new ProductsService();
-    var products = await service.fetchRecomendedProducts();
-    setRecomendados(products) 
-    setLoading(false)
+    var products = await service.fetchRecomendedProducts(token);
+    setRecomendados(products);
+    setLoading(false);
     return products;
   };
 
   const fetchProductsConPromo = async () => {
     const service = new ProductsService();
-    var products = await service.fetchOfferProducts();
-    setOfertas(products) 
-    setLoadingOffer(false)
+    var products = await service.fetchOfferProducts(token);
+    setOfertas(products);
+    setLoadingOffer(false);
     return products;
   };
 
   useEffect(() => {
     fetchProducts();
     fetchProductsConPromo();
-  }, []);
+    console.log(cart)
+  }, [cart]);
 
   return (
-    <SafeAreaView style={{flex: 1}}>
-      <ModalCarrito
-      visible={modalVisible}
-      press={()=>setModalVisible(false)}
-      cant={cantidad}
-      price={precio}
-      />
-      <Header screen={'CHome'} press={() => navigation.openDrawer()} />
-      <ScrollView
-        style={styles.scroll}
-        contentContainerStyle={{paddingBottom: 30, backgroundColor: '#ececec'}}>
-        <View style={styles.container}>
-          <StatusBar barStyle="light-content" backgroundColor="#38CB6C" />
-          <Text style={styles.texto}>Categorías</Text>
-          <View style={styles.container2}>
-            <ScrollView
-              showsHorizontalScrollIndicator={false}
-              style={styles.scroll2}
-              horizontal={true}
-              contentContainerStyle={{paddingRight: 30}}>
-              <ImgPantComp
-                img={require('../assets/images/alm.png')}
-                txt={'Almacén'}
-              />
-              <ImgPantComp
-                img={require('../assets/images/fruveg.png')}
-                txt={'Frutas y vegetales'}
-              />
-              <ImgPantComp
-                img={require('../assets/images/lac.png')}
-                txt={'Lácteos'}
-              />
-              <ImgPantComp
-                img={require('../assets/images/car.png')}
-                txt={'Carnes'}
-              />
-              <ImgPantComp
-                img={require('../assets/images/veg.png')}
-                txt={'Vegano'}
-              />
-              <ImgPantComp
-                img={require('../assets/images/mas.png')}
-                txt={'Ver más'}
-              />
-            </ScrollView>
-          </View>
+    <ProductContext.Provider value={{cantTot, setCantTot, precioTot, setPrecioTot}}>
+      <SafeAreaView style={{flex: 1}}>
+        <ModalCarrito
+          visible={modalVisible}
+          press={() => setModalVisible(false)}
+          cant={cantTot}
+          price={precioTot.toFixed(2)}
+          carrito={cart}
+        />
+        <Header screen={'CHome'} press={() => navigation.openDrawer()} />
+        <ScrollView
+          style={styles.scroll}
+          contentContainerStyle={{
+            paddingBottom: 30,
+            backgroundColor: '#ececec',
+          }}>
+          <View style={styles.container}>
+            <StatusBar barStyle="light-content" backgroundColor="#38CB6C" />
+            <Text style={styles.texto}>Categorías</Text>
+            <View style={styles.container2}>
+              <ScrollView
+                showsHorizontalScrollIndicator={false}
+                style={styles.scroll2}
+                horizontal={true}
+                contentContainerStyle={{paddingRight: 30}}>
+                <ImgPantComp
+                  img={require('../assets/images/alm.png')}
+                  txt={'Almacén'}
+                />
+                <ImgPantComp
+                  img={require('../assets/images/fruveg.png')}
+                  txt={'Frutas y vegetales'}
+                />
+                <ImgPantComp
+                  img={require('../assets/images/lac.png')}
+                  txt={'Lácteos'}
+                />
+                <ImgPantComp
+                  img={require('../assets/images/car.png')}
+                  txt={'Carnes'}
+                />
+                <ImgPantComp
+                  img={require('../assets/images/veg.png')}
+                  txt={'Vegano'}
+                />
+                <ImgPantComp
+                  img={require('../assets/images/mas.png')}
+                  txt={'Ver más'}
+                />
+              </ScrollView>
+            </View>
 
-          <Text style={styles.texto}>Productos recomendados</Text>
-          <View style={styles.container3}>
-            {!isLoading ? (
+            <Text style={styles.texto}>Productos recomendados</Text>
+            <View style={styles.container3}>
+              {!isLoading ? (
+                <FlatList
+                  data={recomendados}
+                  keyExtractor={(item, index) => item.id_product}
+                  renderItem={({item}) => {
+                    return (
+                      <ItemCard
+                        isChome={true}
+                        index={item.id_product}
+                        img={item.path}
+                        off={item.off}
+                        isOffer={item.isOffer}
+                        press={() => {
+                          navigation.navigate('Producto', {item: item});
+                        }}
+                      />
+                    );
+                  }}
+                  contentContainerStyle={{
+                    paddingRight: 30,
+                    paddingLeft: 10,
+                  }}
+                  showsHorizontalScrollIndicator={false}
+                  horizontal={true}
+                  ListFooterComponent={verMas}
+                />
+              ) : (
+                <ItemCard isChome={true} />
+              )}
+            </View>
+            <Text style={styles.texto}>Ofertas</Text>
+            <View style={styles.container3}>
               <FlatList
-                data={recomendados}
+                data={ofertas}
                 keyExtractor={(item, index) => item.id_product}
                 renderItem={({item}) => {
                   return (
@@ -248,10 +188,10 @@ export default function CHome({navigation}) {
                       isChome={true}
                       index={item.id_product}
                       img={item.path}
-                      off={item.off}
-                      isOffer={item.isOffer}
+                      off={item.discount}
+                      isOffer={true}
                       press={() => {
-                        navigation.navigate('Producto', {item: item, price: precio, cant: cantidad});
+                        navigation.navigate('Producto', {item: item});
                       }}
                     />
                   );
@@ -264,47 +204,17 @@ export default function CHome({navigation}) {
                 horizontal={true}
                 ListFooterComponent={verMas}
               />
-            ) : (
-              <ItemCard isChome={true}/>
-            )}
+            </View>
           </View>
-          <Text style={styles.texto}>Ofertas</Text>
-          <View style={styles.container3}>
-            <FlatList
-              data={ofertas}
-              keyExtractor={(item, index) => item.id_product}
-              renderItem={({item}) => {
-                return (
-                  <ItemCard
-                    isChome={true}
-                    index={item.id_product}
-                    img={item.path}
-                    off={item.discount}
-                    isOffer={true}
-                    press={() => {
-                      navigation.navigate('Producto', {item: item});
-                    }}
-                  />
-                );
-              }}
-              contentContainerStyle={{
-                paddingRight: 30,
-                paddingLeft: 10,
-              }}
-              showsHorizontalScrollIndicator={false}
-              horizontal={true}
-              ListFooterComponent={verMas}
-            />
-          </View>
-        </View>
-      </ScrollView>
-      <BtnMiCompra
-        press={() => setModalVisible(true)}
-        isChome={true}
-        cant={cantidad}
-        price={precio}
-      />
-    </SafeAreaView>
+        </ScrollView>
+        <BtnMiCompra
+          press={() => setModalVisible(true)}
+          isChome={true}
+          cant={cantTot}
+          price={precioTot.toFixed(2)}
+        />
+      </SafeAreaView>
+    </ProductContext.Provider>
   );
 }
 

@@ -1,4 +1,4 @@
-import React, {Component, useState} from 'react';
+import React, {Component, useState, useContext} from 'react';
 import {
   StyleSheet,
   ScrollView,
@@ -16,23 +16,71 @@ import {
 import {useNavigation, useLinkProps} from '@react-navigation/native';
 import Header from '../components/Header';
 import Input from '../components/Input';
-import {AuthService} from '../services/auth_service';
+/* import {signInWithEmailAndPassword} from '../services/auth_service'; */
 import symbolicateStackTrace from 'react-native/Libraries/Core/Devtools/symbolicateStackTrace';
+import { AuthContext } from '../src/Context/auth_context';
+import {
+  base64_encode_data,
+  base64_encode,
+  base64url_encode,
+  base64_decode,
+} from '../utils/sourceBase64';
+import axios from 'axios';
+import {apiBaseUrl} from '../utils/constants';
 
 const keyboardVerticalOffset = Platform.OS === 'ios' ? 40 : -200;
-
 
 export default function Login({navigation}) {
 
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
-  function handleLogIn() {
-    const service = new AuthService();
-    const success = service.signInWithEmailAndPassword(email, password);
-    navigation.navigate("Home Comprador")
- 
+  const {setToken} = useContext(AuthContext); 
+
+  async function signInWithEmailAndPassword (){ 
+    const toBase64 = base64_encode(
+      email + ':' + password,
+    ); 
+    const credentials = 'Basic ' + toBase64;
+    const headers = {
+      'Content-Type': 'application/json',
+      Authorization: credentials,
+    };
+    await axios
+      .post(
+        apiBaseUrl + '/users/login',
+        {user: 'test', password: 'test'},
+        {
+          headers: headers,
+        },
+      )
+      .then(
+        response => {
+          
+          switch (response.status) {
+            case 200: {
+              var token=(response.data.token);
+              setToken(token)
+              console.log(token)
+              break;
+            }
+            case 401: {
+              console.log('Unauthorized');
+              throw "error";
+            }
+            case 429: {
+              console.log('Too Many Requests');
+              throw "error";
+            }
+          }
+        },
+        error => {
+          console.log(error);
+        }, 
+      );
+      navigation.navigate("Home Comprador")
   }
+
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#ececec'}}>
@@ -89,7 +137,7 @@ export default function Login({navigation}) {
           <TouchableOpacity
             style={styles.boton}
             activeOpacity={0.7}
-            onPress={() => handleLogIn()}>
+            onPress={() => signInWithEmailAndPassword()}>
             <Text style={{color: '#fff', fontWeight: 'bold', fontSize: 26}}>
               Ingresar
             </Text>
