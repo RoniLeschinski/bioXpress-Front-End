@@ -1,4 +1,4 @@
-import React, {Component, useState, useEffect} from 'react';
+import React, {Component, useState, useEffect, useContext} from 'react';
 import {
   StyleSheet,
   ScrollView,
@@ -22,10 +22,14 @@ import Recommended from '../components/Recommended';
 import Header from '../components/Header';
 import BtnMiCompra from '../components/BtnMiCompra';
 import {ProductsService} from '../services/products_service';
+import {ProductContext} from '../src/Context/product_context';
 
 const keyboardVerticalOffset = Platform.OS === 'ios' ? 40 : -200;
 
 export default function NewPubNext({navigation, route}) {
+
+  const {uploadProductData, setUploadProductData} = useContext(ProductContext);
+  
   const {titulo} = route.params;
   const {descripcion} = route.params;
   const {idCategoria} = route.params;
@@ -49,9 +53,21 @@ export default function NewPubNext({navigation, route}) {
   const [precio, setPrecio] = useState();
   const [stock, setStock] = useState();
 
+  var data = {};
+
   function postProduct() {
+    /* data={
+      titulo:titulo,
+      idCategoria:idCategoria,
+      descripcion:descripcion,
+      precio:precio,
+      stock:stock,
+      envio:envio,
+      retiro:retiro
+    }
+    setUploadProductData(uploadProductData=>[...uploadProductData, data]) */
     const service = new ProductsService();
-    service.uploadProduct(
+    service.handleChange(
       titulo,
       imagen,
       idCategoria,

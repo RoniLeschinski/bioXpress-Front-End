@@ -100,7 +100,7 @@ function verMas({index, navigation}) {
 
 export default function Producto({navigation, route}) {
   const {token, setToken} = useContext(AuthContext); 
-  const {cantTot, setCantTot, precioTot, setPrecioTot, cart, setCart} = useContext(ProductContext);
+  const {cantTot, setCantTot, precioTot, setPrecioTot, cart, setCart, cartForBack, setCartForBack} = useContext(ProductContext);
   const {item} = route.params;
 
   var isOffer;
@@ -116,6 +116,7 @@ export default function Producto({navigation, route}) {
   const [modalVisible2, setModalVisible2] = useState(false);
 
   var producto = {};
+  var productoForBack = {};
 
   const precioTotal= precioTot;
 
@@ -145,6 +146,11 @@ export default function Producto({navigation, route}) {
       desc:item.ds_product,
       isOffer:isOffer,
     }
+    productoForBack={
+      id_product:item.id_product,
+      quantity:cantidad
+    }
+    setCartForBack(cartForBack=>[...cartForBack, productoForBack])
     setCart(cart=>[...cart, producto])
     navigation.navigate("Home Comprador")
   }

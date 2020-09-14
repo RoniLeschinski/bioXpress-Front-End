@@ -61,7 +61,6 @@ export default function Login({navigation}) {
             case 200: {
               var token=(response.data.token);
               setToken(token)
-              console.log(token)
               break;
             }
             case 401: {

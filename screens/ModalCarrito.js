@@ -102,7 +102,7 @@ export default function ModalCarrito(props) {
             justifyContent: 'center',
             backgroundColor: '#fff',
           }}>
-          <TouchableOpacity style={styles.boton} activeOpacity={0.7}>
+          <TouchableOpacity style={styles.boton} activeOpacity={0.7} onPress={props.press2}>
             <Text style={{color: '#fff', fontWeight: 'bold', fontSize: 26}}>
               Continuar
             </Text>

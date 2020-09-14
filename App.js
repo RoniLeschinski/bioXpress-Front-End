@@ -31,8 +31,13 @@ import VRegNext from './screens/VRegNext';
 import Intro from './screens/Intro';
 import NewPub from './screens/NewPub';
 import NewPubNext from './screens/NewPubNext';
+import EndPurchase1 from './screens/EndPurchase1';
+import EndPurchase2 from './screens/EndPurchase2';
+import EndPurchase3 from './screens/EndPurchase3';
+import EndPurchase4 from './screens/EndPurchase4';
 import {AuthContext} from './src/Context/auth_context';
 import {ProductContext} from './src/Context/product_context';
+import {CartContext} from './src/Context/cart_context';
 
 const Main = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -42,27 +47,49 @@ function createStack() {
   const [token, setToken] = useState();
   const [cantTot, setCantTot] = useState(0);
   const [precioTot, setPrecioTot] = useState(0);
-  const [cart, setCart] = useState(initialArray)
+  const [cart, setCart] = useState(initialArray);
+  const [cartForBack, setCartForBack] = useState(initialArray);
+  const [direc, setDirec] = useState('');
+  const [envio, setEnvio] = useState('');
+  const [uploadProductData, setUploadProductData] = useState({});
 
   return (
     <AuthContext.Provider value={{token, setToken}}>
-      <ProductContext.Provider value ={{cantTot, setCantTot, precioTot, setPrecioTot, cart, setCart}}>
-        <Main.Navigator
-          initialRouteName="Intro"
-          screenOptions={{headerShown: false}}>
-          <Main.Screen name="Intro" component={Intro} />
-          <Main.Screen name="Login" component={Login} />
-          <Main.Screen name="RegNext" component={RegNext} />
-          <Main.Screen name="Reg" component={Reg} />
-          <Main.Screen name="VReg" component={VReg} />
-          <Main.Screen name="VRegNext" component={VRegNext} />
-          <Main.Screen name="Home Comprador" component={CHome} />
-          <Main.Screen name="Producto" component={Producto} />
-          <Main.Screen name="Local" component={Local} />
-          <Main.Screen name="MiCompra" component={MiCompra} />
-          <Main.Screen name="NewPub" component={NewPub} />
-          <Main.Screen name="NewPubNext" component={NewPubNext} />
-        </Main.Navigator>
+      <ProductContext.Provider
+        value={{
+          cantTot,
+          setCantTot,
+          precioTot,
+          setPrecioTot,
+          cart,
+          setCart,
+          cartForBack,
+          setCartForBack,
+          uploadProductData,
+          setUploadProductData
+        }}>
+        <CartContext.Provider value={{direc, setDirec, envio, setEnvio}}>
+          <Main.Navigator
+            initialRouteName="Intro"
+            screenOptions={{headerShown: false}}>
+            <Main.Screen name="Intro" component={Intro} />
+            <Main.Screen name="Login" component={Login} />
+            <Main.Screen name="RegNext" component={RegNext} />
+            <Main.Screen name="Reg" component={Reg} />
+            <Main.Screen name="VReg" component={VReg} />
+            <Main.Screen name="VRegNext" component={VRegNext} />
+            <Main.Screen name="Home Comprador" component={CHome} />
+            <Main.Screen name="Producto" component={Producto} />
+            <Main.Screen name="Local" component={Local} />
+            <Main.Screen name="MiCompra" component={MiCompra} />
+            <Main.Screen name="NewPub" component={NewPub} />
+            <Main.Screen name="NewPubNext" component={NewPubNext} />
+            <Main.Screen name="EndPurchase1" component={EndPurchase1} />
+            <Main.Screen name="EndPurchase2" component={EndPurchase2} />
+            <Main.Screen name="EndPurchase3" component={EndPurchase3} />
+            <Main.Screen name="EndPurchase4" component={EndPurchase4} />
+          </Main.Navigator>
+        </CartContext.Provider>
       </ProductContext.Provider>
     </AuthContext.Provider>
   );

@@ -57,7 +57,7 @@ function verMas({index, navigation}) {
 
 export default function CHome({navigation}) {
 
-  const {cantTot, setCantTot, precioTot, setPrecioTot, cart, setCart} = useContext(ProductContext);
+  const {cantTot, setCantTot, precioTot, setPrecioTot, cart, setCart, cartForBack} = useContext(ProductContext);
   const {token, setToken} = useContext(AuthContext);
 
   const [recomendados, setRecomendados] = useState([]);
@@ -86,11 +86,15 @@ export default function CHome({navigation}) {
     return products;
   };
 
+  function toPurchase(){
+    setModalVisible(false)
+    navigation.navigate("EndPurchase1")
+  }
+
   useEffect(() => {
     fetchProducts();
     fetchProductsConPromo();
-    console.log(cart)
-  }, [cart]);
+  }, [cartForBack]);
 
   return (
     <ProductContext.Provider value={{cantTot, setCantTot, precioTot, setPrecioTot}}>
@@ -101,6 +105,7 @@ export default function CHome({navigation}) {
           cant={cantTot}
           price={precioTot.toFixed(2)}
           carrito={cart}
+          press2={()=>toPurchase()}
         />
         <Header screen={'CHome'} press={() => navigation.openDrawer()} />
         <ScrollView
@@ -222,7 +227,6 @@ const styles = StyleSheet.create({
   container: {
     height: '100%',
     width: '100%',
-    //justifyContent: "center",
     alignItems: 'flex-start',
     backgroundColor: '#ececec',
   },

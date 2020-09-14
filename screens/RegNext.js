@@ -1,4 +1,4 @@
-import React, {Component, useState} from 'react';
+import React, {Component, useState, useContext} from 'react';
 import {
   StyleSheet,
   ScrollView,
@@ -16,7 +16,11 @@ import {
 import {useNavigation, useLinkProps} from '@react-navigation/native';
 import Header from '../components/Header';
 import Input from '../components/Input';
-import {AuthService} from '../services/auth_service';
+/* import {AuthService} from '../services/auth_service'; */
+import { AuthContext } from '../src/Context/auth_context';
+import {apiBaseUrl} from '../utils/constants';
+import axios from 'axios';
+
 
 const keyboardVerticalOffset = Platform.OS === 'ios' ? 40 : -150;
 export default function RegNext({navigation, route}) {
@@ -26,10 +30,60 @@ export default function RegNext({navigation, route}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const {setToken} = useContext(AuthContext); 
+
+  function registerWithEmail() {
+    const data = {
+      first_name: name,
+      last_name: lastName,
+      username: email,
+      password: password,
+      id_type: 1
+    }
+    const headers = {
+      'Content-Type': 'application/json',
+      'Content-Length': data.length
+    }
+    var token;
+    
+      axios
+      .post(
+        apiBaseUrl + '/users/createUser',
+        data,
+        {
+          headers: headers,
+        },
+        
+      )
+      .then(
+        response => {
+          switch (response.status) {
+            case 200: {
+              break;
+            }
+            case 401: {
+              console.log('Unauthorized');
+              throw "error";
+            }
+            case 429: {
+              console.log('Too Many Requests');
+              throw "error";
+            }
+          }
+        },
+
+        error => {
+          console.log(error);
+        },
+      );
+
+      navigation.navigate('Login');
+    
+  }
+
   function handleRegister() {
-    const service = new AuthService();
-    service.registerWithEmail(name, lastName, email, password);
-    navigation.navigate('Home Comprador');
+    registerWithEmail(name, lastName, email, password);
+    
   }
 
   return (
@@ -105,7 +159,7 @@ export default function RegNext({navigation, route}) {
           <TouchableOpacity style={styles.boton} activeOpacity={0.7}>
             <Text
               style={{color: '#fff', fontWeight: 'bold', fontSize: 26}}
-              onPress={() => handleRegister(name, lastName)}>
+              onPress={() => registerWithEmail()}>
               Registrarse
             </Text>
           </TouchableOpacity>

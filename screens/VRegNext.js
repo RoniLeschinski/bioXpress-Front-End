@@ -20,21 +20,28 @@ import {AuthService} from '../services/auth_service';
 import ModalProv from '../components/ModalProv';
 
 const keyboardVerticalOffset = Platform.OS === 'ios' ? 40 : -150;
+
 export default function VRegNext({navigation, route}) {
+
   const [modalVisible, setModalVisible] = useState(false);
   const [categoria, setCategoria] = useState();
   const [idCategoria, setIdCategoria] = useState();
-  function setCategoriaAndClose(idCat, cat) {
-    setIdCategoria(idCat);
-    setCategoria(cat);
+
+  function setProvinciaAndClose(prov) {
+    setProvincia(prov);
     setModalVisible(false);
   }
 
   const {name} = route.params;
-  const {lastName} = route.params;
+  const {DNI} = route.params;
+  const {num} = route.params;
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [provincia, setProvincia] = useState('');
+  const [localidad, setLocalidad] = useState('');
+  const [CP, setCP] = useState('');
+  const [calle, setCalle] = useState('');
+  const [numero, setNumero] = useState('');
+  const [piso, setPiso] = useState('');
 
   function handleRegister() {
     navigation.navigate('Home Vendedor');
@@ -44,34 +51,34 @@ export default function VRegNext({navigation, route}) {
     <SafeAreaView style={{flex: 1, backgroundColor: '#ececec'}}>
       <ModalProv
         visible={modalVisible}
-        press1={() => setCategoriaAndClose(1, 'Buenos Aires')}
+        press1={() => setProvinciaAndClose('Buenos Aires')}
         press2={() =>
-          setCategoriaAndClose(2, 'Ciudad Autónoma de Buenos Aires')
+          setProvinciaAndClose('Ciudad Autónoma de Buenos Aires')
         }
-        press3={() => setCategoriaAndClose(3, 'Catamarca')}
-        press4={() => setCategoriaAndClose(4, 'Chaco')}
-        press5={() => setCategoriaAndClose(5, 'Chubut')}
-        press6={() => setCategoriaAndClose(6, 'Córdoba')}
-        press7={() => setCategoriaAndClose(7, 'Corrientes')}
-        press8={() => setCategoriaAndClose(8, 'Entre Ríos')}
-        press9={() => setCategoriaAndClose(9, 'Formosa')}
-        press10={() => setCategoriaAndClose(10, 'Jujuy')}
-        press11={() => setCategoriaAndClose(11, 'Provincia inexistente')}
-        press12={() => setCategoriaAndClose(12, 'La Rioja')}
-        press13={() => setCategoriaAndClose(13, 'Mendoza')}
-        press14={() => setCategoriaAndClose(14, 'Misiones')}
-        press15={() => setCategoriaAndClose(15, 'Neuquén')}
-        press16={() => setCategoriaAndClose(16, 'Río Negro')}
-        press17={() => setCategoriaAndClose(17, 'Salta')}
-        press18={() => setCategoriaAndClose(18, 'San Juan')}
-        press19={() => setCategoriaAndClose(19, 'San Luis')}
-        press20={() => setCategoriaAndClose(20, 'Santa Cruz')}
-        press21={() => setCategoriaAndClose(21, 'Santa Fe')}
-        press22={() => setCategoriaAndClose(22, 'Santiago del Estero')}
+        press3={() => setProvinciaAndClose('Catamarca')}
+        press4={() => setProvinciaAndClose('Chaco')}
+        press5={() => setProvinciaAndClose('Chubut')}
+        press6={() => setProvinciaAndClose('Córdoba')}
+        press7={() => setProvinciaAndClose('Corrientes')}
+        press8={() => setProvinciaAndClose('Entre Ríos')}
+        press9={() => setProvinciaAndClose('Formosa')}
+        press10={() => setProvinciaAndClose('Jujuy')}
+        press11={() => setProvinciaAndClose('La Pampa')}
+        press12={() => setProvinciaAndClose('La Rioja')}
+        press13={() => setProvinciaAndClose('Mendoza')}
+        press14={() => setProvinciaAndClose('Misiones')}
+        press15={() => setProvinciaAndClose('Neuquén')}
+        press16={() => setProvinciaAndClose('Río Negro')}
+        press17={() => setProvinciaAndClose('Salta')}
+        press18={() => setProvinciaAndClose('San Juan')}
+        press19={() => setProvinciaAndClose('San Luis')}
+        press20={() => setProvinciaAndClose('Santa Cruz')}
+        press21={() => setProvinciaAndClose('Santa Fe')}
+        press22={() => setProvinciaAndClose('Santiago del Estero')}
         press23={() =>
-          setCategoriaAndClose(23, 'Tierra del Fuego e Islas del Atlántico Sur')
+          setProvinciaAndClose('Tierra del Fuego e Islas del Atlántico Sur')
         }
-        press24={() => setCategoriaAndClose(24, 'Tucumán')}
+        press24={() => setProvinciaAndClose('Tucumán')}
       />
       <Header screen={'Reg'} press={() => navigation.goBack()} />
       <KeyboardAvoidingView
@@ -138,7 +145,7 @@ export default function VRegNext({navigation, route}) {
                   autoCapitalize="words"
                   blurOnSubmit={false}
                   onSubmitEditing={Keyboard.dismiss}
-                  onChangeText={email => setEmail(email)}
+                  onChangeText={localidad => setLocalidad(localidad)}
                 />
               </View>
               <View style={{width: '38%'}}>

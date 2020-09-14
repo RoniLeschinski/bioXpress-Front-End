@@ -23,6 +23,8 @@ import Header from '../components/Header';
 import BtnMiCompra from '../components/BtnMiCompra';
 import {ProductsService} from '../services/products_service';
 import ModalCategoria from '../components/ModalCategoria';
+import ImagePicker from 'react-native-image-picker';
+
 const keyboardVerticalOffset = Platform.OS === 'ios' ? 40 : -200;
 
 export default function NewPub({navigation}) {
@@ -31,15 +33,30 @@ export default function NewPub({navigation}) {
   const [titulo, setTitulo] = useState('');
   const [idCategoria, setIdCategoria] = useState();
   const [descripcion, setDescripcion] = useState('');
-  const [imagen, setImagen] = useState('');
+  const [photo, setPhoto] = useState(null);
+  const [isPhoto, setIsPhoto] = useState(false);
 
   const [categoria, setCategoria] = useState();
+
+  const handleChoosePhoto = () => {
+    const options = {
+      noData: true,
+    };
+    ImagePicker.launchImageLibrary(options, response => {
+      if (response.uri) {
+        setPhoto(response);
+        console.log(response)
+      }
+    });
+  setIsPhoto(true)
+};
 
   function setCategoriaAndClose(idCat, cat) {
     setIdCategoria(idCat);
     setCategoria(cat);
     setModalVisible(false);
   }
+
 
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -123,12 +140,19 @@ export default function NewPub({navigation}) {
                     </Text>
                   </Text>
                   <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                    <TouchableOpacity style={styles.button} activeOpacity={0.7}>
+                    <TouchableOpacity
+                      style={styles.button}
+                      activeOpacity={0.7}
+                      onPress={() => handleChoosePhoto()}>
                       <Text style={styles.buttonText}>Subir imagen</Text>
                     </TouchableOpacity>
-                    <View
-                      style={{width: 90, height: 90, backgroundColor: 'grey'}}
-                    />
+                    {!photo ? (<View style={{width: 100, height: 100, borderRadius:5, backgroundColor:"grey"}} />):null}
+                    {photo && (
+                      <Image
+                        source={{uri: photo.uri}}
+                        style={{width: 100, height: 100, borderRadius:5}}
+                      />
+                    )}
                   </View>
                   <Text style={styles.text4}>
                     NOTA: Se recomienda que la imagen tenga un fondo blanco y
@@ -205,7 +229,7 @@ export default function NewPub({navigation}) {
               titulo: titulo,
               idCategoria: idCategoria,
               descripcion: descripcion,
-              imagen: imagen,
+              imagen: photo,
             })
           }>
           <Text style={{color: '#fff', fontWeight: 'bold', fontSize: 26}}>

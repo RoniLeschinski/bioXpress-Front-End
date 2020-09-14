@@ -19,7 +19,8 @@ import Header from '../components/Header';
 const keyboardVerticalOffset = Platform.OS === 'ios' ? 40 : -200;
 export default function VReg({navigation}) {
   const [name, setName] = useState('');
-  const [lastName, setLastName] = useState('');
+  const [DNI, setDNI] = useState('');
+  const [num, setNum] = useState('');
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#ececec'}}>
@@ -80,7 +81,7 @@ export default function VReg({navigation}) {
                   keyboardType="numeric"
                   blurOnSubmit={false}
                   onSubmitEditing={Keyboard.dismiss}
-                  onChangeText={lastName => setLastName(lastName)}
+                  onChangeText={DNI => setDNI(DNI)}
                 />
               </View>
             </View>
@@ -105,7 +106,7 @@ export default function VReg({navigation}) {
                   keyboardType="phone-pad"
                   blurOnSubmit={false}
                   onSubmitEditing={Keyboard.dismiss}
-                  onChangeText={lastName => setLastName(lastName)}
+                  onChangeText={num => setNum(num)}
                 />
               </View>
             </View>
@@ -116,7 +117,7 @@ export default function VReg({navigation}) {
             style={styles.boton}
             activeOpacity={0.7}
             onPress={() =>
-              navigation.navigate('VRegNext', {name: name, lastName: lastName})
+              navigation.navigate('VRegNext', {name: name, DNI: DNI, num: num})
             }>
             <Text style={{color: '#fff', fontWeight: 'bold', fontSize: 26}}>
               Continuar
