@@ -28,7 +28,6 @@ const keyboardVerticalOffset = Platform.OS === 'ios' ? 40 : -200;
 
 export default function NewPubNext({navigation, route}) {
 
-  const {uploadProductData, setUploadProductData} = useContext(ProductContext);
   
   const {titulo} = route.params;
   const {descripcion} = route.params;
@@ -67,7 +66,7 @@ export default function NewPubNext({navigation, route}) {
     }
     setUploadProductData(uploadProductData=>[...uploadProductData, data]) */
     const service = new ProductsService();
-    service.handleChange(
+    service.uploadProduct(
       titulo,
       imagen,
       idCategoria,

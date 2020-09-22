@@ -185,7 +185,7 @@ export class ProductsService {
     console.log(imagen)
 
     const token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZXN1bHQiOnsidXNlcm5hbWUiOiJIb3JhY2lvMSIsImlkX3VzZXIiOjIsImZpcnN0X25hbWUiOiJIb3JhY2lvIiwibGFzdF9uYW1lIjoiR2F0ZSIsInByb2ZpbGVfcGljIjoiaHR0cDovL2xvY2FsaG9zdDozMDAyL3B1YmxpY1xcMTU5NDgzMTIyMTE4NmhvcmFjaW8uanBnIiwiZHNfdHlwZSI6InZlbmRlZG9yIn0sImlhdCI6MTYwMDA0Mzc2OSwiZXhwIjoxNjAwMTMwMTY5fQ.uI-yR6eG-_uVFVUTOw3giI_knZNu2RLbPYWZTMtXcus';
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZXN1bHQiOnsidXNlcm5hbWUiOiJIb3JhY2lvMSIsImlkX3VzZXIiOjIsImZpcnN0X25hbWUiOiJIb3JhY2lvIiwibGFzdF9uYW1lIjoiR2F0ZSIsInByb2ZpbGVfcGljIjoiaHR0cDovL2xvY2FsaG9zdDozMDAyL3B1YmxpY1xcMTU5NDgzMTIyMTE4NmhvcmFjaW8uanBnIiwiZHNfdHlwZSI6InZlbmRlZG9yIn0sImlhdCI6MTYwMDcwOTc2MywiZXhwIjoxNjAwNzk2MTYzfQ.grkPC7th2866j87YejMCWh2p0DcL7XYi2Ag7coRGAaw';
 
     const headers = {
       'Content-Type': `multipart/form-data; boundary=${data._boundary}`,
@@ -219,7 +219,7 @@ export class ProductsService {
       );
   }
 
-  handleChange(
+/*   handleChange(
     titulo,
     selectorFiles: FileList,
     categoria,
@@ -232,7 +232,7 @@ export class ProductsService {
     console.log(selectorFiles)
     this.uploadProduct(
       titulo,
-      selectorFiles,
+      selectorFiles[0],
       categoria,
       descripcion,
       precio,
@@ -240,7 +240,7 @@ export class ProductsService {
       envio,
       retiro,
     );
-  }
+  } */
 
   async buyProductById(id, cant, token) {
     const headers = {
@@ -269,5 +269,46 @@ export class ProductsService {
     axios.post(apiBaseUrl + '/purchase/createcart', data, {
       headers: headers,
     });
+  }
+  async fetchCategory(token, id) {
+    var productList = [];
+    const headers = {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + token,
+    };
+
+    try {
+      var response = await axios.get(apiBaseUrl + '/products/getProductsByCategory/' + id, {
+        headers: headers,
+      });
+
+      productList = response.data.data;
+      switch (response.status) {
+        case 200:
+          productList = JSON.parse(response.data.data);
+          console.log(productList);
+          console.log(prueba);
+          console.log(productList);
+          break;
+
+        case 403:
+          console.log('Unauthorized');
+          throw 'error';
+
+        case 429:
+          console.log('Too Many Requests');
+          throw 'error';
+
+        case 401:
+          console.log('Wrong token');
+          throw 'error';
+      }
+    } catch {
+      error => {
+        console.log(error);
+      };
+
+      return productList;
+    }
   }
 }

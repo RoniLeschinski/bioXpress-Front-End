@@ -48,6 +48,7 @@ export default function EndPurchase4({navigation}) {
     setCart([]);
     setCantTot(0);
     setPrecioTot(0);
+    navigation.navigate("Home Comprador")
   }
 
   return (
@@ -67,7 +68,7 @@ export default function EndPurchase4({navigation}) {
             <Text style={styles.text2}>Total</Text>
           </View>
           <View style={styles.container4}>
-            <Text style={styles.text2}>${precioTot}</Text>
+            <Text style={styles.text2}>${precioTot.toFixed(2)}</Text>
           </View>
         </View>
       </View>
@@ -102,13 +103,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   container3: {
-    width: '82%',
+    width: '78%',
     alignItems: 'flex-start',
     flexDirection: 'row',
     marginLeft: 20,
   },
   container4: {
-    width: '18%',
+    width: '22%',
   },
   continueContainer: {
     width: '100%',

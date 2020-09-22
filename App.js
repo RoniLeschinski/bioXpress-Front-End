@@ -35,13 +35,14 @@ import EndPurchase1 from './screens/EndPurchase1';
 import EndPurchase2 from './screens/EndPurchase2';
 import EndPurchase3 from './screens/EndPurchase3';
 import EndPurchase4 from './screens/EndPurchase4';
+import SelCat from './screens/SelCat';
 import {AuthContext} from './src/Context/auth_context';
 import {ProductContext} from './src/Context/product_context';
 import {CartContext} from './src/Context/cart_context';
 
 const Main = createStackNavigator();
 const Drawer = createDrawerNavigator();
-
+console.disableYellowBox = false;
 function createStack() {
   const initialArray = [];
   const [token, setToken] = useState();
@@ -51,7 +52,6 @@ function createStack() {
   const [cartForBack, setCartForBack] = useState(initialArray);
   const [direc, setDirec] = useState('');
   const [envio, setEnvio] = useState('');
-  const [uploadProductData, setUploadProductData] = useState({});
 
   return (
     <AuthContext.Provider value={{token, setToken}}>
@@ -65,8 +65,6 @@ function createStack() {
           setCart,
           cartForBack,
           setCartForBack,
-          uploadProductData,
-          setUploadProductData
         }}>
         <CartContext.Provider value={{direc, setDirec, envio, setEnvio}}>
           <Main.Navigator
@@ -88,6 +86,7 @@ function createStack() {
             <Main.Screen name="EndPurchase2" component={EndPurchase2} />
             <Main.Screen name="EndPurchase3" component={EndPurchase3} />
             <Main.Screen name="EndPurchase4" component={EndPurchase4} />
+            <Main.Screen name="SelCat" component={SelCat} />
           </Main.Navigator>
         </CartContext.Provider>
       </ProductContext.Provider>
