@@ -42,6 +42,8 @@ import {CartContext} from './src/Context/cart_context';
 const Main = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
+console.disableYellowBox = true;
+
 function createStack() {
   const initialArray = [];
   const [token, setToken] = useState();
@@ -66,7 +68,7 @@ function createStack() {
           cartForBack,
           setCartForBack,
           uploadProductData,
-          setUploadProductData
+          setUploadProductData,
         }}>
         <CartContext.Provider value={{direc, setDirec, envio, setEnvio}}>
           <Main.Navigator
@@ -99,7 +101,8 @@ export default function App() {
   return (
     <NavigationContainer>
       <AuthContext.Provider>
-        <Drawer.Navigator drawerContent={props => <CustomDrawer {...props} />}>
+        <Drawer.Navigator
+          drawerContent={(props) => <CustomDrawer {...props} />}>
           <Drawer.Screen name="Home Comprador" component={createStack} />
           <Drawer.Screen name="Home Vendedor" component={VHome} />
           <Drawer.Screen name="Favoritos" component={Favoritos} />
