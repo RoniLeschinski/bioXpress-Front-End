@@ -22,7 +22,6 @@ import ModalProv from '../components/ModalProv';
 const keyboardVerticalOffset = Platform.OS === 'ios' ? 40 : -150;
 
 export default function VRegNext({navigation, route}) {
-
   const [modalVisible, setModalVisible] = useState(false);
   const [categoria, setCategoria] = useState();
   const [idCategoria, setIdCategoria] = useState();
@@ -52,9 +51,7 @@ export default function VRegNext({navigation, route}) {
       <ModalProv
         visible={modalVisible}
         press1={() => setProvinciaAndClose('Buenos Aires')}
-        press2={() =>
-          setProvinciaAndClose('Ciudad Autónoma de Buenos Aires')
-        }
+        press2={() => setProvinciaAndClose('Ciudad Autónoma de Buenos Aires')}
         press3={() => setProvinciaAndClose('Catamarca')}
         press4={() => setProvinciaAndClose('Chaco')}
         press5={() => setProvinciaAndClose('Chubut')}
@@ -244,8 +241,20 @@ export default function VRegNext({navigation, route}) {
           <TouchableOpacity style={styles.boton} activeOpacity={0.7}>
             <Text
               style={{color: '#fff', fontWeight: 'bold', fontSize: 26}}
-              onPress={() => handleRegister()}>
-              Registrarse
+              onPress={() =>
+                navigation.navigate('VRegImg', {
+                  name: name,
+                  DNI: DNI,
+                  num: num,
+                  provincia: provincia,
+                  localidad: localidad,
+                  CP: CP,
+                  calle: calle,
+                  numero: numero,
+                  piso: piso,
+                })
+              }>
+              Continuar
             </Text>
           </TouchableOpacity>
         </View>

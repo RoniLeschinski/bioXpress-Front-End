@@ -126,22 +126,27 @@ export default function CHome({navigation}) {
                 <ImgPantComp
                   img={require('../assets/images/alm.png')}
                   txt={'Almacén'}
+                  press={() => navigation.navigate("SelCat", {id:3})}
                 />
                 <ImgPantComp
                   img={require('../assets/images/fruveg.png')}
                   txt={'Frutas y vegetales'}
+                  press={() => navigation.navigate("SelCat", {id:1})}
                 />
                 <ImgPantComp
                   img={require('../assets/images/lac.png')}
                   txt={'Lácteos'}
+                  press={() => navigation.navigate("SelCat", {id:4})}
                 />
                 <ImgPantComp
                   img={require('../assets/images/car.png')}
                   txt={'Carnes'}
+                  press={() => navigation.navigate("SelCat", {id:5})}
                 />
                 <ImgPantComp
                   img={require('../assets/images/veg.png')}
                   txt={'Vegano'}
+                  press={() => navigation.navigate("SelCat", {id:2})}
                 />
                 <ImgPantComp
                   img={require('../assets/images/mas.png')}
