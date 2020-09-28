@@ -95,16 +95,58 @@ function createStack() {
 }
 
 export default function App() {
+  const initialArray = [];
+  const [token, setToken] = useState();
+  const [cantTot, setCantTot] = useState(0);
+  const [precioTot, setPrecioTot] = useState(0);
+  const [cart, setCart] = useState(initialArray);
+  const [cartForBack, setCartForBack] = useState(initialArray);
+  const [direc, setDirec] = useState('');
+  const [envio, setEnvio] = useState('');
+
   return (
     <NavigationContainer>
-      <AuthContext.Provider>
-        <Drawer.Navigator drawerContent={props => <CustomDrawer {...props} />}>
-          <Drawer.Screen name="Home Comprador" component={createStack} />
-          <Drawer.Screen name="Home Vendedor" component={VHome} />
-          <Drawer.Screen name="Favoritos" component={Favoritos} />
-          <Drawer.Screen name="Mis Compras" component={MisCompras} />
-          <Drawer.Screen name="Configuración" component={Config} />
-        </Drawer.Navigator>
+      <AuthContext.Provider value={{token, setToken}}>
+        <ProductContext.Provider
+          value={{
+            cantTot,
+            setCantTot,
+            precioTot,
+            setPrecioTot,
+            cart,
+            setCart,
+            cartForBack,
+            setCartForBack,
+          }}>
+          <CartContext.Provider value={{direc, setDirec, envio, setEnvio}}>
+            <Drawer.Navigator
+              initialRouteName="Intro"
+              screenOptions={{headerShown: false}}
+              drawerContent={props => <CustomDrawer {...props} />}>
+              <Drawer.Screen name="Home Comprador" component={CHome} />
+              <Drawer.Screen name="Home Vendedor" component={VHome} />
+              <Drawer.Screen name="Favoritos" component={Favoritos} />
+              <Drawer.Screen name="Mis Compras" component={MisCompras} />
+              <Drawer.Screen name="Configuración" component={Config} />
+              <Drawer.Screen name="Producto" component={Producto} />
+              <Drawer.Screen name="Local" component={Local} />
+              <Drawer.Screen name="MiCompra" component={MiCompra} />
+              <Drawer.Screen name="NewPub" component={NewPub} />
+              <Drawer.Screen name="NewPubNext" component={NewPubNext} />
+              <Drawer.Screen name="EndPurchase1" component={EndPurchase1} />
+              <Drawer.Screen name="EndPurchase2" component={EndPurchase2} />
+              <Drawer.Screen name="EndPurchase3" component={EndPurchase3} />
+              <Drawer.Screen name="EndPurchase4" component={EndPurchase4} />
+              <Drawer.Screen name="SelCat" component={SelCat} />
+              <Drawer.Screen name="Intro" component={Intro} />
+              <Drawer.Screen name="Login" component={Login} />
+              <Drawer.Screen name="RegNext" component={RegNext} />
+              <Drawer.Screen name="Reg" component={Reg} />
+              <Drawer.Screen name="VReg" component={VReg} />
+              <Drawer.Screen name="VRegNext" component={VRegNext} />
+            </Drawer.Navigator>
+          </CartContext.Provider>
+        </ProductContext.Provider>
       </AuthContext.Provider>
     </NavigationContainer>
   );

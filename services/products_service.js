@@ -7,6 +7,7 @@ import {
   base64_decode,
 } from '../utils/sourceBase64';
 import FormData from 'form-data';
+import RNFetchBlob from 'react-native-fetch-blob'
 
 export class ProductsService {
   async fetchRecomendedProducts(token) {
@@ -172,75 +173,36 @@ export class ProductsService {
     envio,
     retiro,
   ) {
-    /* var imagefile = document.querySelector('#imagen'); */
-    let data = new FormData();
+    /* let data = new FormData();
     data.append('id_store', 1);
     data.append('stock', stock);
     data.append('id_category', categoria);
     data.append('ds_product', descripcion);
     data.append('price', precio);
     data.append('title', titulo);
-    data.append('filee', imagen);
+    data.append('filee', imagen); */
 
-    console.log(imagen)
+    console.log(imagen);
 
     const token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZXN1bHQiOnsidXNlcm5hbWUiOiJIb3JhY2lvMSIsImlkX3VzZXIiOjIsImZpcnN0X25hbWUiOiJIb3JhY2lvIiwibGFzdF9uYW1lIjoiR2F0ZSIsInByb2ZpbGVfcGljIjoiaHR0cDovL2xvY2FsaG9zdDozMDAyL3B1YmxpY1xcMTU5NDgzMTIyMTE4NmhvcmFjaW8uanBnIiwiZHNfdHlwZSI6InZlbmRlZG9yIn0sImlhdCI6MTYwMDcwOTc2MywiZXhwIjoxNjAwNzk2MTYzfQ.grkPC7th2866j87YejMCWh2p0DcL7XYi2Ag7coRGAaw';
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZXN1bHQiOnsidXNlcm5hbWUiOiJIb3JhY2lvMSIsImlkX3VzZXIiOjIsImZpcnN0X25hbWUiOiJIb3JhY2lvIiwibGFzdF9uYW1lIjoiR2F0ZSIsInByb2ZpbGVfcGljIjoiaHR0cDovL2xvY2FsaG9zdDozMDAyL3B1YmxpY1xcMTU5NDgzMTIyMTE4NmhvcmFjaW8uanBnIiwiZHNfdHlwZSI6InZlbmRlZG9yIn0sImlhdCI6MTYwMTI0NDI2OSwiZXhwIjoxNjAxMzMwNjY5fQ.DvDq5rSm21La_b4vScZHNuN_BeyCyzyMCMxzaTLpxzM';
 
-    const headers = {
-      'Content-Type': `multipart/form-data; boundary=${data._boundary}`,
+    RNFetchBlob.fetch('POST', apiBaseUrl + '/products/uploadProduct', {
+      'Content-Type': `multipart/form-data`,
       Authorization: 'Bearer ' + token,
-    };
-    axios
-      .post(apiBaseUrl + '/products/uploadProduct', data, {
-        headers: headers,
-      })
-      .then(
-        response => {
-          switch (response.status) {
-            case 200: {
-              console.log(response.data);
-              break;
-            }
-            case 401: {
-              console.log('Unauthorized');
-              throw 'error';
-            }
-            case 429: {
-              console.log('Too Many Requests');
-              throw 'error';
-            }
-          }
-        },
-        
-        error => {
-          console.log(error);
-        },
-      );
+    },[
+      {name: 'id_store', data:'1'}, 
+      {name: 'stock', data:String(stock)}, 
+      {name: 'id_category', data:String(categoria)},
+      {name: 'ds_product', data:String(descripcion)},
+      {name: 'price', data:String(precio)},
+      {name: 'title', data:String(titulo)},
+      {name: 'filee', filename: imagen.fileName, type:imagen.type, data:RNFetchBlob.wrap(imagen.path)} 
+    
+    ])
   }
 
-/*   handleChange(
-    titulo,
-    selectorFiles: FileList,
-    categoria,
-    descripcion,
-    precio,
-    stock,
-    envio,
-    retiro,
-  ) {
-    console.log(selectorFiles)
-    this.uploadProduct(
-      titulo,
-      selectorFiles[0],
-      categoria,
-      descripcion,
-      precio,
-      stock,
-      envio,
-      retiro,
-    );
-  } */
+
 
   async buyProductById(id, cant, token) {
     const headers = {
@@ -278,9 +240,12 @@ export class ProductsService {
     };
 
     try {
-      var response = await axios.get(apiBaseUrl + '/products/getProductsByCategory/' + id, {
-        headers: headers,
-      });
+      var response = await axios.get(
+        apiBaseUrl + '/products/getProductsByCategory/' + id,
+        {
+          headers: headers,
+        },
+      );
 
       productList = response.data.data;
       switch (response.status) {

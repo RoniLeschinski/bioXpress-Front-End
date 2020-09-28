@@ -15,30 +15,31 @@ import Header from '../components/Header';
 import ItemCat from '../components/ItemCat';
 import {AuthContext} from '../src/Context/auth_context';
 import {ProductsService} from '../services/products_service';
-import { useLinkProps } from '@react-navigation/native';
+import {useLinkProps} from '@react-navigation/native';
 
 export default function SelCat({navigation, route}) {
   const {id} = route.params;
   const {token} = useContext(AuthContext);
 
   const [categoryProd, setCategoryProd] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const fetchProducts = async () => {
     const service = new ProductsService();
     var products = await service.fetchCategory(token, id);
     setCategoryProd(products);
     return products;
-};
-useEffect(() => {
+  };
+  useEffect(() => {
     fetchProducts();
-  },);
+    setIsLoading(false)
+  }, [categoryProd]);
 
   return (
     <SafeAreaView style={{flex: 1}}>
       <Header screen={'other'} press={() => navigation.goBack()} />
       <View style={styles.container}>
-
-              <FlatList
+        <FlatList
           data={categoryProd}
           keyExtractor={(item, index) => item.id_product}
           renderItem={({item}) => {
@@ -59,10 +60,9 @@ useEffect(() => {
           contentContainerStyle={{
             alignItems: 'flex-start',
             justifyContent: 'center',
-            paddingBottom:60
+            paddingBottom: 60,
           }}
         />
-        
       </View>
     </SafeAreaView>
   );
