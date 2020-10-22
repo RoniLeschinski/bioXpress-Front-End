@@ -63,6 +63,15 @@ export default function VRegImg({navigation, route}) {
   }
 
 
+ 
+
+  const [photo, setPhoto] = useState(null);
+  const [isPhoto, setIsPhoto] = useState(false);
+
+  function handleRegister() {
+    navigation.navigate('Home Vendedor');
+  }
+
   const handleChoosePhoto = () => {
     const options = {
       noData: true,

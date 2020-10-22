@@ -17,8 +17,12 @@
     "axios": "^0.19.2",
     "form-data": "^3.0.0",
     "react": "16.11.0",
+<<<<<<< HEAD
     "react-native": "0.62.2",
     "react-native-fetch-blob": "^0.10.8",
+=======
+    "react-native": "^0.63.2",
+>>>>>>> 0c61597febd4453e2925a10ed93c14f6929f35c4
     "react-native-gesture-handler": "^1.6.1",
     "react-native-image-picker": "^2.3.3",
     "react-native-reanimated": "^1.9.0",

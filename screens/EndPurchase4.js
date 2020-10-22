@@ -48,7 +48,7 @@ export default function EndPurchase4({navigation}) {
     setCart([]);
     setCantTot(0);
     setPrecioTot(0);
-    navigation.navigate("Home Comprador")
+    navigation.navigate('Home Comprador');
   }
 
   return (
