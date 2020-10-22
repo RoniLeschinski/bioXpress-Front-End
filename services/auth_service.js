@@ -8,8 +8,7 @@ import {
   base64_decode,
 } from '../utils/sourceBase64';
 import { AuthContext } from '../src/Context/auth_context';
-
-
+import RNFetchBlob from 'react-native-fetch-blob'
 
   export async function signInWithEmailAndPassword (email, password){
     var token; 

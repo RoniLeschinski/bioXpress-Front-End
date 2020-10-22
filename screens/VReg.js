@@ -40,7 +40,7 @@ export default function VReg({navigation}) {
           <View style={styles.container3}>
             <View style={styles.container3}>
               <Text style={styles.title2}>
-                Nombre de usuario
+                Nombre del local
                 <Text
                   style={{
                     fontSize: 20,

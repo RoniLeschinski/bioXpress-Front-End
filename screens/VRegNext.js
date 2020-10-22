@@ -18,11 +18,11 @@ import Header from '../components/Header';
 import Input from '../components/Input';
 import {AuthService} from '../services/auth_service';
 import ModalProv from '../components/ModalProv';
+import { call } from 'react-native-reanimated';
 
 const keyboardVerticalOffset = Platform.OS === 'ios' ? 40 : -150;
 
 export default function VRegNext({navigation, route}) {
-
   const [modalVisible, setModalVisible] = useState(false);
   const [categoria, setCategoria] = useState();
   const [idCategoria, setIdCategoria] = useState();
@@ -52,9 +52,7 @@ export default function VRegNext({navigation, route}) {
       <ModalProv
         visible={modalVisible}
         press1={() => setProvinciaAndClose('Buenos Aires')}
-        press2={() =>
-          setProvinciaAndClose('Ciudad Autónoma de Buenos Aires')
-        }
+        press2={() => setProvinciaAndClose('Ciudad Autónoma de Buenos Aires')}
         press3={() => setProvinciaAndClose('Catamarca')}
         press4={() => setProvinciaAndClose('Chaco')}
         press5={() => setProvinciaAndClose('Chubut')}
@@ -113,7 +111,7 @@ export default function VRegNext({navigation, route}) {
                   onPress={() => setModalVisible(true)}>
                   <View style={{marginLeft: 20, width: '80%'}}>
                     <Text numberOfLines={1} style={styles.textCategoria}>
-                      {categoria}
+                      {provincia}
                     </Text>
                   </View>
                   <Image
@@ -166,7 +164,7 @@ export default function VRegNext({navigation, route}) {
                   keyboardType="numeric"
                   blurOnSubmit={false}
                   onSubmitEditing={Keyboard.dismiss}
-                  onChangeText={email => setEmail(email)}
+                  onChangeText={CP => setCP(CP)}
                 />
               </View>
             </View>
@@ -193,7 +191,7 @@ export default function VRegNext({navigation, route}) {
                     autoCapitalize="words"
                     blurOnSubmit={false}
                     onSubmitEditing={Keyboard.dismiss}
-                    onChangeText={email => setEmail(email)}
+                    onChangeText={calle => setCalle(calle)}
                   />
                 </View>
               </View>
@@ -221,7 +219,7 @@ export default function VRegNext({navigation, route}) {
                     autoCapitalize="words"
                     blurOnSubmit={false}
                     onSubmitEditing={Keyboard.dismiss}
-                    onChangeText={email => setEmail(email)}
+                    onChangeText={numero => setNumero(numero)}
                   />
                 </View>
                 <View style={{width: '49%'}}>
@@ -233,7 +231,7 @@ export default function VRegNext({navigation, route}) {
                     autoCapitalize="words"
                     blurOnSubmit={false}
                     onSubmitEditing={Keyboard.dismiss}
-                    onChangeText={email => setEmail(email)}
+                    onChangeText={piso => setPiso(piso)}
                   />
                 </View>
               </View>
@@ -244,8 +242,20 @@ export default function VRegNext({navigation, route}) {
           <TouchableOpacity style={styles.boton} activeOpacity={0.7}>
             <Text
               style={{color: '#fff', fontWeight: 'bold', fontSize: 26}}
-              onPress={() => handleRegister()}>
-              Registrarse
+              onPress={() =>
+                navigation.navigate('VRegImg', {
+                  name: name,
+                  DNI: DNI,
+                  num: num,
+                  provincia: provincia,
+                  localidad: localidad,
+                  CP: CP,
+                  calle: calle,
+                  numero: numero,
+                  piso: piso,
+                })
+              }>
+              Continuar
             </Text>
           </TouchableOpacity>
         </View>

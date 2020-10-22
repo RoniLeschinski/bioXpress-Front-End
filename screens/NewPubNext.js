@@ -28,7 +28,7 @@ const keyboardVerticalOffset = Platform.OS === 'ios' ? 40 : -200;
 
 export default function NewPubNext({navigation, route}) {
 
-  
+  const {token} = useContext(AuthContext); 
   const {titulo} = route.params;
   const {descripcion} = route.params;
   const {idCategoria} = route.params;
@@ -75,6 +75,7 @@ export default function NewPubNext({navigation, route}) {
       stock,
       envio,
       retiro,
+      token
     );
     navigation.navigate('Home Vendedor');
   }

@@ -172,21 +172,12 @@ export class ProductsService {
     stock,
     envio,
     retiro,
+    token
   ) {
-    /* let data = new FormData();
-    data.append('id_store', 1);
-    data.append('stock', stock);
-    data.append('id_category', categoria);
-    data.append('ds_product', descripcion);
-    data.append('price', precio);
-    data.append('title', titulo);
-    data.append('filee', imagen); */
 
     console.log(imagen);
 
-    const token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZXN1bHQiOnsidXNlcm5hbWUiOiJIb3JhY2lvMSIsImlkX3VzZXIiOjIsImZpcnN0X25hbWUiOiJIb3JhY2lvIiwibGFzdF9uYW1lIjoiR2F0ZSIsInByb2ZpbGVfcGljIjoiaHR0cDovL2xvY2FsaG9zdDozMDAyL3B1YmxpY1xcMTU5NDgzMTIyMTE4NmhvcmFjaW8uanBnIiwiZHNfdHlwZSI6InZlbmRlZG9yIn0sImlhdCI6MTYwMTI0NDI2OSwiZXhwIjoxNjAxMzMwNjY5fQ.DvDq5rSm21La_b4vScZHNuN_BeyCyzyMCMxzaTLpxzM';
-
+   
     RNFetchBlob.fetch('POST', apiBaseUrl + '/products/uploadProduct', {
       'Content-Type': `multipart/form-data`,
       Authorization: 'Bearer ' + token,
@@ -246,6 +237,47 @@ export class ProductsService {
           headers: headers,
         },
       );
+
+      productList = response.data.data;
+      switch (response.status) {
+        case 200:
+          productList = JSON.parse(response.data.data);
+          console.log(productList);
+          console.log(prueba);
+          console.log(productList);
+          break;
+
+        case 403:
+          console.log('Unauthorized');
+          throw 'error';
+
+        case 429:
+          console.log('Too Many Requests');
+          throw 'error';
+
+        case 401:
+          console.log('Wrong token');
+          throw 'error';
+      }
+    } catch {
+      error => {
+        console.log(error);
+      };
+
+      return productList;
+    }
+  }
+  async fetchShopProducts(token) {
+    var productList = [];
+    const headers = {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + token,
+    };
+
+    try {
+      var response = await axios.get(apiBaseUrl + '/products/getProductsByIdStore/', {
+        headers: headers,
+      });
 
       productList = response.data.data;
       switch (response.status) {
