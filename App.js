@@ -37,7 +37,6 @@ import EndPurchase2 from './screens/EndPurchase2';
 import EndPurchase3 from './screens/EndPurchase3';
 import EndPurchase4 from './screens/EndPurchase4';
 import SelCat from './screens/SelCat';
-import VRegImg from './screens/VRegImg';
 import {AuthContext} from './src/Context/auth_context';
 import {ProductContext} from './src/Context/product_context';
 import {CartContext} from './src/Context/cart_context';
@@ -57,52 +56,6 @@ export default function App() {
   const [envio, setEnvio] = useState('');
 
   return (
-<<<<<<< HEAD
-=======
-    <AuthContext.Provider value={{token, setToken}}>
-      <ProductContext.Provider
-        value={{
-          cantTot,
-          setCantTot,
-          precioTot,
-          setPrecioTot,
-          cart,
-          setCart,
-          cartForBack,
-          setCartForBack,
-        }}>
-        <CartContext.Provider value={{direc, setDirec, envio, setEnvio}}>
-          <Main.Navigator
-            initialRouteName="Intro"
-            screenOptions={{headerShown: false}}>
-            <Main.Screen name="Intro" component={Intro} />
-            <Main.Screen name="Login" component={Login} />
-            <Main.Screen name="RegNext" component={RegNext} />
-            <Main.Screen name="Reg" component={Reg} />
-            <Main.Screen name="VReg" component={VReg} />
-            <Main.Screen name="VRegNext" component={VRegNext} />
-            <Main.Screen name="VRegImg" component={VRegImg} />
-            <Main.Screen name="Home Comprador" component={CHome} />
-            <Main.Screen name="Producto" component={Producto} />
-            <Main.Screen name="Local" component={Local} />
-            <Main.Screen name="MiCompra" component={MiCompra} />
-            <Main.Screen name="NewPub" component={NewPub} />
-            <Main.Screen name="NewPubNext" component={NewPubNext} />
-            <Main.Screen name="EndPurchase1" component={EndPurchase1} />
-            <Main.Screen name="EndPurchase2" component={EndPurchase2} />
-            <Main.Screen name="EndPurchase3" component={EndPurchase3} />
-            <Main.Screen name="EndPurchase4" component={EndPurchase4} />
-            <Main.Screen name="SelCat" component={SelCat} />
-          </Main.Navigator>
-        </CartContext.Provider>
-      </ProductContext.Provider>
-    </AuthContext.Provider>
-  );
-}
-
-export default function App() {
-  return (
->>>>>>> 0c61597febd4453e2925a10ed93c14f6929f35c4
     <NavigationContainer>
       <AuthContext.Provider value={{token, setToken}}>
         <ProductContext.Provider

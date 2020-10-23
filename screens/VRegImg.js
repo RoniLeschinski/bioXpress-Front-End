@@ -1,4 +1,4 @@
-import React, {Component, useState, useContext} from 'react';
+import React, { Component, useState, useContext } from 'react';
 import {
   StyleSheet,
   ScrollView,
@@ -13,63 +13,53 @@ import {
   TextInput,
   Keyboard,
 } from 'react-native';
-import {useNavigation, useLinkProps} from '@react-navigation/native';
+import { useNavigation, useLinkProps } from '@react-navigation/native';
 import Header from '../components/Header';
 import Input from '../components/Input';
-import {AuthService} from '../services/auth_service';
+import { AuthService } from '../services/auth_service';
 import ImagePicker from 'react-native-image-picker';
 import RNFetchBlob from 'react-native-fetch-blob'
-import {apiBaseUrl} from '../utils/constants';
+import { apiBaseUrl } from '../utils/constants';
 import { AuthContext } from '../src/Context/auth_context';
 
 
 const keyboardVerticalOffset = Platform.OS === 'ios' ? 40 : -150;
 
-export default function VRegImg({navigation, route}) {
-  const {name} = route.params;
-  const {DNI} = route.params;
-  const {num} = route.params;
-  const {provincia} = route.params;
-  const {localidad} = route.params;
-  const {CP} = route.params;
-  const {calle} = route.params;
-  const {numero} = route.params;
-  const {piso} = route.params;
+export default function VRegImg({ navigation, route }) {
+  const { name } = route.params;
+  const { DNI } = route.params;
+  const { num } = route.params;
+  const { provincia } = route.params;
+  const { localidad } = route.params;
+  const { CP } = route.params;
+  const { calle } = route.params;
+  const { numero } = route.params;
+  const { piso } = route.params;
 
-  const {token} = useContext(AuthContext); 
+  const { token } = useContext(AuthContext);
 
   const [photo, setPhoto] = useState(null);
 
-  async function VRegister(){
+  async function VRegister() {
     console.log(photo.path)
     console.log(token)
     RNFetchBlob.fetch('POST', apiBaseUrl + '/stores/createStore', {
       'Content-Type': `multipart/form-data`,
       Authorization: 'Bearer ' + token,
-    },[
-      {name: 'dni', data:String(DNI)}, 
-      {name: 'phone_number', data:String(num)}, 
-      {name: 'store_name', data:String(name)}, 
-      {name: 'ds_store', data:''}, 
-      {name: 'filee', filename: photo.fileName, type:photo.type, data:RNFetchBlob.wrap(photo.path)},
-      {name: 'provincia', data:String(provincia)},
-      {name: 'localidad', data:String(localidad)},
-      {name: 'cp', data:String(CP)},
-      {name: 'calle', data:String(calle)},
-      {name: 'piso', data:String(piso)},
-      {name: 'numero', data:String(numero)}
+    }, [
+      { name: 'dni', data: String(DNI) },
+      { name: 'phone_number', data: String(num) },
+      { name: 'store_name', data: String(name) },
+      { name: 'ds_store', data: '' },
+      { name: 'filee', filename: photo.fileName, type: photo.type, data: RNFetchBlob.wrap(photo.path) },
+      { name: 'provincia', data: String(provincia) },
+      { name: 'localidad', data: String(localidad) },
+      { name: 'cp', data: String(CP) },
+      { name: 'calle', data: String(calle) },
+      { name: 'piso', data: String(piso) },
+      { name: 'numero', data: String(numero) }
     ])
     navigation.navigate('Home Vendedor')
-  }
-
-
- 
-
-  const [photo, setPhoto] = useState(null);
-  const [isPhoto, setIsPhoto] = useState(false);
-
-  function handleRegister() {
-    navigation.navigate('Home Vendedor');
   }
 
   const handleChoosePhoto = () => {
@@ -85,7 +75,7 @@ export default function VRegImg({navigation, route}) {
   };
 
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: '#ececec'}}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: '#ececec' }}>
       <Header screen={'Reg'} press={() => navigation.goBack()} />
       <KeyboardAvoidingView
         contentContainerStyle={styles.container}
@@ -125,8 +115,8 @@ export default function VRegImg({navigation, route}) {
             ) : null}
             {photo && (
               <Image
-                source={{uri: photo.uri}}
-                style={{width: 200, height: 200, borderRadius: 100}}
+                source={{ uri: photo.uri }}
+                style={{ width: 200, height: 200, borderRadius: 100 }}
               />
             )}
             <TouchableOpacity
@@ -141,10 +131,10 @@ export default function VRegImg({navigation, route}) {
             calidad de 800x800
           </Text>
         </View>
-        <View style={{width: '100%', alignItems: 'center', marginTop: 30}}>
+        <View style={{ width: '100%', alignItems: 'center', marginTop: 30 }}>
           <TouchableOpacity style={styles.boton} activeOpacity={0.7}>
             <Text
-              style={{color: '#fff', fontWeight: 'bold', fontSize: 26}}
+              style={{ color: '#fff', fontWeight: 'bold', fontSize: 26 }}
               onPress={() => VRegister()}>
               Registrarse
             </Text>
