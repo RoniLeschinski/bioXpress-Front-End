@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, useState, useEffect, useContext} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -13,58 +13,13 @@ import {
 import 'react-native-gesture-handler';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
+import { Base64 } from 'js-base64';
 import Ventas from '../components/Ventas';
 import ItemCard from '../components/ItemCard';
 import Header from '../components/Header'
+import {AuthContext} from '../src/Context/auth_context';
+import {ProductsService} from '../services/products_service';
 
-
-
-var recos = [
-  {
-    key: 0,
-    img: require('../assets/images/products/huevos.png'),
-    titulo: 'Docena de huevos pastoriles',
-    precio: 420,
-    vendedor: 'La Huerta de Horacio',
-    vendpic: require('../assets/images/logohoracio.png'),
-    desc:
-      'Huevos pastoriles provenientes de La Pampa, distribuidos por COECO y llevados a tu casa PERSONALMENTE por Horacio.',
-    isOffer: false,
-  },
-  {
-    key: 1,
-    img: require('../assets/images/products/sup.png'),
-    titulo: 'Suprema de pollo',
-    precio: 300,
-    vendedor: 'La Huerta de Horacio',
-    vendpic: require('../assets/images/logohoracio.png'),
-    desc:
-      'Pollo pastoril proveniente de La Pampa, distribuido por COECO y llevado a tu casa PERSONALMENTE por Horacio.',
-    isOffer: false,
-  },
-  {
-    key: 2,
-    img: require('../assets/images/products/huevos.png'),
-    titulo: 'Docena de huevos pastoriles',
-    precio: 420,
-    vendedor: 'La Huerta de Horacio',
-    vendpic: require('../assets/images/logohoracio.png'),
-    desc:
-      'Huevos pastoriles provenientes de La Pampa, distribuidos por COECO y llevados a tu casa PERSONALMENTE por Horacio.',
-    isOffer: false,
-  },
-  {
-    key: 3,
-    img: require('../assets/images/products/sup.png'),
-    titulo: 'Suprema de pollo',
-    precio: 300,
-    vendedor: 'La Huerta de Horacio',
-    vendpic: require('../assets/images/logohoracio.png'),
-    desc:
-      'Pollo pastoril proveniente de La Pampa, distribuido por COECO y llevado a tu casa PERSONALMENTE por Horacio.',
-    isOffer: false,
-  },
-];
 
 function verMas({index, navigation}) {
 return (
@@ -101,6 +56,25 @@ return (
 
 
 export default function VHome({navigation}) {
+
+  const {token, idLocal} = useContext(AuthContext);
+
+  const [prods, setProds] = useState([])
+  const [isLoading, setLoading] = useState(true);
+
+
+  const fetchProducts = async () => {
+    const service = new ProductsService();
+    var products = await service.fetchShopProducts(token, idLocal);
+    setLoading(false);
+    setProds(products);
+    console.log(idLocal)
+  };
+
+  useEffect(() => {
+    fetchProducts();
+  });
+
   return (
     <SafeAreaView style={{flex:1}}>
       <Header screen={"VHome"} press={() => navigation.openDrawer()}/>
@@ -121,27 +95,32 @@ export default function VHome({navigation}) {
           </View>
           <Text style={styles.text}>Mis productos</Text>
           <View style={styles.container3}>
-          <FlatList
-              data={recos}
-              renderItem={({item}) => {
-                return (
-                  <ItemCard
-                    isChome={true}
-                    index={item.key}
-                    img={item.img}
-                    off={item.off}
-                    isOffer={item.isOffer}
-                  />
-                );
-              }}
-              contentContainerStyle={{
-                paddingRight: 30,
-                paddingLeft: 10,
-              }}
-              showsHorizontalScrollIndicator={false}
-              horizontal={true}
-              ListFooterComponent={verMas}
-            />
+          {!isLoading ? (
+                <FlatList
+                  data={prods}
+                  keyExtractor={(item, index) => item.id_product}
+                  renderItem={({item}) => {
+                    return (
+                      <ItemCard
+                        isChome={true}
+                        index={item.id_product}
+                        img={item.path}
+                        off={item.off}
+                        isOffer={item.isOffer} 
+                      />
+                    );
+                  }}
+                  contentContainerStyle={{
+                    paddingRight: 30,
+                    paddingLeft: 10,
+                  }}
+                  showsHorizontalScrollIndicator={false}
+                  horizontal={true}
+                  ListFooterComponent={verMas}
+                />
+              ) : (
+                <ItemCard isChome={true} />
+              )}
           </View>
           <Text style={styles.text}>Ventas concretadas</Text>
           <View style={styles.container3}>
@@ -171,7 +150,7 @@ const styles = StyleSheet.create({
   },
   container3: {
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     width: '100%',
     height: 139,
     marginTop: 20,

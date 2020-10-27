@@ -172,7 +172,8 @@ export class ProductsService {
     stock,
     envio,
     retiro,
-    token
+    token,
+    id
   ) {
 
     console.log(imagen);
@@ -182,7 +183,7 @@ export class ProductsService {
       'Content-Type': `multipart/form-data`,
       Authorization: 'Bearer ' + token,
     },[
-      {name: 'id_store', data:'1'}, 
+      {name: 'id_store', data:String(id)}, 
       {name: 'stock', data:String(stock)}, 
       {name: 'id_category', data:String(categoria)},
       {name: 'ds_product', data:String(descripcion)},
@@ -267,7 +268,7 @@ export class ProductsService {
       return productList;
     }
   }
-  async fetchShopProducts(token) {
+  async fetchShopProducts(token, id) {
     var productList = [];
     const headers = {
       'Content-Type': 'application/json',
@@ -275,7 +276,7 @@ export class ProductsService {
     };
 
     try {
-      var response = await axios.get(apiBaseUrl + '/products/getProductsByIdStore/', {
+      var response = await axios.get(apiBaseUrl + '/products/getProductsByIdStore/' + id, {
         headers: headers,
       });
 
@@ -306,6 +307,47 @@ export class ProductsService {
       };
 
       return productList;
+    }
+  }
+  async fetchShopInfo(token, id) {
+    var info = [];
+    const headers = {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + token,
+    };
+
+    try {
+      var response = await axios.get(apiBaseUrl + '/stores/getStoresbyid/' + id, {
+        headers: headers,
+      });
+
+      info = response.data;
+      switch (response.status) {
+        case 200:
+          productList = JSON.parse(response.data.data);
+          console.log(productList);
+          console.log(prueba);
+          console.log(productList);
+          break;
+
+        case 403:
+          console.log('Unauthorized');
+          throw 'error';
+
+        case 429:
+          console.log('Too Many Requests');
+          throw 'error';
+
+        case 401:
+          console.log('Wrong token');
+          throw 'error';
+      }
+    } catch {
+      error => {
+        console.log(error);
+      };
+
+      return info;
     }
   }
 }

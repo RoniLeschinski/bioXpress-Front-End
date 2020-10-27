@@ -37,13 +37,14 @@ import EndPurchase2 from './screens/EndPurchase2';
 import EndPurchase3 from './screens/EndPurchase3';
 import EndPurchase4 from './screens/EndPurchase4';
 import SelCat from './screens/SelCat';
+import EndCard from './screens/EndCard';
 import {AuthContext} from './src/Context/auth_context';
 import {ProductContext} from './src/Context/product_context';
 import {CartContext} from './src/Context/cart_context';
 
 const Main = createStackNavigator();
 const Drawer = createDrawerNavigator();
-console.disableYellowBox = false;
+/* console.disableYellowBox = false; */
 
 export default function App() {
   const initialArray = [];
@@ -54,10 +55,15 @@ export default function App() {
   const [cartForBack, setCartForBack] = useState(initialArray);
   const [direc, setDirec] = useState('');
   const [envio, setEnvio] = useState('');
+  const [username, setUsername] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [id, setId] = useState();
+  const [idLocal, setIdLocal] = useState();
+  const [type, setType] = useState();
 
   return (
     <NavigationContainer>
-      <AuthContext.Provider value={{token, setToken}}>
+      <AuthContext.Provider value={{token, setToken, username, setUsername, lastName, setLastName, id, setId, idLocal, setIdLocal, type, setType}}>
         <ProductContext.Provider
           value={{
             cantTot,
@@ -88,6 +94,7 @@ export default function App() {
               <Drawer.Screen name="EndPurchase2" component={EndPurchase2} />
               <Drawer.Screen name="EndPurchase3" component={EndPurchase3} />
               <Drawer.Screen name="EndPurchase4" component={EndPurchase4} />
+              {/* <Drawer.Screen name="EndCard" component={EndCard} /> */}
               <Drawer.Screen name="SelCat" component={SelCat} />
               <Drawer.Screen name="Intro" component={Intro} />
               <Drawer.Screen name="Login" component={Login} />

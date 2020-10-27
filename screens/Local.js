@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, useState, useEffect, useContext} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -14,6 +14,10 @@ import 'react-native-gesture-handler';
 import Recommended from '../components/Recommended';
 import Header from '../components/Header'
 import {apiBaseUrl} from '../utils/constants';
+import {ProductContext} from '../src/Context/product_context';
+import {AuthContext} from '../src/Context/auth_context';
+import {ProductsService} from '../services/products_service';
+import ItemCard from '../components/ItemCard';
 
 
 
@@ -92,21 +96,38 @@ function verMas({index, navigation}) {
   );
 }
 
-/* var selldesc = [
-  {
-    titulo: "La huerta de Horacio",
-    img: require('../assets/images/logohoracio.png'),
-    telefono: "+54 9 11 1212-1212",
-    mail: "horacio@horacio.com",
-    ubicacion: "Brandsen 805 C1161, CABA, Argentina",
-  }
-] */
-
 export default function Local({navigation, route}){
 
   const {item} = route.params;
 
+  const {token, idLocal} = useContext(AuthContext);
+
+  const [info, setInfo] = useState()
+  const [isLoading, setLoading] = useState(true);
+  const [isLoadingProd, setLoadingProd] = useState(true);
+  const [prods, setProds] = useState();
+
   const sourceVend = apiBaseUrl + '/' + item.store_pic
+
+  const fetchInfo = async () => {
+    const service = new ProductsService();
+    var informacion = await service.fetchShopInfo(token, item.id_store);
+    setInfo(informacion.data);
+    setLoading(false)
+  };
+
+  const fetchProducts = async () => {
+    const service = new ProductsService();
+    var products = await service.fetchShopProducts(token, item.id_store);
+    setLoadingProd(false);
+    setProds(products);
+  };
+
+  useEffect(() => {
+    fetchInfo()
+    fetchProducts()
+    console.log(info)
+  }, [item]);
 
     return(
       <SafeAreaView style={{flex:1}}>
@@ -137,35 +158,53 @@ export default function Local({navigation, route}){
               <Text style={styles.text3}>Más productos del vendedor</Text>
             </View>
           <View style={styles.container4}>
-            <FlatList
-              data={sellerprod}
-              renderItem={({item}) => {
-                return (
-                  <Recommended
-                    index={item.key}
-                    img={item.img}
-                    press={() => {
-                      navigation.push('Producto', {item: item});
-                    }}
-                  />
-                );
-              }}
-              contentContainerStyle={{
-                paddingRight: 40,
-                paddingLeft: 13,
-              }}
-              showsHorizontalScrollIndicator={false}
-              horizontal={true}
-              ListFooterComponent={verMas}
-            />
+          {!isLoadingProd ? (
+                <FlatList
+                  data={prods}
+                  keyExtractor={(item, index) => item.id_product}
+                  renderItem={({item}) => {
+                    return (
+                      <ItemCard
+                        isChome={true}
+                        index={item.id_product}
+                        img={item.path}
+                        off={item.off}
+                        isOffer={item.isOffer} 
+                        press={() => {
+                          navigation.navigate('Producto', {item: item});
+                        }}
+                      />
+                    );
+                  }}
+                  contentContainerStyle={{
+                    paddingRight: 30,
+                    paddingLeft: 10,
+                  }}
+                  showsHorizontalScrollIndicator={false}
+                  horizontal={true}
+                  ListFooterComponent={verMas}
+                />
+              ) : (
+                <ItemCard isChome={true} />
+              )}
           </View>
           <View style={styles.container5}>
+            {!isLoading ? (
+              <View>
               <Text style={styles.text3}>Información del vendedor</Text>
-              <Text style={styles.text4}>Contacto</Text>
-              <Text style={styles.text5}>Teléfono:</Text>
-              <Text style={styles.text5}>Correo Electrónico:</Text>
-              <Text style={styles.text5}>Ubicación:</Text>
-
+              <Text style={styles.text5}>Teléfono: {info.phone_number}</Text>
+              <Text style={styles.text5}>Correo Electrónico: {info.email}</Text>
+              <Text style={styles.text5}>Ubicación:  {info.calle} {info.numero}, {info.localidad},  {info.provincia}</Text>
+              </View>
+              ):(
+                <View>
+              <Text style={styles.text3}>Información del vendedor</Text>
+              <Text style={styles.text5}>Teléfono: </Text>
+              <Text style={styles.text5}>Correo Electrónico: </Text>
+              <Text style={styles.text5}>Ubicación:  </Text>
+              </View>
+              )}
+              
             </View>
           </View>
         </ScrollView>
