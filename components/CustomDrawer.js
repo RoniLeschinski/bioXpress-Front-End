@@ -16,7 +16,7 @@ import CHome from '../screens/CHome';
 
 export function CustomDrawer({navigation}){
     return(
-        <SafeAreaView style={{flex:1, backgroundColor:"#ECECEC"}}>
+      <SafeAreaView style={{flex:1, backgroundColor:"#ECECEC"}}>
             <View style={styles.container1}>
               <Image source={require('../assets/images/usuario.png')} style={styles.image}/>
               <Text style= {styles.text}>Anónimo Usuario</Text>
@@ -52,6 +52,7 @@ export function CustomDrawer({navigation}){
               </TouchableOpacity>
             </View> 
         </SafeAreaView>
+             
     )
 }
 const styles = StyleSheet.create({

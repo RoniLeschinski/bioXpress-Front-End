@@ -12,6 +12,7 @@ import {
   KeyboardAvoidingView,
   TextInput,
   Keyboard,
+  TouchableWithoutFeedback
 } from 'react-native';
 import {useNavigation, useLinkProps} from '@react-navigation/native';
 import Header from '../components/Header';
@@ -48,6 +49,8 @@ export default function VRegNext({navigation, route}) {
   }
 
   return (
+    <TouchableWithoutFeedback 
+      onPress={() => Keyboard.dismiss()}>
     <SafeAreaView style={{flex: 1, backgroundColor: '#ececec'}}>
       <ModalProv
         visible={modalVisible}
@@ -261,6 +264,7 @@ export default function VRegNext({navigation, route}) {
         </View>
       </KeyboardAvoidingView>
     </SafeAreaView>
+    </TouchableWithoutFeedback>
   );
 }
 

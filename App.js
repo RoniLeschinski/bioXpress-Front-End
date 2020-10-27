@@ -35,6 +35,7 @@ import NewPubNext from './screens/NewPubNext';
 import EndPurchase1 from './screens/EndPurchase1';
 import EndPurchase2 from './screens/EndPurchase2';
 import EndPurchase3 from './screens/EndPurchase3';
+import EndCard from './screens/EndCard';
 import EndPurchase4 from './screens/EndPurchase4';
 import SelCat from './screens/SelCat';
 import {AuthContext} from './src/Context/auth_context';
@@ -87,6 +88,7 @@ export default function App() {
               <Drawer.Screen name="EndPurchase1" component={EndPurchase1} />
               <Drawer.Screen name="EndPurchase2" component={EndPurchase2} />
               <Drawer.Screen name="EndPurchase3" component={EndPurchase3} />
+              <Drawer.Screen name="EndCard" component={EndCard} />
               <Drawer.Screen name="EndPurchase4" component={EndPurchase4} />
               <Drawer.Screen name="SelCat" component={SelCat} />
               <Drawer.Screen name="Intro" component={Intro} />
