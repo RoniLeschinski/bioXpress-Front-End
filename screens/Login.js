@@ -11,7 +11,8 @@ import {
   SafeAreaView,
   KeyboardAvoidingView,
   TextInput,
-  Keyboard
+  Keyboard,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import {useNavigation, useLinkProps} from '@react-navigation/native';
 import Header from '../components/Header';
@@ -29,9 +30,7 @@ import axios from 'axios';
 import {apiBaseUrl} from '../utils/constants';
 
 const keyboardVerticalOffset = Platform.OS === 'ios' ? 40 : -200;
-
 export default function Login({navigation}) {
-
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [status, setStatus] = useState("")
@@ -84,15 +83,16 @@ export default function Login({navigation}) {
         console.log(token)
         navigation.navigate("Home Comprador")
   }
-
-
   return (
+    <TouchableWithoutFeedback 
+                onPress={() => Keyboard.dismiss()}>
     <SafeAreaView style={{flex: 1, backgroundColor: '#ececec'}}>
       <Header screen={'Login'} press={() => navigation.goBack()} />
       <KeyboardAvoidingView
         contentContainerStyle={styles.container}
         behavior="position"
-        keyboardVerticalOffset={keyboardVerticalOffset}>
+        keyboardVerticalOffset={keyboardVerticalOffset}
+        >
         <View style={styles.container2}>
           <Image
             style={styles.logo}
@@ -149,6 +149,7 @@ export default function Login({navigation}) {
         </View>
       </KeyboardAvoidingView>
     </SafeAreaView>
+    </TouchableWithoutFeedback>
   );
 }
 

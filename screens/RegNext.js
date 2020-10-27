@@ -12,6 +12,7 @@ import {
   KeyboardAvoidingView,
   TextInput,
   Keyboard,
+  TouchableWithoutFeedback
 } from 'react-native';
 import {useNavigation, useLinkProps} from '@react-navigation/native';
 import Header from '../components/Header';
@@ -87,6 +88,8 @@ export default function RegNext({navigation, route}) {
   }
 
   return (
+    <TouchableWithoutFeedback 
+      onPress={() => Keyboard.dismiss()}>
     <SafeAreaView style={{flex: 1, backgroundColor: '#ececec'}}>
       <Header screen={'Reg'} press={() => navigation.goBack()} />
       <KeyboardAvoidingView
@@ -166,6 +169,7 @@ export default function RegNext({navigation, route}) {
         </View>
       </KeyboardAvoidingView>
     </SafeAreaView>
+    </TouchableWithoutFeedback>
   );
 }
 

@@ -13,6 +13,7 @@ import {
   TextInput,
   Keyboard,
   KeyboardAvoidingView,
+  TouchableWithoutFeedback
 } from 'react-native';
 import 'react-native-gesture-handler';
 import {useNavigation, useLinkProps} from '@react-navigation/native';
@@ -109,6 +110,8 @@ export default function NewPubNext({navigation, route}) {
   }
 
   return (
+    <TouchableWithoutFeedback 
+      onPress={() => Keyboard.dismiss()}>
     <SafeAreaView style={{flex: 1}}>
       <Header screen={'VHome'} press={() => navigation.openDrawer()} />
       <KeyboardAvoidingView
@@ -272,6 +275,7 @@ export default function NewPubNext({navigation, route}) {
         </TouchableOpacity>
       </View>
     </SafeAreaView>
+    </TouchableWithoutFeedback>
   );
 }
 

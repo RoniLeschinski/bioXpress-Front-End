@@ -31,7 +31,7 @@ export function CustomDrawer({navigation}){
   
 
     return(
-        <SafeAreaView style={{flex:1, backgroundColor:"#ECECEC"}}>
+      <SafeAreaView style={{flex:1, backgroundColor:"#ECECEC"}}>
             <View style={styles.container1}>
               <Image source={require('../assets/images/usuario.png')} style={styles.image}/>
               <Text style= {styles.text}>{username + " " + lastName}</Text>
@@ -67,6 +67,7 @@ export function CustomDrawer({navigation}){
               </TouchableOpacity>
             </View> 
         </SafeAreaView>
+             
     )
 }
 const styles = StyleSheet.create({

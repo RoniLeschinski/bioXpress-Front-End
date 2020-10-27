@@ -50,7 +50,6 @@ export default function Input(props) {
             autoCapitalize="none"
             blurOnSubmit={false}
             onSubmitEditing={Keyboard.dismiss}
-
           />
           {props.isLog ? (
             <TouchableOpacity activeOpacity={0.7} style={{marginTop: 15}}>

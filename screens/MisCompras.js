@@ -10,11 +10,12 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
+import Header from '../components/Header';
 
-export default function MisCompras(){
+export default function MisCompras({navigation}){
     return(
         <View>
-            <Text>Esta es la pantalla MisCompras</Text>
+            <Header screen={'CHome'} press={() => navigation.openDrawer()} />
         </View>
     )
 }
