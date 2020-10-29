@@ -36,6 +36,8 @@ export default function EndPurchase1({navigation}) {
   const [txt2, setTxt2] = useState("#4B4B4B")
   const [img2, setImg2] = useState(require("../assets/images/shop1.png"))
 
+  
+
   function press1(){
     setBackColor1("#0D93FF")
     setImg1(require("../assets/images/home1.png"))
