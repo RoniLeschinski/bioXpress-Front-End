@@ -7,7 +7,7 @@ import {
   base64_decode,
 } from '../utils/sourceBase64';
 import FormData from 'form-data';
-import RNFetchBlob from 'react-native-fetch-blob'
+import RNFetchBlob from 'react-native-fetch-blob';
 
 export class ProductsService {
   async fetchRecomendedProducts(token) {
@@ -172,28 +172,33 @@ export class ProductsService {
     stock,
     envio,
     retiro,
-    token
+    token,
   ) {
-
     console.log(imagen);
 
-   
-    RNFetchBlob.fetch('POST', apiBaseUrl + '/products/uploadProduct', {
-      'Content-Type': `multipart/form-data`,
-      Authorization: 'Bearer ' + token,
-    },[
-      {name: 'id_store', data:'1'}, 
-      {name: 'stock', data:String(stock)}, 
-      {name: 'id_category', data:String(categoria)},
-      {name: 'ds_product', data:String(descripcion)},
-      {name: 'price', data:String(precio)},
-      {name: 'title', data:String(titulo)},
-      {name: 'filee', filename: imagen.fileName, type:imagen.type, data:RNFetchBlob.wrap(imagen.path)} 
-    
-    ])
+    RNFetchBlob.fetch(
+      'POST',
+      apiBaseUrl + '/products/uploadProduct',
+      {
+        'Content-Type': `multipart/form-data`,
+        Authorization: 'Bearer ' + token,
+      },
+      [
+        {name: 'id_store', data: '1'},
+        {name: 'stock', data: String(stock)},
+        {name: 'id_category', data: String(categoria)},
+        {name: 'ds_product', data: String(descripcion)},
+        {name: 'price', data: String(precio)},
+        {name: 'title', data: String(titulo)},
+        {
+          name: 'filee',
+          filename: imagen.fileName,
+          type: imagen.type,
+          data: RNFetchBlob.wrap(imagen.path),
+        },
+      ],
+    );
   }
-
-
 
   async buyProductById(id, cant, token) {
     const headers = {
@@ -275,9 +280,58 @@ export class ProductsService {
     };
 
     try {
-      var response = await axios.get(apiBaseUrl + '/products/getProductsByIdStore/', {
-        headers: headers,
-      });
+      var response = await axios.get(
+        apiBaseUrl + '/products/getProductsByIdStore/',
+        {
+          headers: headers,
+        },
+      );
+
+      productList = response.data.data;
+      switch (response.status) {
+        case 200:
+          productList = JSON.parse(response.data.data);
+          console.log(productList);
+          console.log(prueba);
+          console.log(productList);
+          break;
+
+        case 403:
+          console.log('Unauthorized');
+          throw 'error';
+
+        case 429:
+          console.log('Too Many Requests');
+          throw 'error';
+
+        case 401:
+          console.log('Wrong token');
+          throw 'error';
+      }
+    } catch {
+      error => {
+        console.log(error);
+      };
+
+      return productList;
+    }
+  }
+  async fetchSearch(token, input) {
+    const data = {
+      title: input,
+    };
+    var productList = [];
+    const headers = {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + token,
+    };
+
+    try {
+      var response = await axios.post(
+        apiBaseUrl + '/products/getProductsByFilters',
+        data,
+        {headers: headers},
+      );
 
       productList = response.data.data;
       switch (response.status) {

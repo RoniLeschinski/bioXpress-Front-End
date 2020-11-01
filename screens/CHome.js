@@ -56,8 +56,15 @@ function verMas({index, navigation}) {
 }
 
 export default function CHome({navigation}) {
-
-  const {cantTot, setCantTot, precioTot, setPrecioTot, cart, setCart, cartForBack} = useContext(ProductContext);
+  const {
+    cantTot,
+    setCantTot,
+    precioTot,
+    setPrecioTot,
+    cart,
+    setCart,
+    cartForBack,
+  } = useContext(ProductContext);
   const {token, setToken} = useContext(AuthContext);
 
   const [recomendados, setRecomendados] = useState([]);
@@ -67,8 +74,6 @@ export default function CHome({navigation}) {
   const [isLoadingOffer, setLoadingOffer] = useState(true);
 
   const [modalVisible, setModalVisible] = useState(false);
-
-
 
   const fetchProducts = async () => {
     const service = new ProductsService();
@@ -86,9 +91,9 @@ export default function CHome({navigation}) {
     return products;
   };
 
-  function toPurchase(){
-    setModalVisible(false)
-    navigation.navigate("EndPurchase1")
+  function toPurchase() {
+    setModalVisible(false);
+    navigation.navigate('EndPurchase1');
   }
 
   useEffect(() => {
@@ -97,7 +102,8 @@ export default function CHome({navigation}) {
   }, [cartForBack]);
 
   return (
-    <ProductContext.Provider value={{cantTot, setCantTot, precioTot, setPrecioTot}}>
+    <ProductContext.Provider
+      value={{cantTot, setCantTot, precioTot, setPrecioTot}}>
       <SafeAreaView style={{flex: 1}}>
         <ModalCarrito
           visible={modalVisible}
@@ -105,9 +111,13 @@ export default function CHome({navigation}) {
           cant={cantTot}
           price={precioTot.toFixed(2)}
           carrito={cart}
-          press2={()=>toPurchase()}
+          press2={() => toPurchase()}
         />
-        <Header screen={'CHome'} press={() => navigation.openDrawer()} />
+        <Header
+          screen={'CHome'}
+          search={() => navigation.navigate('Search')}
+          press={() => navigation.openDrawer()}
+        />
         <ScrollView
           style={styles.scroll}
           contentContainerStyle={{
@@ -126,27 +136,27 @@ export default function CHome({navigation}) {
                 <ImgPantComp
                   img={require('../assets/images/alm.png')}
                   txt={'Almacén'}
-                  press={() => navigation.navigate("SelCat", {id:3})}
+                  press={() => navigation.navigate('SelCat', {id: 3})}
                 />
                 <ImgPantComp
                   img={require('../assets/images/fruveg.png')}
                   txt={'Frutas y vegetales'}
-                  press={() => navigation.navigate("SelCat", {id:1})}
+                  press={() => navigation.navigate('SelCat', {id: 1})}
                 />
                 <ImgPantComp
                   img={require('../assets/images/lac.png')}
                   txt={'Lácteos'}
-                  press={() => navigation.navigate("SelCat", {id:4})}
+                  press={() => navigation.navigate('SelCat', {id: 4})}
                 />
                 <ImgPantComp
                   img={require('../assets/images/car.png')}
                   txt={'Carnes'}
-                  press={() => navigation.navigate("SelCat", {id:5})}
+                  press={() => navigation.navigate('SelCat', {id: 5})}
                 />
                 <ImgPantComp
                   img={require('../assets/images/veg.png')}
                   txt={'Vegano'}
-                  press={() => navigation.navigate("SelCat", {id:2})}
+                  press={() => navigation.navigate('SelCat', {id: 2})}
                 />
                 <ImgPantComp
                   img={require('../assets/images/mas.png')}

@@ -38,6 +38,7 @@ import EndPurchase3 from './screens/EndPurchase3';
 import EndCard from './screens/EndCard';
 import EndPurchase4 from './screens/EndPurchase4';
 import SelCat from './screens/SelCat';
+import Search from './screens/Search';
 import {AuthContext} from './src/Context/auth_context';
 import {ProductContext} from './src/Context/product_context';
 import {CartContext} from './src/Context/cart_context';
@@ -98,6 +99,7 @@ export default function App() {
               <Drawer.Screen name="VReg" component={VReg} />
               <Drawer.Screen name="VRegImg" component={VRegImg} />
               <Drawer.Screen name="VRegNext" component={VRegNext} />
+              <Drawer.Screen name="Search" component={Search} />
             </Drawer.Navigator>
           </CartContext.Provider>
         </ProductContext.Provider>

@@ -13,7 +13,7 @@ import {
 import 'react-native-gesture-handler';
 import {NavigationContainer, useLinkProps} from '@react-navigation/native';
 
-export default function Header(props) {
+export default function Header(props, {navigation}) {
   if (props.screen == 'CHome' || props.screen == 'MiCompra') {
     return (
       <View style={styles.container}>
@@ -37,7 +37,8 @@ export default function Header(props) {
         <View style={styles.container4}>
           <TouchableOpacity
             style={{justifyContent: 'center'}}
-            activeOpacity={0.7}>
+            activeOpacity={0.7}
+            onPress={props.search}>
             <Image
               style={{width: 30, height: 30, alignSelf: 'center'}}
               source={require('../assets/images/lupa.png')}
