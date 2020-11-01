@@ -17,6 +17,7 @@ import {
 } from 'react-native';
 import 'react-native-gesture-handler';
 import {useNavigation, useLinkProps} from '@react-navigation/native';
+import { Base64 } from 'js-base64';
 import ImgPantComp from '../components/ImgPantComp';
 import ItemCard from '../components/ItemCard';
 import Recommended from '../components/Recommended';
@@ -24,6 +25,7 @@ import Header from '../components/Header';
 import BtnMiCompra from '../components/BtnMiCompra';
 import {ProductsService} from '../services/products_service';
 import {ProductContext} from '../src/Context/product_context';
+import {AuthContext} from '../src/Context/auth_context';
 
 const keyboardVerticalOffset = Platform.OS === 'ios' ? 40 : -200;
 
@@ -53,19 +55,15 @@ export default function NewPubNext({navigation, route}) {
   const [precio, setPrecio] = useState();
   const [stock, setStock] = useState();
 
-  var data = {};
+
+  function getIDStore(){
+    let buff = Base64.decode(token.split(".")[1]);
+    let data = buff.toString("ascii");
+    return(JSON.parse(data).result.id_store);
+  }
 
   function postProduct() {
-    /* data={
-      titulo:titulo,
-      idCategoria:idCategoria,
-      descripcion:descripcion,
-      precio:precio,
-      stock:stock,
-      envio:envio,
-      retiro:retiro
-    }
-    setUploadProductData(uploadProductData=>[...uploadProductData, data]) */
+    var id = getIDStore()
     const service = new ProductsService();
     service.uploadProduct(
       titulo,
@@ -76,7 +74,8 @@ export default function NewPubNext({navigation, route}) {
       stock,
       envio,
       retiro,
-      token
+      token,
+      id
     );
     navigation.navigate('Home Vendedor');
   }

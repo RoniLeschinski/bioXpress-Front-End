@@ -45,7 +45,7 @@ import {CartContext} from './src/Context/cart_context';
 
 const Main = createStackNavigator();
 const Drawer = createDrawerNavigator();
-console.disableYellowBox = false;
+/* console.disableYellowBox = false; */
 
 export default function App() {
   const initialArray = [];
@@ -56,10 +56,15 @@ export default function App() {
   const [cartForBack, setCartForBack] = useState(initialArray);
   const [direc, setDirec] = useState('');
   const [envio, setEnvio] = useState('');
+  const [username, setUsername] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [id, setId] = useState();
+  const [idLocal, setIdLocal] = useState();
+  const [type, setType] = useState();
 
   return (
     <NavigationContainer>
-      <AuthContext.Provider value={{token, setToken}}>
+      <AuthContext.Provider value={{token, setToken, username, setUsername, lastName, setLastName, id, setId, idLocal, setIdLocal, type, setType}}>
         <ProductContext.Provider
           value={{
             cantTot,

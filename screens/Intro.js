@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, useState, useEffect, useContext} from 'react';
 import {
   StyleSheet,
   ScrollView,
@@ -12,8 +12,25 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 import {useNavigation, useLinkProps} from '@react-navigation/native';
+import {AuthContext} from '../src/Context/auth_context';
 
 export default function Intro({navigation}) {
+
+  const {token, setToken, username, setUsername, lastName, setLastName, id, setId, idLocal, setIdLocal, type, setType} = useContext(AuthContext);
+
+/*   function cerrarSesion(){
+    setUsername('')
+    setLastName('')
+    setId()
+    setIdLocal()
+    setType()
+  }
+
+  useEffect(() => {
+    cerrarSesion()
+    console.log(token)
+  }); */
+
   return (
     <SafeAreaView style={styles.container}>
       <Image

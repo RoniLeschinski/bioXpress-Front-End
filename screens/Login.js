@@ -33,8 +33,9 @@ const keyboardVerticalOffset = Platform.OS === 'ios' ? 40 : -200;
 export default function Login({navigation}) {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [status, setStatus] = useState("")
 
-  const {setToken} = useContext(AuthContext); 
+  const {token, setToken} = useContext(AuthContext); 
 
   async function signInWithEmailAndPassword (){ 
     const toBase64 = base64_encode(
@@ -60,6 +61,7 @@ export default function Login({navigation}) {
             case 200: {
               var token=(response.data.token);
               setToken(token)
+              setStatus("ok")
               break;
             }
             case 401: {
@@ -76,7 +78,10 @@ export default function Login({navigation}) {
           console.log(error);
         }, 
       );
-      navigation.navigate("Home Comprador")
+      }
+      if (status=="ok"){
+        console.log(token)
+        navigation.navigate("Home Comprador")
   }
   return (
     <TouchableWithoutFeedback 

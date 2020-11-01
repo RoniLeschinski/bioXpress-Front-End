@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, useState, useEffect, useContext} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -12,14 +12,29 @@ import {
 } from 'react-native';
 import {DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer'
 import CHome from '../screens/CHome';
+import {AuthContext} from '../src/Context/auth_context';
 
 
 export function CustomDrawer({navigation}){
+
+  const {token, setToken, username, setUsername, lastName, setLastName, id, setId, idLocal, setIdLocal, type, setType} = useContext(AuthContext);
+
+  function RegOHome(){
+    if (type=="vendedor"){
+      return "Home Vendedor"
+    }
+    else{
+      return "VReg"
+    }
+  }
+
+  
+
     return(
       <SafeAreaView style={{flex:1, backgroundColor:"#ECECEC"}}>
             <View style={styles.container1}>
               <Image source={require('../assets/images/usuario.png')} style={styles.image}/>
-              <Text style= {styles.text}>Anónimo Usuario</Text>
+              <Text style= {styles.text}>{username + " " + lastName}</Text>
             </View>
             <View style={styles.container2}>
               <TouchableOpacity activeOpacity={0.7} style={styles.button} onPress={() => navigation.navigate('Home Comprador')}>
@@ -40,13 +55,13 @@ export function CustomDrawer({navigation}){
               </TouchableOpacity>
             </View>
             <View style={{height:"28%"}}>
-            <TouchableOpacity activeOpacity={0.7} style={styles.button2} onPress={() => navigation.navigate('VReg')}>
+            <TouchableOpacity activeOpacity={0.7} style={styles.button2} onPress={() => navigation.navigate(RegOHome())}>
                 <Image style={styles.image3} source={require('../assets/images/quieroVender.png')}/>
                 <Text style={styles.text3}>Quiero vender</Text>
             </TouchableOpacity>
             </View>
             <View style={{width: "100%", height:"30%",}}>
-              <TouchableOpacity activeOpacity={0.7} style={styles.button}>
+              <TouchableOpacity activeOpacity={0.7} style={styles.button} onPress={()=> navigation.navigate('Intro')}>
                   <Image style={styles.image2} source={require('../assets/images/logout.png')}/>
                   <Text style={styles.text4}>Cerrar sesión</Text>
               </TouchableOpacity>
