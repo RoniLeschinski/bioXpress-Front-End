@@ -18,7 +18,7 @@ import {
   base64url_encode,
   base64_decode,
 } from '../utils/sourceBase64';
-import { Base64 } from 'js-base64';
+import {Base64} from 'js-base64';
 import {useNavigation, useLinkProps} from '@react-navigation/native';
 import ImgPantComp from '../components/ImgPantComp';
 import ItemCard from '../components/ItemCard';
@@ -63,7 +63,6 @@ function verMas({index, navigation}) {
 }
 
 export default function CHome({navigation}) {
-<<<<<<< HEAD
   const {
     cantTot,
     setCantTot,
@@ -73,12 +72,20 @@ export default function CHome({navigation}) {
     setCart,
     cartForBack,
   } = useContext(ProductContext);
-  const {token, setToken} = useContext(AuthContext);
-=======
-
-  const {cantTot, setCantTot, precioTot, setPrecioTot, cart, setCart, cartForBack} = useContext(ProductContext);
-  const {token, setToken, username, setUsername, lastName, setLastName, id, setId, idLocal, setIdLocal, type, setType} = useContext(AuthContext);
->>>>>>> 43b9313bb98f27ca95d0292b6788b9960592137a
+  const {
+    token,
+    setToken,
+    username,
+    setUsername,
+    lastName,
+    setLastName,
+    id,
+    setId,
+    idLocal,
+    setIdLocal,
+    type,
+    setType,
+  } = useContext(AuthContext);
 
   const [recomendados, setRecomendados] = useState([]);
   const [ofertas, setOfertas] = useState([]);
@@ -109,24 +116,24 @@ export default function CHome({navigation}) {
     navigation.navigate('EndPurchase1');
   }
 
-  function getUser(){
-    let buff = Base64.decode(token.split(".")[1]);
-    let data = buff.toString("ascii");
+  function getUser() {
+    let buff = Base64.decode(token.split('.')[1]);
+    let data = buff.toString('ascii');
     setType(JSON.parse(data).result.ds_type);
     setUsername(JSON.parse(data).result.first_name);
     setLastName(JSON.parse(data).result.last_name);
     setId(JSON.parse(data).result.id_user);
-    if (type == "vendedor"){
+    if (type == 'vendedor') {
       setIdLocal(JSON.parse(data).result.id_store);
     }
-    console.log(idLocal)
+    console.log(idLocal);
   }
 
   useEffect(() => {
     fetchProducts();
     fetchProductsConPromo();
     getUser();
-    console.log(recomendados)
+    console.log(recomendados);
   }, [cartForBack]);
 
   return (
