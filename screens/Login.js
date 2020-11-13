@@ -11,8 +11,7 @@ import {
   SafeAreaView,
   KeyboardAvoidingView,
   TextInput,
-  Keyboard,
-  TouchableWithoutFeedback,
+  Keyboard
 } from 'react-native';
 import {useNavigation, useLinkProps} from '@react-navigation/native';
 import Header from '../components/Header';
@@ -30,12 +29,13 @@ import axios from 'axios';
 import {apiBaseUrl} from '../utils/constants';
 
 const keyboardVerticalOffset = Platform.OS === 'ios' ? 40 : -200;
+
 export default function Login({navigation}) {
+
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const [status, setStatus] = useState("")
 
-  const {token, setToken} = useContext(AuthContext); 
+  const {setToken} = useContext(AuthContext); 
 
   async function signInWithEmailAndPassword (){ 
     const toBase64 = base64_encode(
@@ -61,7 +61,6 @@ export default function Login({navigation}) {
             case 200: {
               var token=(response.data.token);
               setToken(token)
-              setStatus("ok")
               break;
             }
             case 401: {
@@ -78,21 +77,17 @@ export default function Login({navigation}) {
           console.log(error);
         }, 
       );
-      }
-      if (status=="ok"){
-        console.log(token)
-        navigation.navigate("Home Comprador")
+      navigation.navigate("Home Comprador")
   }
+
+
   return (
-    <TouchableWithoutFeedback 
-                onPress={() => Keyboard.dismiss()}>
     <SafeAreaView style={{flex: 1, backgroundColor: '#ececec'}}>
       <Header screen={'Login'} press={() => navigation.goBack()} />
       <KeyboardAvoidingView
         contentContainerStyle={styles.container}
         behavior="position"
-        keyboardVerticalOffset={keyboardVerticalOffset}
-        >
+        keyboardVerticalOffset={keyboardVerticalOffset}>
         <View style={styles.container2}>
           <Image
             style={styles.logo}
@@ -149,7 +144,6 @@ export default function Login({navigation}) {
         </View>
       </KeyboardAvoidingView>
     </SafeAreaView>
-    </TouchableWithoutFeedback>
   );
 }
 
