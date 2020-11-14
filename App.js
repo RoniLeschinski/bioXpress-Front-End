@@ -37,6 +37,8 @@ import EndPurchase2 from './screens/EndPurchase2';
 import EndPurchase3 from './screens/EndPurchase3';
 import EndCard from './screens/EndCard';
 import EndPurchase4 from './screens/EndPurchase4';
+import Confirmed from './screens/Confirmed';
+import ConfirmedPub from './screens/ConfirmedPub';
 import SelCat from './screens/SelCat';
 import Search from './screens/Search';
 import {AuthContext} from './src/Context/auth_context';
@@ -64,7 +66,21 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <AuthContext.Provider value={{token, setToken, username, setUsername, lastName, setLastName, id, setId, idLocal, setIdLocal, type, setType}}>
+      <AuthContext.Provider
+        value={{
+          token,
+          setToken,
+          username,
+          setUsername,
+          lastName,
+          setLastName,
+          id,
+          setId,
+          idLocal,
+          setIdLocal,
+          type,
+          setType,
+        }}>
         <ProductContext.Provider
           value={{
             cantTot,
@@ -96,6 +112,8 @@ export default function App() {
               <Drawer.Screen name="EndPurchase3" component={EndPurchase3} />
               <Drawer.Screen name="EndCard" component={EndCard} />
               <Drawer.Screen name="EndPurchase4" component={EndPurchase4} />
+              <Drawer.Screen name="Confirmed" component={Confirmed} />
+              <Drawer.Screen name="ConfirmedPub" component={ConfirmedPub} />
               <Drawer.Screen name="SelCat" component={SelCat} />
               <Drawer.Screen name="Intro" component={Intro} />
               <Drawer.Screen name="Login" component={Login} />
