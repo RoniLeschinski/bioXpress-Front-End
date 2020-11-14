@@ -16,7 +16,6 @@ export default function ItemCard(props) {
 
   var isOffline = props.offline;
 
-
   return (
     <View>
       {isChome ? 

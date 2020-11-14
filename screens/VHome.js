@@ -60,6 +60,7 @@ export default function VHome({navigation}) {
   const {token, idLocal} = useContext(AuthContext);
 
   const [prods, setProds] = useState([])
+  const [sales, setSales] = useState([])
   const [isLoading, setLoading] = useState(true);
 
 
@@ -68,12 +69,18 @@ export default function VHome({navigation}) {
     var products = await service.fetchShopProducts(token, idLocal);
     setLoading(false);
     setProds(products);
-    console.log(idLocal)
+  };
+  const fetchSales = async (status) => {
+    const service = new ProductsService();
+    var info = await service.fetchPendingSales(token, 1, idLocal);
+    setSales(info);
   };
 
   useEffect(() => {
     fetchProducts();
-  });
+    fetchSales(1);
+    console.log(sales)
+  }, [token]);
 
   return (
     <SafeAreaView style={{flex:1}}>
@@ -91,7 +98,24 @@ export default function VHome({navigation}) {
           </View>
           <Text style={styles.text}>Ventas pendientes</Text>
           <View style={styles.container2}>
-            <Ventas />
+          <FlatList
+                  data={sales}
+                  keyExtractor={(item, index) => item.id_product}
+                  renderItem={({item}) => {
+                    return (
+                      <Ventas
+                        
+                      />
+                    );
+                  }}
+                  contentContainerStyle={{
+                    paddingRight: 30,
+                    paddingLeft: 10,
+                  }}
+                  showsHorizontalScrollIndicator={false}
+                  horizontal={true}
+                  ListFooterComponent={verMas}
+                />
           </View>
           <Text style={styles.text}>Mis productos</Text>
           <View style={styles.container3}>

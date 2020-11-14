@@ -118,10 +118,10 @@ const Ventas = props => (
     <View style={styles.container}>
       <FlatList
         data={
-          Object.keys(prods).length >= 5 ? prods.slice(0, 3) : prods.slice(0, 4)
+          Object.keys(props.prods).length >= 5 ? props.prods.slice(0, 3) : props.prods.slice(0, 4)
         }
         renderItem={({item}) => {
-          return <ItemVentas index={item.key} img={item.img} />;
+          return <ItemVentas index={item.key} img={props.img} />;
         }}
         contentContainerStyle={{
           flex: 1,
@@ -136,17 +136,17 @@ const Ventas = props => (
         showsHorizontalScrollIndicator={false}
         ListFooterComponent={({item}) => {
           const extras = (
-            <ExtraItems prodLeft={Object.keys(prods).length - 3} />
+            <ExtraItems prodLeft={Object.keys(props.prods).length - 3} />
           );
-          return <View>{Object.keys(prods).length >= 5 ? extras : null}</View>;
+          return <View>{Object.keys(props.prods).length >= 5 ? extras : null}</View>;
         }}
       />
     </View>
     <View style={styles.container2}>
-      <Text style={styles.text1}>{Object.keys(prods).length} productos</Text>
+      <Text style={styles.text1}>{props.cant} productos</Text>
       <Text style={styles.text2}>
         <NumberFormat
-          value={prods.map(Precio).reduce(sum)}
+          value={props.prods.map(Precio).reduce(sum)}
           displayType={'text'}
           thousandSeparator={'.'}
           decimalSeparator={','}
@@ -157,8 +157,8 @@ const Ventas = props => (
           fixedDecimalScale={true}
         />
       </Text>
-      <Text style={styles.text3}>Jazmín G.</Text>
-      <Text style={styles.text4}>Envío a domicilio</Text>
+      <Text style={styles.text3}>props.name</Text>
+      <Text style={styles.text4}>props.envio</Text>
     </View>
   </TouchableOpacity>
 );

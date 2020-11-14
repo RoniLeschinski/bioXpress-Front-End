@@ -175,7 +175,7 @@ export class ProductsService {
     token,
     id,
   ) {
-    console.log(imagen);
+    console.log(id);
 
     RNFetchBlob.fetch(
       'POST',
@@ -385,6 +385,48 @@ export class ProductsService {
           console.log(productList);
           console.log(prueba);
           console.log(productList);
+          break;
+
+        case 403:
+          console.log('Unauthorized');
+          throw 'error';
+
+        case 429:
+          console.log('Too Many Requests');
+          throw 'error';
+
+        case 401:
+          console.log('Wrong token');
+          throw 'error';
+      }
+    } catch {
+      error => {
+        console.log(error);
+      };
+
+      return info;
+    }
+  }
+  async fetchPendingSales(token, status, id) {
+    const data = {
+      status: status,
+      id_store: id
+    };
+    var info = [];
+    const headers = {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + token,
+    };
+    try {
+      var response = await axios.post(
+        apiBaseUrl + '/purchase/getcartsbystatusforstore',
+        data,
+        {headers: headers},
+      );
+      info = response.data.data.data;
+      switch (response.status) {
+        case 200:
+          info = JSON.parse(response.data.data);
           break;
 
         case 403:

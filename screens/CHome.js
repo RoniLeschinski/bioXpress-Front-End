@@ -126,15 +126,15 @@ export default function CHome({navigation}) {
     if (type == 'vendedor') {
       setIdLocal(JSON.parse(data).result.id_store);
     }
-    console.log(idLocal);
+    /* console.log(idLocal); */
   }
 
   useEffect(() => {
     fetchProducts();
     fetchProductsConPromo();
     getUser();
-    console.log(recomendados);
-  }, [cartForBack]);
+    /* console.log(idLocal); */
+  }, [token]);
 
   return (
     <ProductContext.Provider

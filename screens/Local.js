@@ -126,7 +126,7 @@ export default function Local({navigation, route}){
   useEffect(() => {
     fetchInfo()
     fetchProducts()
-    console.log(info)
+    /* console.log(info) */
   }, [item]);
 
     return(
