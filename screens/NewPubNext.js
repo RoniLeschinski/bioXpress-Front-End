@@ -13,11 +13,11 @@ import {
   TextInput,
   Keyboard,
   KeyboardAvoidingView,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
 } from 'react-native';
 import 'react-native-gesture-handler';
 import {useNavigation, useLinkProps} from '@react-navigation/native';
-import { Base64 } from 'js-base64';
+import {Base64} from 'js-base64';
 import ImgPantComp from '../components/ImgPantComp';
 import ItemCard from '../components/ItemCard';
 import Recommended from '../components/Recommended';
@@ -30,8 +30,7 @@ import {AuthContext} from '../src/Context/auth_context';
 const keyboardVerticalOffset = Platform.OS === 'ios' ? 40 : -200;
 
 export default function NewPubNext({navigation, route}) {
-
-  const {token} = useContext(AuthContext); 
+  const {token} = useContext(AuthContext);
   const {titulo} = route.params;
   const {descripcion} = route.params;
   const {idCategoria} = route.params;
@@ -55,15 +54,14 @@ export default function NewPubNext({navigation, route}) {
   const [precio, setPrecio] = useState();
   const [stock, setStock] = useState();
 
-
-  function getIDStore(){
-    let buff = Base64.decode(token.split(".")[1]);
-    let data = buff.toString("ascii");
-    return(JSON.parse(data).result.id_store);
+  function getIDStore() {
+    let buff = Base64.decode(token.split('.')[1]);
+    let data = buff.toString('ascii');
+    return JSON.parse(data).result.id_store;
   }
 
   function postProduct() {
-    var id = getIDStore()
+    var id = getIDStore();
     const service = new ProductsService();
     service.uploadProduct(
       titulo,
@@ -75,9 +73,13 @@ export default function NewPubNext({navigation, route}) {
       envio,
       retiro,
       token,
-      id
+      id,
     );
-    navigation.navigate('Home Vendedor');
+    navigation.navigate('ConfirmedPub', {
+      titulo: titulo,
+      imagen: imagen,
+      precio: precio,
+    });
   }
 
   function onPressSi() {
@@ -110,32 +112,98 @@ export default function NewPubNext({navigation, route}) {
   }
 
   return (
-    <TouchableWithoutFeedback 
-      onPress={() => Keyboard.dismiss()}>
-    <SafeAreaView style={{flex: 1}}>
-      <Header screen={'VHome'} press={() => navigation.openDrawer()} />
-      <KeyboardAvoidingView
-        contentContainerStyle={{
-          height: '100%',
-          width: '100%',
-          //justifyContent: "center",
-          alignItems: 'flex-start',
-          backgroundColor: '#ececec',
-        }}
-        behavior="position"
-        keyboardVerticalOffset={keyboardVerticalOffset}>
-        <Text style={styles.text}>Crear publicación</Text>
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      <SafeAreaView style={{flex: 1}}>
+        <Header screen={'VHome'} press={() => navigation.openDrawer()} />
+        <KeyboardAvoidingView
+          contentContainerStyle={{
+            height: '100%',
+            width: '100%',
+            //justifyContent: "center",
+            alignItems: 'flex-start',
+            backgroundColor: '#ececec',
+          }}
+          behavior="position"
+          keyboardVerticalOffset={keyboardVerticalOffset}>
+          <Text style={styles.text}>Crear publicación</Text>
 
-        <View style={styles.container}>
-          <View style={styles.container2}>
-            <ScrollView
-              style={styles.scroll}
-              contentContainerStyle={{paddingBottom: 300}}>
-              <Text style={styles.text2}>Paso 2</Text>
-              <View style={styles.container3}>
+          <View style={styles.container}>
+            <View style={styles.container2}>
+              <ScrollView
+                style={styles.scroll}
+                contentContainerStyle={{paddingBottom: 300}}>
+                <Text style={styles.text2}>Paso 2</Text>
                 <View style={styles.container3}>
-                  <Text style={styles.title2}>
-                    Precio
+                  <View style={styles.container3}>
+                    <Text style={styles.title2}>
+                      Precio
+                      <Text
+                        style={{
+                          fontSize: 21,
+                          fontWeight: '600',
+                          color: '#38CB6C',
+                        }}>
+                        *
+                      </Text>
+                    </Text>
+                    <TextInput
+                      style={{
+                        width: '100%',
+                        height: 60,
+                        backgroundColor: 'white',
+                        borderColor: '#d9d9d9',
+                        marginTop: 5,
+                        borderWidth: 1,
+                        borderRadius: 15,
+                        paddingLeft: 26,
+                        fontSize: 18,
+                      }}
+                      selectionColor="#9de0b5"
+                      keyboardType="numeric"
+                      autoCapitalize="words"
+                      blurOnSubmit={false}
+                      onSubmitEditing={Keyboard.dismiss}
+                      onChangeText={precio => setPrecio(precio)}
+                    />
+                    <Text
+                      style={{
+                        fontSize: 18,
+                        position: 'absolute',
+                        left: 35,
+                        top: 61,
+                        color: '#4b4b4b',
+                      }}>
+                      $
+                    </Text>
+                  </View>
+                </View>
+                <View style={styles.container3}>
+                  <View style={styles.container3}>
+                    <Text style={styles.title2}>
+                      Unidades disponibles
+                      <Text
+                        style={{
+                          fontSize: 21,
+                          fontWeight: '600',
+                          color: '#38CB6C',
+                        }}>
+                        *
+                      </Text>
+                    </Text>
+                    <TextInput
+                      style={styles.input}
+                      selectionColor="#9de0b5"
+                      keyboardType="numeric"
+                      autoCapitalize="words"
+                      blurOnSubmit={false}
+                      onSubmitEditing={Keyboard.dismiss}
+                      onChangeText={stock => setStock(stock)}
+                    />
+                  </View>
+                </View>
+                <View style={styles.container3}>
+                  <Text style={styles.title}>
+                    ¿Vas a ofrecer envío?
                     <Text
                       style={{
                         fontSize: 21,
@@ -145,41 +213,28 @@ export default function NewPubNext({navigation, route}) {
                       *
                     </Text>
                   </Text>
-                  <TextInput
-                    style={{
-                      width: '100%',
-                      height: 60,
-                      backgroundColor: 'white',
-                      borderColor: '#d9d9d9',
-                      marginTop: 5,
-                      borderWidth: 1,
-                      borderRadius: 15,
-                      paddingLeft: 26,
-                      fontSize: 18,
-                    }}
-                    selectionColor="#9de0b5"
-                    keyboardType="numeric"
-                    autoCapitalize="words"
-                    blurOnSubmit={false}
-                    onSubmitEditing={Keyboard.dismiss}
-                    onChangeText={precio => setPrecio(precio)}
-                  />
-                  <Text
-                    style={{
-                      fontSize: 18,
-                      position: 'absolute',
-                      left: 35,
-                      top: 61,
-                      color: '#4b4b4b',
-                    }}>
-                    $
-                  </Text>
+                  <View style={{flexDirection: 'row'}}>
+                    <TouchableOpacity
+                      style={[styles.button, {backgroundColor: backColorSi}]}
+                      activeOpacity={0.7}
+                      onPress={() => onPressSi()}>
+                      <Text style={[styles.text3, {color: textColorSi}]}>
+                        Sí
+                      </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      style={[styles.button, {backgroundColor: backColorNo}]}
+                      activeOpacity={0.7}
+                      onPress={() => onPressNo()}>
+                      <Text style={[styles.text3, {color: textColorNo}]}>
+                        No
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
                 </View>
-              </View>
-              <View style={styles.container3}>
                 <View style={styles.container3}>
-                  <Text style={styles.title2}>
-                    Unidades disponibles
+                  <Text style={styles.title}>
+                    ¿Vas a ofrecer retiro en persona?
                     <Text
                       style={{
                         fontSize: 21,
@@ -189,92 +244,50 @@ export default function NewPubNext({navigation, route}) {
                       *
                     </Text>
                   </Text>
-                  <TextInput
-                    style={styles.input}
-                    selectionColor="#9de0b5"
-                    keyboardType="numeric"
-                    autoCapitalize="words"
-                    blurOnSubmit={false}
-                    onSubmitEditing={Keyboard.dismiss}
-                    onChangeText={stock => setStock(stock)}
-                  />
+                  <View style={{flexDirection: 'row'}}>
+                    <TouchableOpacity
+                      style={[styles.button, {backgroundColor: backColorSi2}]}
+                      activeOpacity={0.7}
+                      onPress={() => onPressSi2()}>
+                      <Text style={[styles.text3, {color: textColorSi2}]}>
+                        Sí
+                      </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      style={[styles.button, {backgroundColor: backColorNo2}]}
+                      activeOpacity={0.7}
+                      onPress={() => onPressNo2()}>
+                      <Text style={[styles.text3, {color: textColorNo2}]}>
+                        No
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
                 </View>
-              </View>
-              <View style={styles.container3}>
-                <Text style={styles.title}>
-                  ¿Vas a ofrecer envío?
-                  <Text
-                    style={{fontSize: 21, fontWeight: '600', color: '#38CB6C'}}>
-                    *
-                  </Text>
-                </Text>
-                <View style={{flexDirection: 'row'}}>
-                  <TouchableOpacity
-                    style={[styles.button, {backgroundColor: backColorSi}]}
-                    activeOpacity={0.7}
-                    onPress={() => onPressSi()}>
-                    <Text style={[styles.text3, {color: textColorSi}]}>Sí</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={[styles.button, {backgroundColor: backColorNo}]}
-                    activeOpacity={0.7}
-                    onPress={() => onPressNo()}>
-                    <Text style={[styles.text3, {color: textColorNo}]}>No</Text>
-                  </TouchableOpacity>
-                </View>
-              </View>
-              <View style={styles.container3}>
-                <Text style={styles.title}>
-                  ¿Vas a ofrecer retiro en persona?
-                  <Text
-                    style={{fontSize: 21, fontWeight: '600', color: '#38CB6C'}}>
-                    *
-                  </Text>
-                </Text>
-                <View style={{flexDirection: 'row'}}>
-                  <TouchableOpacity
-                    style={[styles.button, {backgroundColor: backColorSi2}]}
-                    activeOpacity={0.7}
-                    onPress={() => onPressSi2()}>
-                    <Text style={[styles.text3, {color: textColorSi2}]}>
-                      Sí
-                    </Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={[styles.button, {backgroundColor: backColorNo2}]}
-                    activeOpacity={0.7}
-                    onPress={() => onPressNo2()}>
-                    <Text style={[styles.text3, {color: textColorNo2}]}>
-                      No
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-              </View>
-            </ScrollView>
+              </ScrollView>
+            </View>
           </View>
+        </KeyboardAvoidingView>
+        <View
+          style={{
+            width: '100%',
+            position: 'absolute',
+            bottom: 0,
+            backgroundColor: 'white',
+            paddingBottom: 20,
+            paddingTop: 20,
+            borderTopColor: '#d9d9d9',
+            borderTopWidth: 1,
+          }}>
+          <TouchableOpacity
+            style={styles.button2}
+            activeOpacity={0.7}
+            onPress={() => postProduct()}>
+            <Text style={{color: '#fff', fontWeight: 'bold', fontSize: 26}}>
+              Crear producto
+            </Text>
+          </TouchableOpacity>
         </View>
-      </KeyboardAvoidingView>
-      <View
-        style={{
-          width: '100%',
-          position: 'absolute',
-          bottom: 0,
-          backgroundColor: 'white',
-          paddingBottom: 20,
-          paddingTop: 20,
-          borderTopColor: '#d9d9d9',
-          borderTopWidth: 1,
-        }}>
-        <TouchableOpacity
-          style={styles.button2}
-          activeOpacity={0.7}
-          onPress={() => postProduct()}>
-          <Text style={{color: '#fff', fontWeight: 'bold', fontSize: 26}}>
-            Crear producto
-          </Text>
-        </TouchableOpacity>
-      </View>
-    </SafeAreaView>
+      </SafeAreaView>
     </TouchableWithoutFeedback>
   );
 }

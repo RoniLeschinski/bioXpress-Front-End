@@ -42,13 +42,9 @@ export default function EndPurchase4({navigation}) {
 
   function comprarCarrito() {
     const service = new ProductsService();
-    service.buyCart(precioTot, cartForBack, token);
+    service.buyCart(precioTot, cartForBack, token, envio);
     console.log(cartForBack);
-    setCartForBack([]);
-    setCart([]);
-    setCantTot(0);
-    setPrecioTot(0);
-    navigation.navigate('Home Comprador');
+    navigation.navigate('Confirmed');
   }
 
   return (
@@ -90,13 +86,13 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     alignItems: 'center',
-    color: '#ececec',
+    backgroundColor: '#ffffff',
   },
   container2: {
     width: 354,
     height: 60,
-    borderWidth: 0.25,
-    borderColor: '#4B4B4B',
+    borderWidth: 1,
+    borderColor: '#d9d9d9',
     borderRadius: 20,
     flexDirection: 'row',
     justifyContent: 'center',

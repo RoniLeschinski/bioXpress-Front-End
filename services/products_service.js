@@ -215,7 +215,7 @@ export class ProductsService {
       headers: headers,
     });
   }
-  async buyCart(totalPrice, products, token) {
+  async buyCart(totalPrice, products, token, tipoEnvio) {
     const headers = {
       'Content-Type': 'application/json',
       Authorization: 'Bearer ' + token,
@@ -224,6 +224,7 @@ export class ProductsService {
       date: '2020-09-12',
       total_price: totalPrice,
       cart_products: products,
+      type: tipoEnvio
     };
     axios.post(apiBaseUrl + '/purchase/createcart', data, {
       headers: headers,
@@ -423,7 +424,7 @@ export class ProductsService {
         data,
         {headers: headers},
       );
-      info = response.data.data.data;
+      info = response.data.data;
       switch (response.status) {
         case 200:
           info = JSON.parse(response.data.data);

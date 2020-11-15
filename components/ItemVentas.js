@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import {StyleSheet, View, Image, Text, TouchableOpacity} from 'react-native';
+import {apiBaseUrl} from '../utils/constants';
 
 export default function ItemVentas(props) {
-  return <Image style={styles.image} source={props.img} />;
+  return <Image style={styles.image} source={{uri: apiBaseUrl + '/' + props.img}} />;
 }
 
 const styles = StyleSheet.create({
