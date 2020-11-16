@@ -120,6 +120,7 @@ export default function VHome({navigation}) {
                         name={item.name}
                         envio={item.type}
                         price={item.total_price}
+                        press={()=> navigation.navigate("ConfirmSale", {item: item})}
                       />
                     );
                   }}
@@ -160,7 +161,7 @@ export default function VHome({navigation}) {
               <ItemCard isChome={true} />
             )}
           </View>
-          <Text style={styles.text}>Ventas concretadas</Text>
+          <Text style={styles.text}>Ventas aceptadas</Text>
           <View style={styles.container3}>
           <FlatList
                   data={doneSales}
@@ -173,6 +174,7 @@ export default function VHome({navigation}) {
                         name={item.name}
                         envio={item.type}
                         price={item.total_price}
+                        press={()=> navigation.navigate("ConfirmPurchase", {item: item})}
                       />
                     );
                   }}

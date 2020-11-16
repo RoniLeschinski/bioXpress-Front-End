@@ -42,6 +42,7 @@ import ConfirmedPub from './screens/ConfirmedPub';
 import SelCat from './screens/SelCat';
 import Search from './screens/Search';
 import ConfirmSale from './screens/ConfirmSale';
+import ConfirmPurchase from './screens/ConfirmPurchase';
 import {AuthContext} from './src/Context/auth_context';
 import {ProductContext} from './src/Context/product_context';
 import {CartContext} from './src/Context/cart_context';
@@ -125,6 +126,7 @@ export default function App() {
               <Drawer.Screen name="VRegNext" component={VRegNext} />
               <Drawer.Screen name="Search" component={Search} />
               <Drawer.Screen name="ConfirmSale" component={ConfirmSale} />
+              <Drawer.Screen name="ConfirmPurchase" component={ConfirmPurchase} />
             </Drawer.Navigator>
           </CartContext.Provider>
         </ProductContext.Provider>

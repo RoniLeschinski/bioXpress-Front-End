@@ -450,4 +450,45 @@ export class ProductsService {
       return info;
     }
   }
+  async updateCartStatus(token, status, idcart) {
+    const data = {
+      status: status,
+      id_cart: idcart
+    };
+    var info = [];
+    const headers = {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + token,
+    };
+    try {
+      var response = await axios.post(
+        apiBaseUrl + '/purchase/updatecartstatus',
+        data,
+        {headers: headers},
+      );
+      info = response;
+      switch (response.status) {
+        case 200:
+          break;
+
+        case 403:
+          console.log('Unauthorized');
+          throw 'error';
+
+        case 429:
+          console.log('Too Many Requests');
+          throw 'error';
+
+        case 401:
+          console.log('Wrong token');
+          throw 'error';
+      }
+    } catch {
+      error => {
+        console.log(error);
+      };
+
+      return info;
+    }
+  }
 }

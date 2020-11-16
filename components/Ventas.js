@@ -19,7 +19,7 @@ import {apiBaseUrl} from '../utils/constants';
 export default function Ventas(props) {
 
   return (
-    <TouchableOpacity style={styles.boton} activeOpacity={0.7}>
+    <TouchableOpacity style={styles.boton} activeOpacity={0.7} onPress={props.press}>
       <View style={styles.container}>
         <FlatList
           data={

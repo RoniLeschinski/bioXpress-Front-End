@@ -73,28 +73,18 @@ export default function ConfirmSale({navigation, route}, props) {
         <View
           style={{
             width: '100%',
-            height: 140,
+            height: 120,
             alignItems: 'center',
             justifyContent: 'center',
             backgroundColor: '#fff',
             flexDirection:'row'
           }}>
           <TouchableOpacity
-            style={[styles.boton, {backgroundColor: '#D9318C'}]}
+            style={styles.boton}
             activeOpacity={0.7}
-            onPress={()=>updateCart(3)}>
-              <Image source={require('../assets/images/decline.png')} style={{width:60, height:60, marginTop:10}}/>
-            <Text style={{color: '#fff', fontWeight: 'bold', fontSize: 20, textAlign:'center'}}>
-              Rechazar Compra
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.boton, {backgroundColor: '#38CB6C'}]}
-            activeOpacity={0.7}
-            onPress={()=>updateCart(2)}>
-            <Image source={require('../assets/images/confirm.png')} style={{width:60, height:60, marginTop:10}}/>
-            <Text style={{color: '#fff', fontWeight: 'bold', fontSize: 20, textAlign:'center'}}>
-              Aceptar Compra
+            onPress={()=>updateCart(8)}>
+            <Text style={{color: '#fff', fontWeight: 'bold', fontSize: 24, textAlign:'center', marginLeft:10}}>
+              Confirmar venta
             </Text>
           </TouchableOpacity>
         </View>
@@ -118,12 +108,11 @@ const styles = StyleSheet.create({
     borderBottomColor: '#D9D9D9',
   },
   boton: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 20,
-    width: '40%',
-    padding:10,
-    marginBottom:20,
-    marginHorizontal:10
+    backgroundColor:"#0D93FF",
+        alignItems:"center",
+        justifyContent:"center",
+        borderRadius:20,
+        width:"90%",
+        height:85,
   },
 });
